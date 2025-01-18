@@ -1,0 +1,44 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* body部*/
+body {
+    font-family: Arial, sans-serif; /* フォントファミリーを設定 */
+    margin: 0; /* ページの外側の余白を0に設定 */
+}
+
+/* header部 */
+header {
+    height: 50px; /* 高さを設定 */
+    width: 100%;
+    padding: 0% 2%; /* 親要素のパディングを設定 */
+    background-color: white; /* 背景色を設定 */
+    display: flex; /* 要素をフレックスボックスとして表示 */
+    position: fixed; /* 相対位置を設定 */
+    align-items: center; /* 垂直方向中央に整列 */
+    justify-content: space-between; /* 要素間のスペースを均等に配置 */
+    border-bottom: 2px solid;
+    border-color: #cecece; /* ボーダーカラーを設定 */
+}
+
+.header__logo {
+    display: flex; /* 要素をフレックスボックスとして表示 */
+    height: 100%;
+    /* text-align: center; テキストを中央揃え */
+}
+
+.header__logo img {
+    height: 100%; /* 画像の高さを設定 */
+}
+
+.header__list {
+    display: flex; /* 要素をフレックスボックスとして表示 */
+    /* justify-content: flex-end; */
+}
+
+.header__list-item {
+    list-style: none; /* リストのマーカーをなくす */
+}
