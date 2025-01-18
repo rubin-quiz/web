@@ -2,7 +2,8 @@
 <html lang="ja">
 
 <head>
-    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="./index.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 <body>
     <!-- ヘッダーを外部ファイルから読み込む -->
@@ -13,6 +14,18 @@
                 .then(data => document.querySelector("header").innerHTML = data);
         </script>
     </header>
+    <main>
+        <h1>Hello World</h1>
+    </main>
+    
+    <!-- フッターを外部ファイルから読み込む -->
+    <footer>
+        <script>
+            fetch("footer.html")
+                .then(response => response.text())
+                .then(data => document.querySelector("footer").innerHTML = data);
+        </script>
+    </footer>
 </body>
 
 </html>
