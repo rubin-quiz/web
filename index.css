@@ -98,6 +98,7 @@ main{
 }
 
 .footer__list__center{
+    color: gray;
     list-style: none;
 }
 
