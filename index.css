@@ -53,6 +53,18 @@ header {
 main{
     flex: auto;
     height: 2000px;
+    margin: 1% 20%;
+}
+
+.content{
+    margin: 25px 0;
+}
+
+.content__title {
+    margin: 20px 0;
+}
+
+.content__description {
 }
 
 /* footer部 */
