@@ -51,9 +51,9 @@ header {
 /* main部 */
 main{
     flex: auto;
-    height: 2000px;
     margin: 1% 20%;
-    padding-top: 50px ;
+    padding-top: 50px;
+    min-height: 100vh
 }
 
 .content{
@@ -120,4 +120,11 @@ main{
 
 .footer__list__right-item img:hover{
     filter: invert(100%)
+}
+
+
+@media screen and (max-width: 768px) {
+    main {
+        margin: 1% 5%; /* モバイル時は左右マージンを縮小 */
+    }
 }
