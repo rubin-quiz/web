@@ -21,6 +21,7 @@ header {
     justify-content: space-between; /* 要素間のスペースを均等に配置 */
     border-bottom: 2px solid;
     border-color: #cecece;
+    position: fixed;
 }
 
 .header__logo {
@@ -54,10 +55,11 @@ main{
     flex: auto;
     height: 2000px;
     margin: 1% 20%;
+    padding-top: 50px ;
 }
 
 .content{
-    margin: 25px 0;
+    margin: 2% 0;
 }
 
 .content__title {
