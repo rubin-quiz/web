@@ -1,3 +1,7 @@
+/* 全体にかかる設定 */
+*{
+    box-sizing: border-box;
+}
 
 /* body部*/
 body {
