@@ -64,7 +64,8 @@ main{
     margin: 20px 0;
 }
 
-.content__description {
+.content__description a{
+    text-decoration: none;
 }
 
 /* footer部 */
