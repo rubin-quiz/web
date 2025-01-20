@@ -31,6 +31,11 @@ header {
     height: 100%;
 }
 
+.header__list a {
+    text-decoration: none;
+    color: inherit;
+}
+
 .header__list-item {
     display: flex; /* 要素をフレックスボックスとして表示 */
     align-items: center;
