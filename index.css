@@ -45,8 +45,12 @@ header {
 /* main部 */
 main{
     margin: 0% 20%;
-    padding-top: 50px;
+    padding-top: 70px;
+    /* margin-top: 50px; */
     min-height: 100vh
+}
+
+.content{
 }
 
 .content__title {
@@ -55,6 +59,14 @@ main{
 
 .content__description a{
     text-decoration: none;
+}
+
+.subcontent{
+
+}
+
+.subcontent__title {
+    margin: 3% 0;
 }
 
 /* footer部 */
