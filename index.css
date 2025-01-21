@@ -131,6 +131,35 @@ main {
     filter: grayscale(0); /* ホバー時にグレースケールを解除 */
 }
 
+.book__list {
+    display: flex;
+    list-style: none;
+    height: 450px;
+    width: auto;
+
+}
+
+.book__list-item {
+    display: flex;
+    flex-direction: column;
+    margin: 0 2% 0 0;
+}
+
+.book__list-item img{
+    height: 100%;
+    width: auto;
+}
+
+.book__tags{
+    display: flex;
+}
+
+.book__tag{
+    color: blue;
+}
+
+
+
 /* footer部 */
 .footer__list {
     background-color: #cecece;
