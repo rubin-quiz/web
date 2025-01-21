@@ -40,7 +40,7 @@ header {
     display: flex; /* 要素をフレックスボックスとして表示 */
     align-items: center;
     height: 100%;
-    padding: 5px 10px 0px 10px;
+    padding: 3px 10px 0px 10px;
 }
 
 .header__list-item:hover{
