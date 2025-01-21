@@ -40,7 +40,7 @@ header {
     display: flex; /* 要素をフレックスボックスとして表示 */
     align-items: center;
     height: 100%;
-    padding: 0 10px;
+    padding: 5px 10px 0px 10px;
 }
 
 .header__list-item:hover{
@@ -127,5 +127,4 @@ main{
     main {
         margin: 0% 5%; /* モバイル時は左右マージンを縮小 */
     }
-
 }
