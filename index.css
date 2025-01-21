@@ -9,8 +9,10 @@ header {
     width: 100%;
     padding: 0% 2%;
     background-color: white;
-    display: flex; /* 要素をフレックスボックスとして表示 */
-    justify-content: space-between; /* 要素間のスペースを均等に配置 */
+    display: flex;
+    /* 要素をフレックスボックスとして表示 */
+    justify-content: space-between;
+    /* 要素間のスペースを均等に配置 */
     border-bottom: 2px solid;
     border-color: #cecece;
     position: fixed;
@@ -21,8 +23,10 @@ header {
 }
 
 .header__list {
-    display: flex; /* 要素をフレックスボックスとして表示 */
-    list-style: none; /* リストのマーカーをなくす */
+    display: flex;
+    /* 要素をフレックスボックスとして表示 */
+    list-style: none;
+    /* リストのマーカーをなくす */
 }
 
 .header__list a {
@@ -31,128 +35,162 @@ header {
 }
 
 .header__list-item {
-    display: flex; /* 要素をフレックスボックスとして表示 */
-    align-items: center; /* 要素を垂直方向の中央に配置 */
+    display: flex;
+    /* 要素をフレックスボックスとして表示 */
+    align-items: center;
+    /* 要素を垂直方向の中央に配置 */
     height: 100%;
     padding: 3px 10px 0px 10px;
 }
 
-.header__list-item:hover{
-    color: rgb(255, 255,255);
+.header__list-item:hover {
+    color: rgb(255, 255, 255);
     background-color: rgb(0, 0, 0);
 }
 
 /* main部 */
-main{
+main {
     margin: 0% 20%;
     padding-top: 70px;
+    /* margin-top: 50px; */
     min-height: 100vh
 }
 
-.content{
-}
+.content {}
 
 .content__title {
     margin: 3% 0;
 }
 
-.content__description a{
+.content__description a {
     text-decoration: none;
 }
 
-.subcontent {
-
-}
+.subcontent {}
 
 .subcontent__title {
     margin: 3% 0;
 }
 
-.book__list {
+.member_list {
     display: flex;
-    list-style: none;
-    height: 450px;
-    width: auto;
-
+    /* 要素をフレックスボックスとして表示 */
+    flex-wrap: wrap;
+    /* アイテムを折り返す */
 }
 
-.book__list-item {
-    display: flex;
+.profile {
+    width: 200px;
+    /* 幅を設定 */
+    height: 200px;
+    /* 高さを設定 */
     flex-direction: column;
-    margin: 0 2% 0 0;
+    /* アイテムを縦方向に配置 */
+    align-items: center;
+    /* テキストを中央揃え */
+    overflow: hidden; /* 親要素からはみ出さないように隠す */
+    margin-right: 30px;
 }
 
-.book__list-item img{
+.profile img {
+    display: block;
+    /* ブロック要素として表示 */
+    width: 100%;
+    /* 幅を設定 */
     height: 100%;
-    width: auto;
+    /* 高さを設定 */
+    margin: 0 auto;
+    transition: filter 0.4s ease; /* フィルター遷移を追加 */
+    filter: grayscale(100%);
 }
 
-.book__tags{
-    display: flex;
+
+.profile .caption {
+    color: #fff;
 }
 
-.book__tag{
-    color: blue;
+.profile .mask {
+    width: 100%;
+    height: 80%;
+    margin-top: -120px;
+    bottom: 0; /* 初期位置を下に設定 */
+    background-color: rgba(0, 0, 0, 0.4);
+    -webkit-transition: transform 0.4s ease; /* transformにのみ遷移 */
+    transition: transform 0.4s ease;
+    transform: translateY(100%); /* 初期位置は下に配置 */
+    opacity: 0;
+    visibility: hidden;
 }
 
+.profile:hover .mask {
+    transform: translateY(0); /* ホバー時にmaskが上に移動 */
+    opacity: 1; /* ホバー時に完全に表示 */
+    visibility: visible; /* ホバー時に表示 */
+}
+.profile:hover img {
+    filter: grayscale(0); /* ホバー時にグレースケールを解除 */
+}
 
 /* footer部 */
-.footer__list{
+.footer__list {
     background-color: #cecece;
     display: flex;
     justify-content: center;
     padding: 10px 0;
 }
 
-.footer__list img{
+.footer__list img {
     height: 25px;
 }
 
-.footer__list__left{
+.footer__list__left {
     display: flex;
     list-style: none;
     position: absolute;
-    left:2%;
+    left: 2%;
 }
 
-.footer__list__left-item{
-    display: flex; /* 要素をフレックスボックスとして表示 */
+.footer__list__left-item {
+    display: flex;
+    /* 要素をフレックスボックスとして表示 */
     height: 100%;
     margin-right: 20px;
     padding: 3px 0 6px 0;
 }
 
-.footer__list__left-item:hover{
+.footer__list__left-item:hover {
     color: white;
 }
 
-.footer__list__center{
+.footer__list__center {
     color: gray;
     list-style: none;
 }
 
-.footer__list__right{
+.footer__list__right {
     justify-content: flex-end;
     display: flex;
     position: absolute;
-    right:2%;
+    right: 2%;
 
 }
 
-.footer__list__right-item{
-    display: flex; /* 要素をフレックスボックスとして表示 */
+.footer__list__right-item {
+    display: flex;
+    /* 要素をフレックスボックスとして表示 */
     height: 100%;
     margin-left: 5px;
     padding: 0 5px;
 }
 
-.footer__list__right-item img:hover{
+.footer__list__right-item img:hover {
     filter: invert(100%)
 }
 
 
 @media screen and (max-width: 768px) {
     main {
-        margin: 0% 5%; /* モバイル時は左右マージンを縮小 */
+        margin: 0% 5%;
+        /* モバイル時は左右マージンを縮小 */
     }
 }
