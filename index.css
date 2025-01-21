@@ -10,15 +10,10 @@ header {
     padding: 0% 2%;
     background-color: white;
     display: flex; /* 要素をフレックスボックスとして表示 */
-    align-items: center; /* 垂直方向中央に整列 */
     justify-content: space-between; /* 要素間のスペースを均等に配置 */
     border-bottom: 2px solid;
     border-color: #cecece;
     position: fixed;
-}
-
-.header__logo {
-    height: 100%;
 }
 
 .header__logo img {
@@ -28,7 +23,6 @@ header {
 .header__list {
     display: flex; /* 要素をフレックスボックスとして表示 */
     list-style: none; /* リストのマーカーをなくす */
-    height: 100%;
 }
 
 .header__list a {
@@ -38,7 +32,7 @@ header {
 
 .header__list-item {
     display: flex; /* 要素をフレックスボックスとして表示 */
-    align-items: center;
+    align-items: center; /* 要素を垂直方向の中央に配置 */
     height: 100%;
     padding: 3px 10px 0px 10px;
 }
@@ -50,18 +44,13 @@ header {
 
 /* main部 */
 main{
-    flex: auto;
     margin: 0% 20%;
     padding-top: 50px;
     min-height: 100vh
 }
 
-.content{
-    margin: 2% 0;
-}
-
 .content__title {
-    margin: 20px 0;
+    margin: 3% 0;
 }
 
 .content__description a{
@@ -91,7 +80,7 @@ main{
     display: flex; /* 要素をフレックスボックスとして表示 */
     height: 100%;
     margin-right: 20px;
-    padding: 3px 0 5px 0;
+    padding: 3px 0 6px 0;
 }
 
 .footer__list__left-item:hover{
