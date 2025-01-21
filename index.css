@@ -46,7 +46,6 @@ header {
 main{
     margin: 0% 20%;
     padding-top: 70px;
-    /* margin-top: 50px; */
     min-height: 100vh
 }
 
@@ -61,13 +60,41 @@ main{
     text-decoration: none;
 }
 
-.subcontent{
+.subcontent {
 
 }
 
 .subcontent__title {
     margin: 3% 0;
 }
+
+.book__list {
+    display: flex;
+    list-style: none;
+    height: 450px;
+    width: auto;
+
+}
+
+.book__list-item {
+    display: flex;
+    flex-direction: column;
+    margin: 0 2% 0 0;
+}
+
+.book__list-item img{
+    height: 100%;
+    width: auto;
+}
+
+.book__tags{
+    display: flex;
+}
+
+.book__tag{
+    color: blue;
+}
+
 
 /* footer部 */
 .footer__list{
