@@ -89,7 +89,8 @@ main {
     align-items: center;
     /* テキストを中央揃え */
     overflow: hidden; /* 親要素からはみ出さないように隠す */
-    margin-right: 30px;
+    margin-right: 20px;
+    margin-bottom: 20px;    
 }
 
 .profile img {
@@ -101,34 +102,33 @@ main {
     /* 高さを設定 */
     margin: 0 auto;
     transition: filter 0.4s ease; /* フィルター遷移を追加 */
-    filter: grayscale(100%);
+    filter: grayscale(0%);
 }
 
 
 .profile .caption {
     color: #fff;
+    padding: 0 5px
 }
 
 .profile .mask {
     width: 100%;
     height: 80%;
-    margin-top: -120px;
+    margin-top: -65%;
     bottom: 0; /* 初期位置を下に設定 */
     background-color: rgba(0, 0, 0, 0.4);
     -webkit-transition: transform 0.4s ease; /* transformにのみ遷移 */
     transition: transform 0.4s ease;
-    transform: translateY(100%); /* 初期位置は下に配置 */
-    opacity: 0;
-    visibility: hidden;
+    transform: translateY(60%); /* 通常時は下に10%配置 */
+    visibility: visible; /* 通常時に表示 */
 }
 
 .profile:hover .mask {
     transform: translateY(0); /* ホバー時にmaskが上に移動 */
-    opacity: 1; /* ホバー時に完全に表示 */
-    visibility: visible; /* ホバー時に表示 */
+    /* visibility: visible; ホバー時に表示 */
 }
 .profile:hover img {
-    filter: grayscale(0); /* ホバー時にグレースケールを解除 */
+    filter: grayscale(100%);
 }
 
 .book__list {
@@ -161,6 +161,7 @@ main {
 
 
 /* footer部 */
+
 .footer__list {
     background-color: #cecece;
     display: flex;
