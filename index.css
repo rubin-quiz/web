@@ -16,6 +16,7 @@ header {
     border-bottom: 2px solid;
     border-color: #cecece;
     position: fixed;
+    z-index: 99;
 }
 
 .header__logo img {
