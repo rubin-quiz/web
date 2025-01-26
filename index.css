@@ -138,14 +138,13 @@ main {
 
 .book__list{
     display: flex;
-    justify-content: flex-start;
     list-style: none;
     flex-wrap: wrap;
 }
 
 .book{
     height: 500px;
-    margin: 0 2% 5% 0;
+    margin: 0 3% 5% 0;
     flex:1;
 
 }
@@ -155,8 +154,7 @@ main {
 }
 
 .book .info{
-    height: 40%;
-    width:233px;
+    width:235px;
 }
 
 .book .tags{
