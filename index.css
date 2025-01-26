@@ -61,20 +61,16 @@ main {
     margin: 3% 0;
 }
 
-.content__title {
+.title {
     margin-bottom: 3%;
 }
 
-.content__description a {
+.description a {
     text-decoration: none;
 }
 
 .subcontent {
-    margin: 3% 0;
-}
-
-.subcontent__title {
-    margin-bottom: 2%;
+    margin: 5% 0 3% 0;
 }
 
 .member_list {
