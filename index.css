@@ -56,20 +56,24 @@ main {
     min-height: 100vh
 }
 
-.content {}
+.content {
+    margin: 3% 0;
+}
 
 .content__title {
-    margin: 3% 0;
+    margin-bottom: 3%;
 }
 
 .content__description a {
     text-decoration: none;
 }
 
-.subcontent {}
+.subcontent {
+    margin: 3% 0;
+}
 
 .subcontent__title {
-    margin: 3% 0;
+    margin-bottom: 2%;
 }
 
 .member_list {
