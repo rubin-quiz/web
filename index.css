@@ -241,6 +241,11 @@ main {
     padding: 10px 0;
 }
 
+.footer__list a {
+    text-decoration: none;
+    color: inherit;
+}
+
 .footer__list img {
     height: 25px;
 }
