@@ -294,9 +294,12 @@ main {
 }
 
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1000px) {
     main {
         margin: 0% 5%;
         /* モバイル時は左右マージンを縮小 */
+    }
+    .book__list{
+        justify-content: center;
     }
 }
