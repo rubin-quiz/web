@@ -146,7 +146,7 @@ main {
 
 .profile .mask {
     width: 100%;
-    height: 80%;
+    height: 85%;
     margin-top: -65%;
     bottom: 0; /* 初期位置を下に設定 */
     background-color: rgba(0, 0, 0, 0.611);
