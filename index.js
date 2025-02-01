@@ -10,15 +10,12 @@ document.addEventListener("DOMContentLoaded", function () {
         const slider = event.target.closest(".slider"); // 押された矢印ボタンが属するスライダーを特定
         const quizImage = slider.querySelector(".quizImage"); // スライダー内の画像を取得
         const images = slider.getAttribute("data-images").split(","); // 画像リストを取得
-        let currentIndex = images.indexOf(quizImage.src.split("/").pop()); // 現在の画像インデックスを取得
+        let currentIndex = slider.dataset.index ? parseInt(slider.dataset.index) : 0; // 現在のインデックスを取得（データ属性に保持）
 
-        // 現在の画像がリストにない場合、最初の画像を使用
-        if (currentIndex === -1) {
-            currentIndex = 0;
-        }
-
-        // インデックスを更新して画像を切り替える
+        // インデックスを更新
         currentIndex = (currentIndex + step + images.length) % images.length;
+        slider.dataset.index = currentIndex; // 新しいインデックスをスライダーに保存
+
         quizImage.src = images[currentIndex]; // 画像を変更
     }
 
@@ -26,6 +23,9 @@ document.addEventListener("DOMContentLoaded", function () {
     sliders.forEach(slider => {
         const prevButton = slider.querySelector(".arrow.prev");
         const nextButton = slider.querySelector(".arrow.next");
+
+        // スライダーに初期インデックスを保存
+        slider.dataset.index = 0;
 
         if (prevButton && nextButton) {
             prevButton.addEventListener("click", (event) => changeImage(event, -1)); // 前の画像に進む
