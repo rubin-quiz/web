@@ -51,7 +51,7 @@ header {
 
 /* main部 */
 main {
-    margin: 0% 20%;
+    margin: 0% 15%;
     padding-top: 70px;
     /* margin-top: 50px; */
     min-height: 100vh
@@ -294,12 +294,16 @@ main {
 }
 
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 960px) {
+    main {
+        margin: 0% 10%;
+        /* モバイル時は左右マージンを縮小 */
+    }
+}
+
+@media screen and (max-width: 500px) {
     main {
         margin: 0% 5%;
         /* モバイル時は左右マージンを縮小 */
-    }
-    .book__list{
-        justify-content: center;
     }
 }
