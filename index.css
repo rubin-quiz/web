@@ -51,7 +51,7 @@ header {
 
 /* main部 */
 main {
-    margin: 0% 15%;
+    margin: 0% 20%;
     padding-top: 70px;
     /* margin-top: 50px; */
     min-height: 100vh
@@ -91,7 +91,7 @@ main {
     /* テキストを中央揃え */
     overflow: hidden; /* 親要素からはみ出さないように隠す */
     margin-right: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 20px;    
 }
 
 .profile img {
@@ -141,17 +141,42 @@ main {
 
 .book{
     height: 500px;
-    margin: 0 3% 50px 0;
-
+    width: 250px;
+    margin: 0 0% 10% 0;
+    /* flex:1; */
+    
 }
 
-.book img{
+/* .book img{
     height:70%;
-}
+} */
 
 .book .info{
     width:245px;
 }
+
+.slider {
+    position: relative;
+    height: 70%;
+    width: 100%;
+    /* margin: auto; */
+}
+.slider img {
+    height: 100%;
+    display: block;
+}
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: rgb(255, 255, 255);
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+.prev { left: 0px; }
+.next { right: 0px; }
 
 .book .tags{
     list-style: none;
@@ -159,7 +184,7 @@ main {
 }
 
 .tags a {
-	position: relative;
+    position: relative;
 	display: inline-block;
 	margin: 5px 10px;
 	padding: .6em .6em .6em 1.2em;
@@ -171,7 +196,7 @@ main {
 }
 
 .tags a:before {
-	position: absolute;
+    position: absolute;
 	top: 0;
 	left: -1em;
 	content: '';
@@ -181,7 +206,7 @@ main {
 }
 
 .tags a:after {
-	position: absolute;
+    position: absolute;
 	top: center;
 	left: 0;
 	content: '●';
@@ -294,16 +319,10 @@ main {
 }
 
 
-@media screen and (max-width: 960px) {
-    main {
-        margin: 0% 10%;
-        /* モバイル時は左右マージンを縮小 */
-    }
-}
-
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 768px) {
     main {
         margin: 0% 5%;
         /* モバイル時は左右マージンを縮小 */
     }
 }
+
