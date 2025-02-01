@@ -117,7 +117,7 @@ main {
     height: 80%;
     margin-top: -65%;
     bottom: 0; /* 初期位置を下に設定 */
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.611);
     -webkit-transition: transform 0.4s ease; /* transformにのみ遷移 */
     transition: transform 0.4s ease;
     transform: translateY(60%); /* 通常時は下に10%配置 */
