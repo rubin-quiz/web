@@ -91,7 +91,7 @@ main {
     /* テキストを中央揃え */
     overflow: hidden; /* 親要素からはみ出さないように隠す */
     margin-right: 20px;
-    margin-bottom: 20px;    
+    margin-bottom: 20px;
 }
 
 .profile img {
@@ -141,8 +141,7 @@ main {
 
 .book{
     height: 500px;
-    margin: 0 3% 10% 0;
-    flex:1;
+    margin: 0 3% 50px 0;
 
 }
 
