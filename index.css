@@ -58,11 +58,11 @@ main {
 }
 
 .content {
-    margin: 5% 0;
+    margin: 40px 0;
 }
 
 .title {
-    margin-bottom: 2%;
+    margin-bottom: 20px;
 }
 
 .description a {
@@ -70,7 +70,7 @@ main {
 }
 
 .subcontent {
-    margin: 3% 0;
+    margin: 20px 0;
 }
 
 
@@ -174,7 +174,7 @@ main {
 .book{
     height: 500px;
     width: 250px;
-    margin: 0 3% 10% 0;
+    margin: 0 25px 50px 0;
     /* flex:1; */
     
 }
