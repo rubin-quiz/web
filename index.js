@@ -33,3 +33,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+
+function toggleAnswer(button) {
+    const answer = button.previousElementSibling;
+    const answerText = answer.textContent.trim();
+    button.textContent = answerText;
+    button.classList.remove('answerbutton');
+    button.disabled = true;
+}
