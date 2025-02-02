@@ -42,3 +42,18 @@ function toggleAnswer(button) {
     button.classList.remove('answerbutton');
     button.disabled = true;
 }
+
+function toggleMenu() {
+    const menuOverlay = document.getElementById('menuOverlay');
+    const hamburger = document.querySelector('.hamburger');  // ハンバーガー要素を選択
+
+    const isOpen = menuOverlay.style.display === 'flex';
+
+    // メニューオーバーレイの表示/非表示を切り替え
+    menuOverlay.style.display = isOpen ? 'none' : 'flex';
+    // document.body.style.overflow = isOpen ? '' : 'hidden';  // スクロール禁止
+
+    // ハンバーガーメニューの色を変更する
+    hamburger.classList.toggle('open');  // 'open'クラスを切り替え
+}
+

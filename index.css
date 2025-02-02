@@ -122,8 +122,8 @@ main {
     align-items: center;
     /* テキストを中央揃え */
     overflow: hidden; /* 親要素からはみ出さないように隠す */
-    margin-right: 20px;
-    margin-bottom: 20px;    
+    margin-right: 10px;
+    margin-bottom: 10px;
 }
 
 .profile img {
@@ -345,15 +345,85 @@ main {
 }
 
 
+
+
+/* ハンバーガーメニュー */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    /* padding: 15px; */
+    position: absolute;
+    top: 7px;
+    right: 20px;
+    z-index: 1000;
+    transition: transform 0.3s ease; /* アニメーション追加 */
+}
+
+
+.bar {
+    width: 30px;
+    height: 3px;
+    background-color: black;
+    margin: 5px 0;
+    transition: all 0.3s ease;  /* アニメーション追加 */
+}
+
+.hamburger.open .bar {
+    background-color: #fff; /* 色を白に変更する例 */
+}
+
+.hamburger.open .bar:nth-child(1) {
+    transform: rotate(45deg);
+    position: relative;
+    top: 13px;  /* 1番目のバーを右に移動 */
+}
+
+.hamburger.open .bar:nth-child(2) {
+    opacity: 0;  /* 2番目のバーを隠す */
+}
+
+.hamburger.open .bar:nth-child(3) {
+    transform: rotate(-45deg);
+    position: relative;
+    top: -13px;  /* 3番目のバーを右に移動 */
+}
+
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.menu-overlay a {
+    color: white;
+    font-size: 24px;
+    margin: 15px;
+    text-decoration: none;
+}
+
+/* レスポンシブデザイン */
 @media screen and (max-width: 900px) {
     main {
         margin: 0% 10%;
     }
 }
-
 @media screen and (max-width: 600px) {
     main {
-        margin: 0% 5%;
+        margin: 0% 2%;
+    }
+    .hamburger {
+        display: flex;
+    }
+    .header__list {
+        display: none;
     }
 }
-
