@@ -345,10 +345,15 @@ main {
 }
 
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1200px) {
+    main {
+        margin: 0% 10%;
+    }
+}
+
+@media screen and (max-width: 700px) {
     main {
         margin: 0% 5%;
-        /* モバイル時は左右マージンを縮小 */
     }
 }
 
