@@ -426,4 +426,9 @@ main {
     .header__list {
         display: none;
     }
+    .banner img{
+        margin: -20px calc(50% - 50vw) 10px;
+        width: 100vw;
+    }
+    
 }
