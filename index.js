@@ -51,7 +51,7 @@ function toggleMenu() {
 
     // メニューオーバーレイの表示/非表示を切り替え
     menuOverlay.style.display = isOpen ? 'none' : 'flex';
-    // document.body.style.overflow = isOpen ? '' : 'hidden';  // スクロール禁止
+    document.body.style.overflow = isOpen ? '' : 'hidden';  // スクロール禁止
 
     // ハンバーガーメニューの色を変更する
     hamburger.classList.toggle('open');  // 'open'クラスを切り替え
