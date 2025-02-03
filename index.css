@@ -41,12 +41,17 @@ header {
     align-items: center;
     /* 要素を垂直方向の中央に配置 */
     height: 100%;
-    padding: 3px 10px 0px 10px;
+    padding: 10px 10px 0px 10px;
 }
 
 .header__list-item:hover {
     color: rgb(255, 255, 255);
     background-color: rgb(0, 0, 0);
+}
+
+.material-symbols-outlined{
+    vertical-align: middle;
+    margin-bottom: 3px;
 }
 
 /* main部 */
@@ -415,16 +420,16 @@ main {
     main {
         margin: 0% 10%;
     }
-}
-@media screen and (max-width: 600px) {
-    main {
-        margin: 0% 2%;
-    }
     .hamburger {
         display: flex;
     }
     .header__list {
         display: none;
+    }
+}
+@media screen and (max-width: 600px) {
+    main {
+        margin: 0% 5%;
     }
     .banner img{
         margin: -20px calc(50% - 50vw) 10px;
