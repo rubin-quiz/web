@@ -448,7 +448,7 @@ main {
     }
 }
 /* スマートフォンサイズ */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 650px) {
     main {
         margin: 0% 5%;
     }
@@ -465,6 +465,10 @@ main {
     }
     .book__list{
         justify-content: center;
+    }
+    .book{
+        margin: 10px 25px 50px 10px;
+        
     }
     .footer__list__left{
         display: none;
