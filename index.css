@@ -204,6 +204,7 @@ main {
 
 .slider img {
     height: 100%;
+    /* width: 100%; */
     display: block;
 }
 
@@ -509,10 +510,12 @@ main {
     }
 
     .book .slider {
-        width: 141px;
+        width: 200px;
+        height: 200px;
     }
     .book .slider img{
         height: 200px;
+        width: 100%;
     }
     .book .slider .arrow {
         top: 100px;
