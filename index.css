@@ -221,6 +221,55 @@ main {
 .prev { left: 0px; }
 .next { right: 0px; }
 
+.slider {
+    display:flex;
+    flex-flow: column;
+    /* position: relative; */
+    height: 70%;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.slider img {
+    height: 100%;
+    display: block;
+}
+
+.indicators {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px; /* スライダーの下にスペース */
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    background-color: gray;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* .indicators {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.indicator {
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+    background-color: white;
+    border-radius: 50%;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.indicator.active {
+    background-color: black;
+} */
+
 .book .tags{
     list-style: none;
     display: flex;
@@ -510,11 +559,11 @@ main {
     }
 
     .book .slider {
-        width: 200px;
+        width: 220px;
         height: 200px;
     }
     .book .slider img{
-        height: 200px;
+        height: 100%;
         width: 100%;
     }
     .book .slider .arrow {

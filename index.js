@@ -17,20 +17,55 @@ document.addEventListener("DOMContentLoaded", function () {
         slider.dataset.index = currentIndex; // 新しいインデックスをスライダーに保存
 
         quizImage.src = images[currentIndex]; // 画像を変更
+        updateIndicators(slider); // インジケーターを更新
     }
 
-    // すべての矢印ボタン（prev、next）にイベントリスナーを追加
+    // インジケーターの更新
+    function updateIndicators(slider) {
+        const indicators = slider.querySelector(".indicators");
+        const dots = indicators.querySelectorAll(".dot");
+        const currentIndex = parseInt(slider.dataset.index);
+
+        // 全てのインジケーターを初期化
+        dots.forEach(dot => dot.style.backgroundColor = "gray");
+
+        // 現在のインデックスに対応するインジケーターをアクティブにする
+        if (dots[currentIndex]) {
+            dots[currentIndex].style.backgroundColor = "black";
+        }
+    }
+
+    // すべてのスライダーにインジケーターを作成
     sliders.forEach(slider => {
-        const prevButton = slider.querySelector(".arrow.prev");
-        const nextButton = slider.querySelector(".arrow.next");
+        const images = slider.getAttribute("data-images").split(",");
+        const indicators = slider.querySelector(".indicators");
+
+        // インジケーターの初期設定
+        images.forEach((image, index) => {
+            const dot = indicators.querySelectorAll(".dot")[index]; // すでにHTMLで定義されたdotを利用
+            if (dot) {
+                dot.addEventListener("click", () => {
+                    slider.dataset.index = index; // インデックスを変更
+                    const quizImage = slider.querySelector(".quizImage");
+                    quizImage.src = image; // 対応する画像を表示
+                    updateIndicators(slider); // インジケーターを更新
+                });
+            }
+        });
 
         // スライダーに初期インデックスを保存
         slider.dataset.index = 0;
+
+        const prevButton = slider.querySelector(".arrow.prev");
+        const nextButton = slider.querySelector(".arrow.next");
 
         if (prevButton && nextButton) {
             prevButton.addEventListener("click", (event) => changeImage(event, -1)); // 前の画像に進む
             nextButton.addEventListener("click", (event) => changeImage(event, 1)); // 次の画像に進む
         }
+
+        // 初期状態でインジケーターを更新
+        updateIndicators(slider);
     });
 });
 
