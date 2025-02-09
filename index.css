@@ -200,12 +200,13 @@ main {
     position: relative;
     height: 70%;
     width: 100%;
-    /* margin: auto; */
 }
+
 .slider img {
     height: 100%;
     display: block;
 }
+
 .arrow {
     position: absolute;
     top: 50%;
@@ -456,12 +457,37 @@ main {
     .header__list {
         display: none;
     }
-}
+    .book{
+        width: 100%;
+        height: 300px;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 30px;
+    }
+    .book .tags {
+        flex-wrap: wrap;
+    }
+
+    .book .slider {
+        width: 211px;
+    }
+    .book .slider img{
+        height: 300px;
+    }
+    .book .slider .arrow {
+        top: 150px;
+    }
+    .book .info{
+        width:80%;
+        max-width:300px;
+    }
 /* スマートフォンサイズ */
-@media screen and (max-width: 720px) {
+@media screen and (max-width: 600px) {
     main {
         margin: 0% 5%;
     }
+
     .banner img{
         margin: -20px calc(50% - 50vw) 10px;
         width: 100vw;
@@ -474,13 +500,8 @@ main {
         margin-bottom: 10px;
     }
 
-
     .book{
-        width: 100%;
-        margin: 0px 10px 5px 0px;
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
+        height: 200px;
         gap: 20px;
     }
     .book .tags {
@@ -488,11 +509,20 @@ main {
     }
 
     .book .slider {
-        width: 250px;
+        width: 141px;
     }
-    .book .info {
-        /* flex: 1; */
+    .book .slider img{
+        height: 200px;
     }
+    .book .slider .arrow {
+        top: 100px;
+        padding: 5px;
+    }
+    .book .info{
+        width:80%;
+    }
+}
+
     .footer__list__left{
         display: none;
     }
