@@ -1,21 +1,17 @@
-@ -1,600 +1,668 @@
-/* body部*/
+/* 基本スタイル */
 body {
     font-family: Arial, sans-serif;
 }
 
-/* header部 */
+/* ヘッダー */
 header {
     height: 50px;
     width: 100%;
     padding: 0% 2%;
     background-color: white;
     display: flex;
-    /* 要素をフレックスボックスとして表示 */
     justify-content: space-between;
-    /* 要素間のスペースを均等に配置 */
-    border-bottom: 2px solid;
-    border-color: #cecece;
+    border-bottom: 2px solid #cecece;
     position: fixed;
     z-index: 99;
 }
@@ -26,9 +22,7 @@ header {
 
 .header__list {
     display: flex;
-    /* 要素をフレックスボックスとして表示 */
     list-style: none;
-    /* リストのマーカーをなくす */
 }
 
 .header__list a {
@@ -38,16 +32,14 @@ header {
 
 .header__list-item {
     display: flex;
-    /* 要素をフレックスボックスとして表示 */
     align-items: center;
-    /* 要素を垂直方向の中央に配置 */
     height: 100%;
     padding: 5px 10px 0px 10px;
 }
 
 .header__list-item:hover {
-    color: rgb(255, 255, 255);
-    background-color: rgb(0, 0, 0);
+    color: #fff;
+    background-color: #000;
 }
 
 .material-symbols-outlined{
@@ -55,11 +47,10 @@ header {
     margin-bottom: 3px;
 }
 
-/* main部 */
+/* メインコンテンツ */
 main {
     margin: 0% 15%;
     padding-top: 50px;
-    /* margin-top: 50px; */
     min-height: 100vh
 }
 
@@ -71,24 +62,19 @@ main {
     margin-bottom: 20px;
 }
 
-.description a {
-    /* text-decoration: none; */
-}
-
 .subcontent {
     margin: 20px 0;
 }
-
 
 .banner img{
     margin: -20px calc(50% - 45vw) 10px;
     width: 90vw;
 }
 
+/* 特集コンテンツ */
 .weeklyquiz{
     background: linear-gradient(135deg, #fff8f0 0%, #ffe4c4 100%);
     box-shadow: 0 4px 15px rgba(255, 140, 0, 0.15);
-    border: none;
     border-left: 5px solid #ff8c00;
     border-radius: 0 10px 10px 0;
     padding: 25px 30px;
@@ -99,14 +85,12 @@ main {
 .latestnews{
     background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    border: none;
     border-left: 5px solid #424242;
     border-radius: 0 10px 10px 0;
     padding: 25px 30px;
     line-height: 1.8;
     color: black;
 }
-
 
 .answerbutton{
     background: linear-gradient(135deg, #333 0%, #666 100%);
@@ -123,39 +107,29 @@ main {
     overflow: hidden;
 }
 
+/* メンバーリスト */
 .member_list {
     display: flex;
-    /* 要素をフレックスボックスとして表示 */
     flex-wrap: wrap;
-    /* アイテムを折り返す */
 }
 
 .profile {
     width: 200px;
-    /* 幅を設定 */
     height: 200px;
-    /* 高さを設定 */
     flex-direction: column;
-    /* アイテムを縦方向に配置 */
     align-items: center;
-    /* テキストを中央揃え */
-    overflow: hidden; /* 親要素からはみ出さないように隠す */
-    margin-right: 10px;
-    margin-bottom: 10px;
+    overflow: hidden;
+    margin: 0 10px 10px 0;
 }
 
 .profile img {
     display: block;
-    /* ブロック要素として表示 */
     width: 100%;
-    /* 幅を設定 */
     height: 100%;
-    /* 高さを設定 */
     margin: 0 auto;
-    transition: filter 0.4s ease; /* フィルター遷移を追加 */
+    transition: filter 0.4s ease;
     filter: grayscale(0%);
 }
-
 
 .profile .caption {
     color: #fff;
@@ -166,21 +140,21 @@ main {
     width: 100%;
     height: 85%;
     margin-top: -70%;
-    bottom: 0; /* 初期位置を下に設定 */
-    -webkit-transition: transform 0.4s ease; /* transformにのみ遷移 */
+    bottom: 0;
     transition: transform 0.4s ease;
-    transform: translateY(65%); /* 通常時は下に10%配置 */
-    visibility: visible; /* 通常時に表示 */
+    transform: translateY(65%);
+    visibility: visible;
 }
 
 .profile:hover .mask {
-    transform: translateY(0); /* ホバー時にmaskが上に移動 */
+    transform: translateY(0);
 }
+
 .profile:hover img {
     filter: grayscale(100%);
 }
 
-
+/* 書籍リスト */
 .book__list{
     display: flex;
     list-style: none;
@@ -194,18 +168,21 @@ main {
 }
 
 .book .info{
-    width:245px;
+    width: 245px;
 }
 
+/* スライダー */
 .slider {
-    position: relative;
+    display: flex;
+    flex-flow: column;
     height: 70%;
     width: 100%;
+    margin-bottom: 30px;
+    position: relative;
 }
 
 .slider img {
     height: 100%;
-    /* width: 100%; */
     display: block;
 }
 
@@ -214,33 +191,20 @@ main {
     top: 50%;
     transform: translateY(-50%);
     background: rgba(0, 0, 0, 0.5);
-    color: rgb(255, 255, 255);
+    color: #fff;
     border: none;
     padding: 10px;
     cursor: pointer;
 }
+
 .prev { left: 0px; }
 .next { right: 0px; }
-
-.slider {
-    display:flex;
-    flex-flow: column;
-    /* position: relative; */
-    height: 70%;
-    width: 100%;
-    margin-bottom: 30px;
-}
-
-.slider img {
-    height: 100%;
-    display: block;
-}
 
 .indicators {
     display: flex;
     justify-content: center;
     gap: 10px;
-    margin-top: 10px; /* スライダーの下にスペース */
+    margin-top: 10px;
 }
 
 .dot {
@@ -251,6 +215,7 @@ main {
     cursor: pointer;
 }
 
+/* モーダル */
 .modal {
     position: fixed;
     z-index: 1000;
@@ -287,16 +252,10 @@ main {
     padding: 15px;
     cursor: pointer;
     font-size: 24px;
-    border-radius: 0;
 }
 
-.modal-arrow.prev {
-    left: 20px;
-}
-
-.modal-arrow.next {
-    right: 20px;
-}
+.modal-arrow.prev { left: 20px; }
+.modal-arrow.next { right: 20px; }
 
 .modal-indicators {
     position: absolute;
@@ -320,26 +279,7 @@ main {
     background-color: black;
 }
 
-/* .indicators {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-}
-
-.indicator {
-    width: 10px;
-    height: 10px;
-    margin: 0 5px;
-    background-color: white;
-    border-radius: 50%;
-    border: 1px solid black;
-    cursor: pointer;
-}
-
-.indicator.active {
-    background-color: black;
-} */
-
+/* タグ */
 .book .tags{
     list-style: none;
     display: flex;
@@ -347,47 +287,48 @@ main {
 
 .tags a {
     position: relative;
-	display: inline-block;
-	margin: 5px 10px;
-	padding: .6em .6em .6em 1.2em;
-	line-height: 1;
-	color: #fff;
-	text-decoration: none;
-	background-color:gray;
+    display: inline-block;
+    margin: 5px 10px;
+    padding: .6em .6em .6em 1.2em;
+    line-height: 1;
+    color: #fff;
+    text-decoration: none;
+    background-color: gray;
     font-size: 10px;
 }
 
 .tags a:before {
     position: absolute;
-	top: 0;
-	left: -1em;
-	content: '';
-	border-width: 1.1em 1em 1.1em 0;
-	border-style: solid;
-	border-color: transparent gray transparent transparent;
+    top: 0;
+    left: -1em;
+    content: '';
+    border-width: 1.1em 1em 1.1em 0;
+    border-style: solid;
+    border-color: transparent gray transparent transparent;
 }
 
 .tags a:after {
     position: absolute;
-	top: center;
-	left: 0;
-	content: '●';
-	color: #fff;
+    top: center;
+    left: 0;
+    content: '●';
+    color: #fff;
 }
 
+/* ショップリンク */
 .book .shops{
     list-style: none;
 }
 
 .shops a {
-	display: inline-block;
-	margin: 5px 0px;
-	padding: .6em;
-	line-height: 1;
-	text-decoration: none;
-	background-color: #fff;
+    display: inline-block;
+    margin: 5px 0px;
+    padding: .6em;
+    line-height: 1;
+    text-decoration: none;
+    background-color: #fff;
     font-size: 15px;
-    width:100%;
+    width: 100%;
 }
 
 .shops :nth-child(2n-1) a{
@@ -398,7 +339,6 @@ main {
 .shops :nth-child(2n-1) a:hover{
     background-color: #000088;
     color: white;
-    border: 1.5px solid #000088;
 }
 
 .shops :nth-child(2n) a{
@@ -409,16 +349,13 @@ main {
 .shops :nth-child(2n) a:hover{
     background-color: #880000;
     color: white;
-    border: 1.5px solid #880000;
 }
-
 
 .shops span{
     float: right;
 }
 
-/* footer部 */
-
+/* フッター */
 .footer__list {
     background-color: #cecece;
     display: flex;
@@ -444,7 +381,6 @@ main {
 
 .footer__list__left-item {
     display: flex;
-    /* 要素をフレックスボックスとして表示 */
     height: 100%;
     margin-right: 20px;
     padding: 3px 0 6px 0;
@@ -464,12 +400,10 @@ main {
     display: flex;
     position: absolute;
     right: 2%;
-
 }
 
 .footer__list__right-item {
     display: flex;
-    /* 要素をフレックスボックスとして表示 */
     height: 100%;
     margin-left: 5px;
     padding: 0 5px;
@@ -479,49 +413,44 @@ main {
     filter: invert(100%)
 }
 
-
-
-
 /* ハンバーガーメニュー */
 .hamburger {
     display: none;
     flex-direction: column;
     cursor: pointer;
-    /* padding: 15px; */
     position: absolute;
     top: 7px;
     right: 20px;
     z-index: 1000;
-    transition: transform 0.3s ease; /* アニメーション追加 */
+    transition: transform 0.3s ease;
 }
-
 
 .bar {
     width: 30px;
     height: 3px;
     background-color: black;
     margin: 5px 0;
-    transition: all 0.3s ease;  /* アニメーション追加 */
+    transition: all 0.3s ease;
 }
 
 .hamburger.open .bar {
-    background-color: #fff; /* 色を白に変更する例 */
+    background-color: #fff;
 }
 
 .hamburger.open .bar:nth-child(1) {
     transform: rotate(45deg);
     position: relative;
-    top: 13px;  /* 1番目のバーを右に移動 */
+    top: 13px;
 }
 
 .hamburger.open .bar:nth-child(2) {
-    opacity: 0;  /* 2番目のバーを隠す */
+    opacity: 0;
 }
 
 .hamburger.open .bar:nth-child(3) {
     transform: rotate(-45deg);
     position: relative;
-    top: -13px;  /* 3番目のバーを右に移動 */
+    top: -13px;
 }
 
 .menu-overlay {
@@ -564,18 +493,19 @@ main {
 }
 
 /* レスポンシブデザイン */
-
-/* タブレットサイズ */
 @media screen and (max-width: 900px) {
     main {
         margin: 0% 10%;
     }
+    
     .hamburger {
         display: flex;
     }
+    
     .header__list {
         display: none;
     }
+    
     .book{
         width: 100%;
         height: 300px;
@@ -584,6 +514,7 @@ main {
         align-items: flex-start;
         gap: 30px;
     }
+    
     .book .tags {
         flex-wrap: wrap;
     }
@@ -591,18 +522,21 @@ main {
     .book .slider {
         width: 211px;
     }
+    
     .book .slider img{
         height: 300px;
     }
+    
     .book .slider .arrow {
         top: 150px;
     }
+    
     .book .info{
-        width:85%;
-        max-width:300px;
+        width: 85%;
+        max-width: 300px;
     }
 }
-/* スマートフォンサイズ */
+
 @media screen and (max-width: 600px) {
     main {
         margin: 0% 5%;
@@ -612,6 +546,7 @@ main {
         margin: -20px calc(50% - 50vw) 10px;
         width: 100vw;
     }
+    
     .profile {
         width: 170px;
         height: 170px;
@@ -622,41 +557,33 @@ main {
 
     .book{
         height: 200px;
-        margin: 0 0px 50px 0; 
+        margin: 0 0 50px 0; 
         gap: 20px;
     }
-    .book .tags {
-        flex-wrap: wrap;
-    }
-
+    
     .book .slider {
         width: 220px;
         height: 200px;
     }
+    
     .book .slider img{
         height: 100%;
         width: 100%;
     }
+    
     .book .slider .arrow {
         top: 100px;
         padding: 5px;
     }
     
     .modal-arrow{
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
         background: rgba(0, 0, 0, 0.5);
-        color: rgb(255, 255, 255);
-        border: none;
+        color: #fff;
         padding: 10px;
-        cursor: pointer;
     }
 
-    .footer__list__left{
+    .footer__list__left,
+    .footer__list__right {
         display: none;
-    }
-    .footer__list__right{
-        display: none
     }
 }
