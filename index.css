@@ -311,6 +311,7 @@ main {
     width: 12px;
     height: 12px;
     background-color: gray;
+    border: 2px solid white;
     border-radius: 50%;
     cursor: pointer;
 }
