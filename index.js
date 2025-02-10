@@ -20,22 +20,24 @@ document.addEventListener("DOMContentLoaded", function () {
         updateIndicators(slider); // インジケーターを更新
     }
 
-    // インジケーターの更新
-    function updateIndicators(slider) {
-        const indicators = slider.querySelector(".indicators");
-        const dots = indicators.querySelectorAll(".dot");
-        const currentIndex = parseInt(slider.dataset.index);
-
-        // 全てのインジケーターを初期化
-        dots.forEach(dot => dot.style.backgroundColor = "gray");
-
-        // 現在のインデックスに対応するインジケーターをアクティブにする
-        if (dots[currentIndex]) {
-            dots[currentIndex].style.backgroundColor = "black";
+        // インジケーターの更新
+        function updateIndicators(slider) {
+            const indicators = slider.querySelector(".indicators");
+            const dots = indicators.querySelectorAll(".dot");
+            const currentIndex = parseInt(slider.dataset.index);
+    
+            // 全てのインジケーターを初期化
+            dots.forEach(dot => dot.style.backgroundColor = "gray");
+    
+            // 現在のインデックスに対応するインジケーターをアクティブにする
+            if (dots[currentIndex]) {
+                dots[currentIndex].style.backgroundColor = "black";
+            }
         }
-    }
+    
+        // すべてのスライダーにインジケーターを作成
 
-    // すべてのスライダーにインジケーターを作成
+    // すべての矢印ボタン（prev、next）にイベントリスナーを追加
     sliders.forEach(slider => {
         const images = slider.getAttribute("data-images").split(",");
         const indicators = slider.querySelector(".indicators");
@@ -53,17 +55,18 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
-        // スライダーに初期インデックスを保存
         slider.dataset.index = 0;
 
         const prevButton = slider.querySelector(".arrow.prev");
         const nextButton = slider.querySelector(".arrow.next");
 
+        // スライダーに初期インデックスを保存
+        
+
         if (prevButton && nextButton) {
             prevButton.addEventListener("click", (event) => changeImage(event, -1)); // 前の画像に進む
             nextButton.addEventListener("click", (event) => changeImage(event, 1)); // 次の画像に進む
         }
-
         // 初期状態でインジケーターを更新
         updateIndicators(slider);
     });
@@ -92,3 +95,13 @@ function toggleMenu() {
     hamburger.classList.toggle('open');  // 'open'クラスを切り替え
 }
 
+function openModal(imgSrc) {
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    modal.style.display = "block";
+    modalImg.src = imgSrc;
+}
+
+function closeModal() {
+    document.getElementById('imageModal').style.display = "none";
+}
