@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const currentIndex = parseInt(slider.dataset.index);
     
             // 全てのインジケーターを初期化
-            dots.forEach(dot => dot.style.backgroundColor = "gray");
+            dots.forEach(dot => dot.style.backgroundColor = "rgb(205, 205, 205)");
     
             // 現在のインデックスに対応するインジケーターをアクティブにする
             if (dots[currentIndex]) {
