@@ -73,6 +73,68 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+let currentModalSlider = null;
+        
+function openModal(imgElement) {
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    const slider = imgElement.closest('.slider');
+    currentModalSlider = slider;
+    
+    // モーダルを表示
+    modal.style.display = "block";
+    modalImg.src = imgElement.src;
+    
+    // インジケーターを設定
+    setupModalIndicators(slider);
+    updateModalIndicators();
+}
+
+function setupModalIndicators(slider) {
+    const images = slider.getAttribute("data-images").split(",");
+    const indicatorsContainer = document.getElementById('modalIndicators');
+    indicatorsContainer.innerHTML = '';
+    
+    images.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.className = 'modal-dot';
+        dot.onclick = (e) => {
+            e.stopPropagation();
+            currentModalSlider.dataset.index = index;
+            document.getElementById('modalImage').src = images[index];
+            updateModalIndicators();
+        };
+        indicatorsContainer.appendChild(dot);
+    });
+}
+
+function updateModalIndicators() {
+    const dots = document.querySelectorAll('.modal-dot');
+    const currentIndex = parseInt(currentModalSlider.dataset.index || 0);
+    
+    dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentIndex);
+    });
+}
+
+function changeModalImage(step) {
+    event.stopPropagation();
+    const images = currentModalSlider.getAttribute("data-images").split(",");
+    let currentIndex = parseInt(currentModalSlider.dataset.index || 0);
+    
+    currentIndex = (currentIndex + step + images.length) % images.length;
+    currentModalSlider.dataset.index = currentIndex;
+    
+    document.getElementById('modalImage').src = images[currentIndex];
+    updateModalIndicators();
+}
+
+function closeModal() {
+    document.getElementById('imageModal').style.display = "none";
+    currentModalSlider = null;
+}
+
+
 function toggleAnswer(button) {
     const answer = button.previousElementSibling;
     const answerText = answer.textContent.trim();
@@ -93,15 +155,4 @@ function toggleMenu() {
 
     // ハンバーガーメニューの色を変更する
     hamburger.classList.toggle('open');  // 'open'クラスを切り替え
-}
-
-function openModal(imgSrc) {
-    const modal = document.getElementById('imageModal');
-    const modalImg = document.getElementById('modalImage');
-    modal.style.display = "block";
-    modalImg.src = imgSrc;
-}
-
-function closeModal() {
-    document.getElementById('imageModal').style.display = "none";
 }

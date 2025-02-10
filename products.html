@@ -17,12 +17,86 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="index.js"></script>
+    <style>
+        .modal {
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            display: none;
+            cursor: pointer;
+        }
+
+        .modal-content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #modalImage {
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .modal-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.3);
+            border: none;
+            color: white;
+            padding: 15px;
+            cursor: pointer;
+            font-size: 24px;
+            border-radius: 0;
+        }
+
+        .modal-arrow.prev {
+            left: 20px;
+        }
+
+        .modal-arrow.next {
+            right: 20px;
+        }
+
+        .modal-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .modal-dot {
+            width: 12px;
+            height: 12px;
+            background-color: gray;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .modal-dot.active {
+            background-color: black;
+        }
+    </style>
 </head>
 
 <body>
     <!-- モーダル用のdiv -->
     <div id="imageModal" class="modal" onclick="closeModal()">
-        <img id="modalImage" src="" alt="拡大画像">
+        <div class="modal-content">
+            <button class="modal-arrow prev" onclick="changeModalImage(-1)">&#9665;</button>
+            <img id="modalImage" src="" alt="拡大画像">
+            <button class="modal-arrow next" onclick="changeModalImage(1)">&#9655;</button>
+            <div class="modal-indicators" id="modalIndicators"></div>
+        </div>
     </div>
 
     <!-- ヘッダーを外部ファイルから読み込む -->
@@ -44,7 +118,7 @@
                     <li class="book">
                         <div class="slider" data-images="images/quizbook1_frontcover.jpg,images/quizbook1_firstpage.jpg,images/quizbook1_backcover.jpg">
                             <button class="arrow prev" onclick="changeImage(-1)">&#9665;</button>
-                            <img class="quizImage" src="images/quizbook1_frontcover.jpg" alt="Quiz Book" onclick="openModal(this.src)">
+                            <img class="quizImage" src="images/quizbook1_frontcover.jpg" alt="Quiz Book" onclick="openModal(this)">
                             <button class="arrow next" onclick="changeImage(1)">&#9655;</button>
                             <div class="indicators">
                                 <span class="dot"></span>
@@ -69,7 +143,7 @@
                     <li class="book">
                         <div class="slider" data-images="images/quizbook2_frontcover.jpg,images/quizbook2_firstpage.jpg,images/quizbook2_backcover.jpg">
                             <button class="arrow prev" onclick="changeImage(-1)">&#9665;</button>
-                            <img class="quizImage" src="images/quizbook2_frontcover.jpg" alt="Quiz Book2" onclick="openModal(this.src)">
+                            <img class="quizImage" src="images/quizbook2_frontcover.jpg" alt="Quiz Book2" onclick="openModal(this)">
                             <button class="arrow next" onclick="changeImage(1)">&#9655;</button>
                             <div class="indicators">
                                 <span class="dot"></span>
@@ -91,26 +165,6 @@
                             </ul>
                         </div>
                     </li>
-                    <!-- <li class="book">
-                        <div class="slider" data-images="images/quizbook2_frontcover.jpg,images/quizbook2_firstpage.jpg,images/quizbook2_backcover.jpg">
-                            <button class="arrow prev" onclick="changeImage(-1)">&#9665;</button>
-                            <img class="quizImage" src="images/quizbook2_frontcover.jpg" alt="Quiz Book">
-                            <button class="arrow next" onclick="changeImage(1)">&#9655;</button>
-                        </div>
-                        <div class="info">
-                            <h4>クイズの壺2～世界の解像度を上げる300問～</h4>
-                            <ul class="tags">
-                                <li class="tag"><a href="#">初心者向け</a></li>
-                                <li class="tag"><a href="#">ノンジャンル</a></li>
-                            </ul>
-                            <ul class="shops">
-                                <li class="shop"><a href="https://q-tak.com/?p=18280" target="_blank"
-                                        rel="noopener noreferrer">クイズ宅配便 <span>¥501</span></a></li>
-                                <li class="shop"><a href="https://booth.pm/ja/items/6254358" target="_blank"
-                                        rel="noopener noreferrer">BOOTH <span>¥500</span></a></li>
-                            </ul>
-                        </div>
-                    </li> -->
                 </ul>
             </div>
         </div>
@@ -124,6 +178,7 @@
                 .then(data => document.querySelector("footer").innerHTML = data);
         </script>
     </footer>
+
 </body>
 
 </html>
