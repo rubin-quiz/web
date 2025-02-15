@@ -42,9 +42,13 @@ header {
     background-color: #000;
 }
 
-.material-symbols-outlined{
+.header__list-item img{
     vertical-align: middle;
     margin-bottom: 3px;
+}
+
+.header__list-item:hover img {
+    filter: invert(1);
 }
 
 /* メインコンテンツ */
