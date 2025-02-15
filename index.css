@@ -367,6 +367,37 @@ main {
     float: right;
 }
 
+/* ニュース */
+.news-container {
+}
+.news-container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.news-container th, .news-container td {
+    border-bottom: 1px solid #ddd; /* ニュース間の区切り線のみ */
+    padding: 10px;
+    text-align: left;
+}
+.news-container th {
+    color: white;
+}
+.news-container td:nth-child(1) {
+    white-space: nowrap;
+
+}
+.news-container td:nth-child(2) {
+    text-align: center;
+    white-space: nowrap;
+}
+.news-container .box {
+    padding: 3px 5px;
+    margin: 2em 0;
+    border-radius: 10px;
+}
+
+
+
 /* フッター */
 .footer__list {
     background-color: #cecece;
