@@ -44,6 +44,8 @@ header {
 
 .header__list-item img{
     vertical-align: middle;
+    width: 24px;
+    height: 24px;
     margin-bottom: 3px;
 }
 
