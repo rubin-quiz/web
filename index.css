@@ -111,12 +111,16 @@ main {
     border-radius: 25px;
     cursor: pointer;
     font-size: 0.9em;
-    transition: all 0.3s ease;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    margin-top: 15px;
     position: relative;
     overflow: hidden;
+    float:left;
 }
+
+.answerbutton:hover {
+    background: #7f7f7f;
+}
+
 
 /* メンバーリスト */
 
@@ -397,6 +401,230 @@ main {
 }
 
 
+
+/* カテゴリーフィルターのスタイル */
+.category-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.category-filter {
+    background: #fff;
+    border: 2px solid #ff8c00;
+    color: #333;
+    padding: 6px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.9em;
+}
+
+.category-filter:hover {
+    background: #ff8c00;
+    color: #333;
+}
+
+.category-filter.active {
+    background: #ff8c00;
+    color: #333;
+}
+
+/* クイズコンテナのスタイル */
+.quiz-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* クイズアイテムのスタイル */
+.quiz-item {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.quiz-item:hover {
+    transform: translateY(-2px);
+}
+
+/* クイズヘッダーのスタイル */
+
+.quiz-item .parent{
+    display: flow-root;
+}
+
+
+
+/* 問題文のスタイル */
+.quiz-question {
+    font-size: 1.1em;
+    margin-bottom: 15px;
+    color: #333;
+}
+.quiz-category {
+    background: #ff8c00;
+    color: #333;
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.9em;
+    float:right
+}
+
+/* 答えのスタイル */
+.answer {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    color: #000000;
+}
+
+/* ページネーションのスタイル */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.page-button {
+    background: #ffffff; /* 白 */
+    border: 2px solid #000000; /* 黒 */
+    color: #000000; /* 黒 */
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.page-button:hover {
+    background: #cccccc; /* 明るい灰色 */
+    color: #000000; /* 黒 */
+}
+
+.page-button.active {
+    background: #aaaaaa; /* 中間の灰色 */
+    color: #000000; /* 黒 */
+}
+
+/* カテゴリーフィルターのスタイル */
+.category-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.category-filter {
+    background: #fff;
+    border: 2px solid #ff8c00;
+    color: #333;
+    padding: 6px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.9em;
+}
+
+.category-filter:hover {
+    background: #ff8c00;
+    color: #333;
+}
+
+.category-filter.active {
+    background: #ff8c00;
+    color: #333;
+}
+
+/* クイズコンテナのスタイル */
+.quiz-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* クイズアイテムのスタイル */
+.quiz-item {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.quiz-item:hover {
+    transform: translateY(-2px);
+}
+
+/* クイズヘッダーのスタイル */
+
+.quiz-item .parent{
+    display: flow-root;
+}
+
+
+
+/* 問題文のスタイル */
+.quiz-question {
+    font-size: 1.1em;
+    margin-bottom: 15px;
+    color: #333;
+}
+.quiz-category {
+    background: #ff8c00;
+    color: #333;
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.9em;
+    float:right
+}
+
+/* 答えのスタイル */
+.answer {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    color: #000000;
+}
+
+/* ページネーションのスタイル */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.page-button {
+    background: #ffffff; /* 白 */
+    border: 2px solid #000000; /* 黒 */
+    color: #000000; /* 黒 */
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.page-button:hover {
+    background: #cccccc; /* 明るい灰色 */
+    color: #000000; /* 黒 */
+}
+
+.page-button.active {
+    background: #aaaaaa; /* 中間の灰色 */
+    color: #000000; /* 黒 */
+}
 
 /* フッター */
 .footer__list {
