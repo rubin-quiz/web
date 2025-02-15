@@ -479,6 +479,12 @@ main {
     z-index: 999;
 }
 
+.menu-overlay img{
+    width: 24px;
+    height: 24px;
+    filter: invert(100%);
+}
+
 .menu-overlay a {
     color: white;
     font-size: 24px;
@@ -501,6 +507,7 @@ main {
 
 .menu-overlay-footer img{
     height: 30px;
+    width: 30px;
     filter: invert(100%);
 }
 
