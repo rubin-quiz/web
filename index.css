@@ -77,8 +77,7 @@ main {
     width: 90vw;
 }
 
-/* 特集コンテンツ */
-.weeklyquiz{
+/* .weeklyquiz{
     background: linear-gradient(135deg, #fff8f0 0%, #ffe4c4 100%);
     box-shadow: 0 4px 15px rgba(255, 140, 0, 0.15);
     border-left: 5px solid #ff8c00;
@@ -86,16 +85,17 @@ main {
     padding: 25px 30px;
     line-height: 1.8;
     color: black;
-}
+} */
 
-.latestnews{
-    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    border-left: 5px solid #424242;
-    border-radius: 0 10px 10px 0;
+.latestnews {
+    background: linear-gradient(135deg, #ffffff, #f5f5f5);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+    border-radius: 10px;
     padding: 25px 30px;
     line-height: 1.8;
     color: black;
+    border: 2px solid rgba(200, 200, 200, 0.8);
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
 }
 
 .news-date {
@@ -411,14 +411,15 @@ main {
 }
 
 .category-filter {
-    background: #fff;
+    background: #ffffff;
     border: 2px solid #ffd93d;
     color: #333;
-    padding: 8px 16px;
+    padding: 4px 12px;
     border-radius: 20px;
     cursor: pointer;
     transition: all 0.3s;
     font-size: 0.9em;
+    font-weight:bold;
 }
 
 .category-filter:hover {
@@ -443,23 +444,30 @@ main {
 
 /* クイズコンテナのスタイル */
 .quiz-container {
-    max-width: 800px;
+    width: 100%;
     margin: 0 auto;
-    padding: 20px;
+
 }
 
 /* クイズアイテムのスタイル */
 .quiz-item {
-    background: white;
-    border-radius: 15px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
+    background: linear-gradient(135deg, #ffffff, #f9f9f9);
+    border-radius: 18px;
+    padding: 22px;
+    margin-bottom: 22px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.8);
 }
 
 .quiz-item:hover {
-    transform: translateY(-2px);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, #f9f9f9, #ececec);
 }
 
 /* 問題文のスタイル */
@@ -492,28 +500,30 @@ main {
     color: #333;
 }
 
-/* 回答トグルのスタイル */
+/* 回答トグル */
 .answer-toggle {
+    margin-top: 15px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     cursor: pointer;
-    color: #4ecdc4;
-    transition: color 0.3s;
+    font-weight: bold;
+    color: #38a1db;
+    transition: color 0.3s ease-out, transform 0.2s ease-out;
 }
 
 .answer-toggle:hover {
-    color: #45b7af;
+    color: #2d89c3;
+    transform: scale(1.05);
 }
 
 .toggle-icon {
     font-size: 1.5em;
     line-height: 1;
-    font-weight: bold;
 }
 
 .toggle-text {
-    font-size: 0.9em;
+    font-size: 1em;
 }
 
 .answer-toggle.active {
@@ -522,7 +532,6 @@ main {
 
 /* 答えのスタイル */
 .answer {
-    margin-top: 10px;
     padding: 10px;
     border-radius: 10px;
     color: #495057;
