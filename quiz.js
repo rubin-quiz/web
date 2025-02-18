@@ -3,7 +3,7 @@ const quizData = [
     {
         question: "日本で一番高い山は？",
         answer: "富士山（3,776m）",
-        categories: ["地理", "観光"]
+        categories: ["地理", ]
     },
     {
         question: "「となりのトトロ」の監督は誰？",
@@ -18,7 +18,7 @@ const quizData = [
     {
         question: "英語で「bell pepper」「green pepper」といえば？",
         answer: "ピーマン",
-        categories: ["英語", "食べ物"]
+        categories: ["言語", "食べ物"]
     },
     {
         question: "日本の国鳥は？",
@@ -28,22 +28,22 @@ const quizData = [
     {
         question: "「SQL」の正式名称は？",
         answer: "Structured Query Language",
-        categories: ["テクノロジー", "プログラミング"]
+        categories: ["IT"]
     },
     {
         question: "世界一高い山は？",
         answer: "エベレスト",
-        categories: ["地理", "観光"]
+        categories: ["地理",]
     },
     {
         question: "フランス語で「雷」という意味のお菓子といえば？",
         answer: "エクレア",
-        categories: ["食べ物", "フランス語"]
+        categories: ["食べ物", "言語"]
     },
     {
         question: "自転軸が黄道面に対して約98度と、大きく傾いている惑星は？",
         answer: "天王星",
-        categories: ["天文", "理科"]
+        categories: ["科学"]
     },
 ];
 

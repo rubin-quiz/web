@@ -6,7 +6,7 @@ function displayFirstQuiz() {
     const quiz = {
         question: "日本で一番高い山は？",
         answer: "富士山（3,776m）",
-        categories: ["地理", "観光"]
+        categories: ["地理", ]
     };
     const quizElement = document.createElement('div');
     quizElement.className = 'quiz-item';
