@@ -4,9 +4,9 @@ function displayFirstQuiz() {
     quizContainer.innerHTML = '';
     
     const quiz = {
-        question: "日本で一番高い山は？",
-        answer: "富士山（3,776m）",
-        categories: ["地理", ]
+        question: "白地に黒で描かれた図形が「向かい合った2人の顔」にも「大きな壺」にも見えるという特徴を持つだまし絵のことを、これを考案したデンマークの心理学者の名前から「何の壺」というでしょう？",
+        answer: "ルビン（の壺）",
+        categories: ["つぼ", ]
     };
     const quizElement = document.createElement('div');
     quizElement.className = 'quiz-item';

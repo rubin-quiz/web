@@ -88,14 +88,30 @@ main {
 } */
 
 .latestnews {
-    background: linear-gradient(135deg, #ffffff, #f5f5f5);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
-    border-radius: 10px;
-    padding: 25px 30px;
+    background: #fff;
+    box-shadow: 
+        0 1px 3px rgba(0, 0, 0, 0.12),
+        0 1px 2px rgba(0, 0, 0, 0.24),
+        0 0 0 1px rgba(0, 0, 0, 0.05);
+    border-radius: 2px;
+    padding: 25px 20px;
     line-height: 1.8;
-    color: black;
-    border: 2px solid rgba(200, 200, 200, 0.8);
-    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+    color: #333;
+    position: relative;
+    border-left: 5px solid #2c3e50;
+    margin-bottom: 22px;
+    
+    /* hover時のエフェクト */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* hover時の挙動 */
+.latestnews:hover {
+    box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.15),
+        0 2px 4px rgba(0, 0, 0, 0.12),
+        0 0 0 1px rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
 }
 
 .news-date {
@@ -451,23 +467,39 @@ main {
 
 /* クイズアイテムのスタイル */
 .quiz-item {
-    background: linear-gradient(135deg, #ffffff, #f9f9f9);
-    border-radius: 18px;
-    padding: 22px;
-    margin-bottom: 22px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
-    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+    background: #fff;
+    box-shadow: 
+        0 1px 3px rgba(0, 0, 0, 0.12),
+        0 1px 2px rgba(0, 0, 0, 0.24),
+        0 0 0 1px rgba(0, 0, 0, 0.05);
+    border-radius: 2px;
+    padding: 20px 20px 10px 20px;
+    line-height: 1.8;
+    color: black;
+    position: relative;
     font-weight: bold;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-left: 5px solid #2c3e50;
+    margin-bottom: 22px;
+    
+    /* 新聞らしい質感を追加 */
+    background-image: 
+        linear-gradient(90deg, 
+            rgba(0,0,0,0.06) 1px, 
+            transparent 1px),
+        linear-gradient(rgba(0,0,0,0.06) 1px, 
+            transparent 1px);
+    background-size: 20px 20px;
+    /* hover時のエフェクト */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* hover時の挙動 */
 .quiz-item:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-    background: linear-gradient(135deg, #f9f9f9, #ececec);
+    box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.15),
+        0 2px 4px rgba(0, 0, 0, 0.12),
+        0 0 0 1px rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
 }
 
 /* 問題文のスタイル */
@@ -533,7 +565,6 @@ main {
 /* 答えのスタイル */
 .answer {
     padding: 10px;
-    border-radius: 10px;
     color: #495057;
 }
 
