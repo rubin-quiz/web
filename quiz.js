@@ -167,6 +167,9 @@ function displayQuizzes(page) {
     
     // ページネーションを更新
     updatePagination(filteredQuizzes.length);
+
+    // ページ遷移後にスクロール位置を固定（ページ上部に戻さない）
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // 答えトグルのイベントを設定
