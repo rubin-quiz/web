@@ -311,10 +311,11 @@ main {
 }
 
 /* タグ */
-.book .tags{
+.tags{
     list-style: none;
     display: flex;
 }
+
 
 .tags a {
     position: relative;
@@ -324,7 +325,7 @@ main {
     line-height: 1;
     color: #fff;
     text-decoration: none;
-    background-color: #566270;
+    background-color: var(--tag-color, #566270);
     font-size: 11px;
     font-weight: 500;
     letter-spacing: 0.5px;
@@ -334,11 +335,14 @@ main {
     cursor: default;
 }
 
-.tags a::before {
-    content: '#';
-    margin-right: 4px;
-    opacity: 0.8;
-}
+.tag-a a {
+    background-color: #3498db; /* 青色 */
+  }
+
+.tag-b a {
+    background-color: #ffd93d; 
+    color: #000;/* 青色 */
+  }
 
 /* ショップリンク */
 .book .shops{
