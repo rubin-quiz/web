@@ -392,7 +392,7 @@ main {
     border-collapse: collapse;
 }
 .news-container th, .news-container td {
-    border-bottom: 1px solid #ddd; /* ニュース間の区切り線のみ */
+    border-bottom: 1px solid #d0cbcb; /* ニュース間の区切り線のみ */
     padding: 10px;
     text-align: left;
 }
@@ -822,6 +822,23 @@ main {
         background: rgba(0, 0, 0, 0.5);
         color: #fff;
         padding: 10px;
+    }
+    
+
+    tr td:nth-child(1),
+    tr td:nth-child(2) {
+        display: block;
+        width: 100%;
+        border-bottom: 0px;
+        
+    }
+
+    .tags {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        margin: 0;
+        padding: 0;
     }
 
     .footer__list__left,
