@@ -565,6 +565,15 @@ main {
     color: #495057;
 }
 
+.supplement {
+    font-size: 0.9em;
+    background-color: #ececec; /* 優しいグレー */
+    padding: 8px 12px;
+    margin-top: 6px;
+    border-radius: 6px;
+    font-weight: 300;
+}
+
 /* ページネーションのスタイル */
 .pagination {
     display: flex;

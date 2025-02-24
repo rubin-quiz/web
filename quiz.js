@@ -13,7 +13,8 @@ const quizData = [
     {
         question: "「万物の根源は水である」と唱えた古代ギリシャの哲学者は誰でしょう？",
         answer: "タレス",
-        categories: ["倫理", ]
+        categories: ["倫理", ],
+        supplement: "なお、ヘラクレイトスは万物の根源を「火」と唱えました"
     },
     {
         question: "ファミリーマートの商品の中で初めて学校給食として提供されることが発表された、同コンビニチェーンの看板商品は何でしょう？",
@@ -167,7 +168,10 @@ function displayQuizzes(page) {
                     ).join('')}
                 </div>
             </div>
-            <div class="answer" style="display: none;">${quiz.answer}</div>
+            <div class="answer" style="display: none;">
+                ${quiz.answer}
+                ${quiz.supplement ? `<div class="supplement">${quiz.supplement}</div>` : ''}
+            </div>
         `;
         quizContainer.appendChild(quizElement);
     }
@@ -181,6 +185,7 @@ function displayQuizzes(page) {
     // ページ遷移後にスクロール位置を固定
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
 
 // 答えトグルのイベントを設定
 function setupAnswerToggles() {
