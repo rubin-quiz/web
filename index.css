@@ -601,6 +601,14 @@ main {
     border-color: #ccc;
     color: #333;
 }
+
+.sns img {
+    height: 30px;
+    width: 30px;
+    filter: invert(100%);
+}
+
+
 /* フッター */
 .footer__list {
     background-color: #cecece;
