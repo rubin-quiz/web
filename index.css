@@ -327,6 +327,7 @@ main {
 .tags {
     list-style: none;
     display: flex;
+    gap: 0 10px
 }
 
 .tags a {
@@ -350,7 +351,7 @@ main {
 }
 
 .tags .tag a{
-    margin:3px 0px;
+    margin:5px 0px;
 }
 
 
