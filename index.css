@@ -323,17 +323,15 @@ main {
 }
 
 /* タグ */
-.tags{
+
+.tags {
     list-style: none;
     display: flex;
-    flex-wrap: wrap;
 }
-
 
 .tags a {
     position: relative;
     display: inline-block;
-    white-space: nowrap;
     margin: 5px 10px 5px 0;
     padding: 8px 12px;
     line-height: 1;
@@ -347,7 +345,15 @@ main {
     transition: all 0.2s ease;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     cursor: default;
+    margin-top: 5px; /* 上部マージン */
+    margin-bottom: 5px; /* 下部マージン */
 }
+
+.tags .tag a{
+    margin:3px 0px;
+}
+
+
 
 .tag-a a {
     background-color: #3498db; /* 青色 */
