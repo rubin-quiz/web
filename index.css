@@ -457,10 +457,10 @@ main {
     font-weight:bold;
 }
 
-.category-filter:hover {
+/* .category-filter:hover {
     background: #ffd93d;
     color: #333;
-}
+} */
 
 .category-filter.active {
     background: #ffd93d;
@@ -472,10 +472,10 @@ main {
     color: #ff6b6b;
 }
 
-.category-filter.clear-all:hover {
+/* .category-filter.clear-all:hover {
     background: #ff6b6b;
     color: white;
-}
+} */
 
 /* クイズコンテナのスタイル */
 .quiz-container {
