@@ -327,6 +327,7 @@ main {
 .tags {
     list-style: none;
     display: flex;
+    flex:wrap;
     gap: 0 10px
 }
 
@@ -867,14 +868,6 @@ main {
         width: 100%;
         border-bottom: 0px;
         
-    }
-
-    .tags {
-        display: flex;
-        /* flex-direction: column; */
-        gap: 5px;
-        margin: 0;
-        padding: 0;
     }
 
     .footer__list__left,
