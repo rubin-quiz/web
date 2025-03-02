@@ -871,17 +871,12 @@ main {
     tr td:nth-child(2) {
         display: block;
         width: 100%;
-        /* border-bottom: 0px; */
+        border-bottom: 0px;
         
     }
 
     tr td:nth-child(1){
         padding-top: 12px;
-        border-bottom: 0px;
-    }
-
-    tr td:nth-child(2){
-        padding-bottom: 32px;
     }
 
     .footer__list__left,
