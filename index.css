@@ -358,11 +358,12 @@ main {
 
 
 .tag-a a {
-    background-color: #3498db; /* 青色 */
+    background-color: #ffb46a; /* 青色 */
+    color: #000;/* 青色 */
   }
 
 .tag-b a {
-    background-color: #ffd93d; 
+    background-color: #dbdbdb; 
     color: #000;/* 青色 */
   }
 
@@ -457,10 +458,10 @@ main {
     font-weight:bold;
 }
 
-.category-filter:hover {
+/* .category-filter:hover {
     background: #ffd93d;
     color: #333;
-}
+} */
 
 .category-filter.active {
     background: #ffd93d;
@@ -472,10 +473,10 @@ main {
     color: #ff6b6b;
 }
 
-.category-filter.clear-all:hover {
+/* .category-filter.clear-all:hover {
     background: #ff6b6b;
     color: white;
-}
+} */
 
 /* クイズコンテナのスタイル */
 .quiz-container {
@@ -702,10 +703,10 @@ main {
 }
 
 .bar {
-    width: 30px;
-    height: 3px;
-    background-color: black;
-    margin: 5px 0;
+    width: 27px;
+    height: 4px;
+    background-color: rgb(64, 64, 64);
+    margin: 4px 0;
     transition: all 0.3s ease;
 }
 
@@ -726,7 +727,7 @@ main {
 .hamburger.open .bar:nth-child(3) {
     transform: rotate(-45deg);
     position: relative;
-    top: -13px;
+    top: -11px;
 }
 
 .menu-overlay {
@@ -866,8 +867,17 @@ main {
     tr td:nth-child(2) {
         display: block;
         width: 100%;
-        border-bottom: 0px;
+        /* border-bottom: 0px; */
         
+    }
+
+    tr td:nth-child(1){
+        padding-top: 12px;
+        border-bottom: 0px;
+    }
+
+    tr td:nth-child(2){
+        padding-bottom: 32px;
     }
 
     .footer__list__left,
