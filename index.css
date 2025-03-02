@@ -351,10 +351,17 @@ main {
     margin-bottom: 5px; /* 下部マージン */
 }
 
+.caption .tags {
+    flex-wrap: wrap;
+}
+
+.book .tags {
+    flex-wrap: wrap;
+}
+
 .tags .tag a{
     margin:5px 0px;
 }
-
 
 
 .tag-a a {
@@ -798,10 +805,7 @@ main {
         align-items: flex-start;
         gap: 30px;
     }
-    
-    .book .tags {
-        flex-wrap: wrap;
-    }
+
 
     .book .slider {
         width: 211px;
