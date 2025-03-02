@@ -726,7 +726,7 @@ main {
 .hamburger.open .bar:nth-child(3) {
     transform: rotate(-45deg);
     position: relative;
-    top: -12px;
+    top: -11px;
 }
 
 .menu-overlay {
