@@ -638,20 +638,21 @@ main {
     filter: invert(100%);
 }
 
-/* 変数定義 */
+
 :root {
-    --primary-color: #6a5acd;
-    --secondary-color: #9370db;
-    --accent-color: #4b0082;
-    --correct-color: #4caf50;
-    --wrong-color: #f44336;
-    --background-color: #f5f5f5;
-    --card-background: #ffffff;
-    --text-color: #333333;
-    --timer-bg: #e0e0e0;
-    --shadow-sm: 0 3px 5px rgba(0, 0, 0, 0.1);
-    --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.1);
-    --border-radius: 8px;
+    /* カラフルでポップなカラーテーマ */
+    --primary-color: #ff5722;     /* ビビッドなオレンジ */
+    --secondary-color: #ff9800;   /* 明るいオレンジ */
+    --accent-color: #9c27b0;      /* パープル */
+    --correct-color: #4caf50;     /* グリーン */
+    --wrong-color: #f44336;       /* レッド */
+    --background-color: #f0f4ff;  /* 薄い水色 */
+    --card-background: #ffffff;   /* 白 */
+    --text-color: #333333;        /* 濃いグレー */
+    --timer-bg: #e0e0e0;          /* ライトグレー */
+    --shadow-sm: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.15);
+    --border-radius: 12px;        /* より丸みをつける */
     --spacing-xs: 0.5rem;
     --spacing-sm: 0.8rem;
     --spacing-md: 1rem;
@@ -663,12 +664,25 @@ main {
   .game-container {
     background-color: var(--card-background);
     border-radius: calc(var(--border-radius) * 1.5);
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-md), 0 0 0 10px rgba(255, 87, 34, 0.1);
     padding: var(--spacing-xl);
     max-width: 600px;
     width: 90%;
     text-align: center;
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border: 3px solid var(--primary-color);
+  }
+  
+  .game-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color), var(--secondary-color));
   }
   
   /* ボタンスタイル */
@@ -677,24 +691,30 @@ main {
     color: white;
     border: none;
     border-radius: var(--border-radius);
-    padding: var(--spacing-sm) var(--spacing-lg);
-    margin: var(--spacing-xs);
-    font-size: 1rem;
+    padding: var(--spacing-md) var(--spacing-lg);
+    margin: var(--spacing-sm);
+    font-size: 1.1rem;
+    font-weight: bold;
     cursor: pointer;
-    transition: transform 0.2s ease, background-color 0.2s ease;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                background-color 0.2s ease,
+                box-shadow 0.3s ease;
     width: calc(100% - 2rem);
     text-align: left;
     position: relative;
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-sm), 0 4px 0 0 rgba(0,0,0,0.1);
+    letter-spacing: 0.5px;
   }
   
   .game-button:hover {
     background-color: var(--secondary-color);
-    transform: translateY(-2px);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md), 0 8px 0 0 rgba(0,0,0,0.1);
   }
   
   .game-button:active {
-    transform: translateY(1px);
+    transform: translateY(2px);
+    box-shadow: var(--shadow-sm), 0 2px 0 0 rgba(0,0,0,0.1);
   }
   
   /* コントロールボタン */
@@ -703,27 +723,61 @@ main {
     width: auto;
     display: inline-block;
     text-align: center;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     background-color: var(--accent-color);
     padding: var(--spacing-md) var(--spacing-xl);
+    border-radius: var(--border-radius);
+    margin-top: var(--spacing-lg);
+    box-shadow: 0 6px 0 0 rgba(0,0,0,0.1);
+    transform-origin: center;
+    animation: pulsate 2s infinite;
+  }
+  
+  @keyframes pulsate {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+  
+  #game-start:hover, 
+  #game-restart:hover {
+    animation: none;
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 10px 0 0 rgba(0,0,0,0.1);
+  }
+  
+  #game-start:active, 
+  #game-restart:active {
+    animation: none;
+    transform: translateY(2px) scale(0.98);
+    box-shadow: 0 2px 0 0 rgba(0,0,0,0.1);
   }
   
   /* 正解・不正解スタイル */
   .game-correct {
     background-color: var(--correct-color) !important;
     color: white;
-    animation: pulse 0.5s ease;
+    animation: correct-answer 0.75s ease;
   }
   
   .game-wrong {
     background-color: var(--wrong-color) !important;
     color: white;
+    animation: wrong-answer 0.5s ease;
   }
   
-  @keyframes pulse {
+  @keyframes correct-answer {
     0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
+    40% { transform: scale(1.08); }
+    60% { transform: scale(1.05); }
+    80% { transform: scale(1.08); }
     100% { transform: scale(1); }
+  }
+  
+  @keyframes wrong-answer {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-5px); }
+    40%, 80% { transform: translateX(5px); }
   }
   
   /* 正解エフェクト */
@@ -732,20 +786,25 @@ main {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(76, 175, 80, 0.9);
+    background-color: rgba(76, 175, 80, 0.95);
     color: white;
     padding: var(--spacing-lg) var(--spacing-xl);
     border-radius: var(--border-radius);
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: bold;
     z-index: 100;
-    animation: fadeIn 0.3s, fadeOut 0.3s 0.7s;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), fadeOut 0.3s 0.7s;
     pointer-events: none;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    border: 3px solid white;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.2);
   }
   
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+  @keyframes popIn {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+    80% { transform: translate(-50%, -50%) scale(1.1); }
+    100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
   }
   
   @keyframes fadeOut {
@@ -753,81 +812,192 @@ main {
     to { opacity: 0; }
   }
   
-  /* タイマーゲージ - transition修正 */
+  /* タイマーゲージ */
   .timer-container {
     width: 100%;
-    height: 10px;
+    height: 12px;
     background-color: var(--timer-bg);
-    border-radius: 5px;
+    border-radius: 999px;
     margin: var(--spacing-md) 0;
     overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
   }
   
   .timer-gauge {
     height: 100%;
-    background-color: var(--primary-color);
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
     width: 100%;
-    /* トランジションを削除（JavaScriptで直接制御） */
+    border-radius: 999px;
   }
   
   .timer-critical {
-    background-color: var(--wrong-color);
+    background: linear-gradient(90deg, #ff6b6b, #ff0000);
+    animation: pulse-critical 0.8s infinite;
+  }
+  
+  @keyframes pulse-critical {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
   }
   
   /* スコア表示 */
   #game-score, 
   #game-timer {
     margin: var(--spacing-md) 0;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-sm);
+    display: inline-block;
+    box-shadow: var(--shadow-sm);
   }
   
   #game-score-count, 
   #game-time-left {
     font-weight: bold;
     color: var(--accent-color);
+    font-size: 1.3rem;
+    transition: all 0.2s ease;
   }
   
   /* リザルト画面 */
   #game-final-score {
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: bold;
     margin: var(--spacing-lg) 0;
     color: var(--accent-color);
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
+    animation: scoreReveal 1s ease-out;
+  }
+  
+  @keyframes scoreReveal {
+    0% { opacity: 0; transform: scale(0.8) translateY(20px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
   }
   
   /* 結果テーブル */
   .result-table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     margin: var(--spacing-lg) 0;
     text-align: left;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    animation: tableAppear 0.8s ease-out;
+  }
+  
+  @keyframes tableAppear {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
   }
   
   .result-table th, 
   .result-table td {
-    padding: 0.75rem;
-    border-bottom: 1px solid #ddd;
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
   }
   
   .result-table th {
-    background-color: var(--secondary-color);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: white;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+  }
+  
+  .result-table tr:last-child td {
+    border-bottom: none;
   }
   
   .result-table tr:nth-child(even) {
-    background-color: #f9f9f9;
+    background-color: rgba(255, 152, 0, 0.05);
+  }
+  
+  .result-table tr:hover {
+    background-color: rgba(255, 152, 0, 0.1);
   }
   
   .answer-correct {
     color: var(--correct-color);
     font-weight: bold;
+    position: relative;
+    padding-left: 20px;
+  }
+  
+  .answer-correct::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--correct-color);
   }
   
   .answer-wrong {
     color: var(--wrong-color);
     font-weight: bold;
+    position: relative;
+    padding-left: 20px;
   }
   
+  .answer-wrong::before {
+    content: '✗';
+    position: absolute;
+    left: 0;
+    color: var(--wrong-color);
+  }
+  
+  /* 問題表示 */
+  #game-question {
+    font-size: 1.4rem;
+    margin: var(--spacing-md) 0 var(--spacing-lg);
+    color: var(--text-color);
+    font-weight: bold;
+    background-color: rgba(255, 152, 0, 0.1);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    border-left: 5px solid var(--primary-color);
+    text-align: left;
+    animation: questionAppear 0.5s ease-out;
+  }
+  
+  @keyframes questionAppear {
+    0% { opacity: 0; transform: translateY(-10px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* 選択肢のコンテナ */
+  #game-choices-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: var(--spacing-lg);
+    animation: choicesAppear 0.5s ease-out;
+  }
+  
+  @keyframes choicesAppear {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* 追加装飾: 選択肢の番号表示 */
+  .game-button::before {
+    content: attr(data-index);
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    margin-right: 10px;
+    text-align: center;
+    line-height: 30px;
+    font-weight: bold;
+    color: white;
+  }
+
 /* フッター */
 .footer__list {
     background-color: #cecece;
