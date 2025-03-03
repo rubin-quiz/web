@@ -1,244 +1,282 @@
-// クイズデータ - ウェルノウンポート番号の問題を多数追加
-const gameQuestions = [
+// クイズデータ - ウェルノウンポート番号
+const quizData = [
     {
-        gameQuestion: "HTTPのポート番号は？",
-        gameChoices: ["21", "80", "443", "22"],
-        gameAnswer: 1
+        question: "HTTPのポート番号は？",
+        choices: ["21", "80", "443", "22"],
+        answer: 1
     },
     {
-        gameQuestion: "HTTPSのポート番号は？",
-        gameChoices: ["80", "443", "8080", "22"],
-        gameAnswer: 1
+        question: "HTTPSのポート番号は？",
+        choices: ["80", "443", "8080", "22"],
+        answer: 1
     },
     {
-        gameQuestion: "FTPのポート番号は？",
-        gameChoices: ["20/21", "22", "23", "25"],
-        gameAnswer: 0
+        question: "FTPのポート番号は？",
+        choices: ["20/21", "22", "23", "25"],
+        answer: 0
     },
     {
-        gameQuestion: "SSHのポート番号は？",
-        gameChoices: ["21", "22", "23", "25"],
-        gameAnswer: 1
+        question: "SSHのポート番号は？",
+        choices: ["21", "22", "23", "25"],
+        answer: 1
     },
     {
-        gameQuestion: "Telnetのポート番号は？",
-        gameChoices: ["21", "22", "23", "25"],
-        gameAnswer: 2
+        question: "Telnetのポート番号は？",
+        choices: ["21", "22", "23", "25"],
+        answer: 2
     },
     {
-        gameQuestion: "SMTPのポート番号は？",
-        gameChoices: ["21", "23", "25", "110"],
-        gameAnswer: 2
+        question: "SMTPのポート番号は？",
+        choices: ["21", "23", "25", "110"],
+        answer: 2
     },
     {
-        gameQuestion: "DNSのポート番号は？",
-        gameChoices: ["43", "53", "67", "69"],
-        gameAnswer: 1
+        question: "DNSのポート番号は？",
+        choices: ["43", "53", "67", "69"],
+        answer: 1
     },
     {
-        gameQuestion: "DHCPのポート番号は？",
-        gameChoices: ["53", "67/68", "69", "80"],
-        gameAnswer: 1
+        question: "DHCPのポート番号は？",
+        choices: ["53", "67/68", "69", "80"],
+        answer: 1
     },
     {
-        gameQuestion: "POP3のポート番号は？",
-        gameChoices: ["25", "110", "143", "389"],
-        gameAnswer: 1
+        question: "POP3のポート番号は？",
+        choices: ["25", "110", "143", "389"],
+        answer: 1
     },
     {
-        gameQuestion: "IMAPのポート番号は？",
-        gameChoices: ["110", "143", "389", "443"],
-        gameAnswer: 1
+        question: "IMAPのポート番号は？",
+        choices: ["110", "143", "389", "443"],
+        answer: 1
     },
     {
-        gameQuestion: "SNMPのポート番号は？",
-        gameChoices: ["161/162", "389", "443", "636"],
-        gameAnswer: 0
+        question: "SNMPのポート番号は？",
+        choices: ["161/162", "389", "443", "636"],
+        answer: 0
     },
     {
-        gameQuestion: "LDAPのポート番号は？",
-        gameChoices: ["161", "389", "443", "636"],
-        gameAnswer: 1
+        question: "LDAPのポート番号は？",
+        choices: ["161", "389", "443", "636"],
+        answer: 1
     },
 ];
 
-// ゲーム変数
-let gameCurrentIndex = 0;
-let gameScore = 0;
-let gameTimeLeft = 10;
-let gameTimer;
-let userAnswers = [];
+// ゲーム状態管理
+const gameState = {
+    currentIndex: 0,
+    score: 0,
+    timeLeft: 10,
+    maxTime: 10, // 最大時間を定数として保持
+    timer: null,
+    userAnswers: []
+};
 
-// 各画面の取得
-const gameStartScreen = document.getElementById("game-start-screen");
-const gameQuizScreen = document.getElementById("game-quiz-screen");
-const gameResultScreen = document.getElementById("game-result-screen");
+// DOM要素
+const DOM = {
+    screens: {
+        start: document.getElementById("game-start-screen"),
+        quiz: document.getElementById("game-quiz-screen"),
+        result: document.getElementById("game-result-screen")
+    },
+    buttons: {
+        start: document.getElementById("game-start"),
+        restart: document.getElementById("game-restart")
+    },
+    quiz: {
+        question: document.getElementById("game-question"),
+        choices: document.getElementById("game-choices-container"),
+        timeDisplay: document.getElementById("game-time-left"),
+        scoreDisplay: document.getElementById("game-score-count"),
+        timerContainer: document.getElementById("game-timer")
+    },
+    result: {
+        finalScore: document.getElementById("game-final-score")
+    }
+};
 
-// スタートボタン
-document.getElementById("game-start").addEventListener("click", startGame);
-
-// もう一度プレイボタン
-document.getElementById("game-restart").addEventListener("click", restartGame);
+// イベントリスナーの設定
+function initGame() {
+    DOM.buttons.start.addEventListener("click", startGame);
+    DOM.buttons.restart.addEventListener("click", restartGame);
+    
+    // 初期表示設定
+    DOM.screens.quiz.style.display = "none";
+    DOM.screens.result.style.display = "none";
+}
 
 // ゲーム開始
 function startGame() {
-    gameStartScreen.style.display = "none";
-    gameQuizScreen.style.display = "block";
-    gameCurrentIndex = 0;
-    gameScore = 0;
-    userAnswers = [];
-    showGameQuestion();
+    DOM.screens.start.style.display = "none";
+    DOM.screens.quiz.style.display = "block";
+    resetGameState();
+    showQuestion();
 }
 
-// 問題を表示する関数
-function showGameQuestion() {
-    clearInterval(gameTimer);
-    gameTimeLeft = 10;
-    document.getElementById("game-time-left").textContent = gameTimeLeft;
+// ゲーム状態のリセット
+function resetGameState() {
+    gameState.currentIndex = 0;
+    gameState.score = 0;
+    gameState.timeLeft = gameState.maxTime;
+    gameState.userAnswers = [];
+    DOM.quiz.scoreDisplay.textContent = "0";
+}
 
-    // タイマーゲージをリセット
-    const timerGauge = document.querySelector(".timer-gauge");
-    if (timerGauge) {
-        timerGauge.style.width = "100%";
-        timerGauge.classList.remove("timer-critical");
+// 問題表示
+function showQuestion() {
+    // タイマーをクリア
+    clearInterval(gameState.timer);
+    
+    // タイマーを初期化
+    gameState.timeLeft = gameState.maxTime;
+    DOM.quiz.timeDisplay.textContent = gameState.timeLeft;
+    
+    // タイマーゲージを初期化
+    initTimerGauge();
+
+    // 問題と選択肢を表示
+    const currentQuestion = quizData[gameState.currentIndex];
+    DOM.quiz.question.textContent = currentQuestion.question;
+    renderChoices(currentQuestion);
+
+    // タイマー開始
+    startTimer();
+}
+
+// タイマーゲージの初期化
+function initTimerGauge() {
+    // 既存のタイマーゲージを削除
+    const existingContainer = document.querySelector(".timer-container");
+    if (existingContainer) {
+        existingContainer.remove();
     }
+    
+    // 新しいタイマーゲージを作成
+    const timerContainer = document.createElement("div");
+    timerContainer.classList.add("timer-container");
+    
+    const timerGauge = document.createElement("div");
+    timerGauge.classList.add("timer-gauge");
+    timerGauge.style.width = "100%";
+    
+    timerContainer.appendChild(timerGauge);
+    DOM.quiz.timerContainer.parentNode.insertBefore(timerContainer, DOM.quiz.timerContainer);
+}
 
-    const gameCurrentQuestion = gameQuestions[gameCurrentIndex];
-
-    document.getElementById("game-question").textContent = gameCurrentQuestion.gameQuestion;
-
-    const gameChoicesContainer = document.getElementById("game-choices-container");
-    gameChoicesContainer.innerHTML = "";
-
-    gameCurrentQuestion.gameChoices.forEach((gameChoice, gameIndex) => {
-        const gameButton = document.createElement("button");
-        gameButton.textContent = gameChoice;
-        gameButton.classList.add("game-button");
-        gameButton.onclick = () => checkGameAnswer(gameIndex);
-        gameChoicesContainer.appendChild(gameButton);
+// 選択肢の表示
+function renderChoices(questionData) {
+    DOM.quiz.choices.innerHTML = "";
+    
+    questionData.choices.forEach((choice, index) => {
+        const button = document.createElement("button");
+        button.textContent = choice;
+        button.classList.add("game-button");
+        button.onclick = () => checkAnswer(index);
+        DOM.quiz.choices.appendChild(button);
     });
+}
 
-    // タイマーゲージの設定
+// タイマー開始
+function startTimer() {
+    // 最初のゲージ更新（遅延なしで即時反映）
     updateTimerGauge();
-
-    gameTimer = setInterval(() => {
-        gameTimeLeft--;
-        document.getElementById("game-time-left").textContent = gameTimeLeft;
+    
+    gameState.timer = setInterval(() => {
+        gameState.timeLeft--;
+        DOM.quiz.timeDisplay.textContent = gameState.timeLeft;
         
         // タイマーゲージの更新
         updateTimerGauge();
         
-        if (gameTimeLeft <= 0) {
-            checkGameAnswer(-1);
+        if (gameState.timeLeft <= 0) {
+            clearInterval(gameState.timer);
+            checkAnswer(-1); // 時間切れ
         }
     }, 1000);
 }
 
 // タイマーゲージの更新
 function updateTimerGauge() {
-    const timerContainer = document.querySelector(".timer-container");
-    
-    // タイマーコンテナがなければ作成
-    if (!timerContainer) {
-        const newTimerContainer = document.createElement("div");
-        newTimerContainer.classList.add("timer-container");
-        
-        const timerGauge = document.createElement("div");
-        timerGauge.classList.add("timer-gauge");
-        
-        newTimerContainer.appendChild(timerGauge);
-        
-        // タイマー表示の前に挿入
-        const timerDisplay = document.getElementById("game-timer");
-        timerDisplay.parentNode.insertBefore(newTimerContainer, timerDisplay);
-    }
-    
-    // ゲージの更新
     const gauge = document.querySelector(".timer-gauge");
-    if (gauge) {
-        const percentage = (gameTimeLeft / 10) * 100;
-        gauge.style.width = `${percentage}%`;
-        
-        // 3秒以下で赤色に変更
-        if (gameTimeLeft <= 3) {
-            gauge.classList.add("timer-critical");
-        } else {
-            gauge.classList.remove("timer-critical");
-        }
+    if (!gauge) return;
+    
+    // 表示秒数に正確に同期したゲージ幅を設定
+    const percentage = (gameState.timeLeft / gameState.maxTime) * 100;
+    gauge.style.width = `${percentage}%`;
+    
+    // 3秒以下で赤色に変更
+    if (gameState.timeLeft <= 3) {
+        gauge.classList.add("timer-critical");
+    } else {
+        gauge.classList.remove("timer-critical");
     }
 }
 
 // 回答チェック
-function checkGameAnswer(gameIndex) {
-    clearInterval(gameTimer);
-    const gameCorrectIndex = gameQuestions[gameCurrentIndex].gameAnswer;
-    const gameButtons = document.querySelectorAll("#game-choices-container .game-button");
+function checkAnswer(index) {
+    clearInterval(gameState.timer);
+    const correctIndex = quizData[gameState.currentIndex].answer;
+    const buttons = document.querySelectorAll("#game-choices-container .game-button");
 
     // ユーザーの回答を記録
-    userAnswers.push({
-        questionIndex: gameCurrentIndex,
-        userAnswer: gameIndex
+    gameState.userAnswers.push({
+        questionIndex: gameState.currentIndex,
+        userAnswer: index
     });
 
-    gameButtons.forEach((gameButton, i) => {
-        if (i === gameCorrectIndex) {
-            gameButton.classList.add("game-correct");
-        } else if (i === gameIndex && i !== gameCorrectIndex) {
-            gameButton.classList.add("game-wrong");
+    // 選択肢の色を変更
+    buttons.forEach((button, i) => {
+        if (i === correctIndex) {
+            button.classList.add("game-correct");
+        } else if (i === index && i !== correctIndex) {
+            button.classList.add("game-wrong");
         }
-        gameButton.disabled = true;
+        button.disabled = true;
     });
 
-    if (gameIndex === gameCorrectIndex) {
-        gameScore++;
-        document.getElementById("game-score-count").textContent = gameScore;
-        
-        // 正解エフェクトの表示
+    // 正解なら得点を加算
+    if (index === correctIndex) {
+        gameState.score++;
+        DOM.quiz.scoreDisplay.textContent = gameState.score;
         showCorrectFeedback();
     }
 
-    // 正解後のタイマーリセットは不要なので削除
-    // ゲージを現在の状態で維持
-    setTimeout(nextGameQuestion, 1500);
+    setTimeout(nextQuestion, 1500);
 }
 
-// 正解エフェクトの表示
+// 正解エフェクト
 function showCorrectFeedback() {
     const feedback = document.createElement("div");
     feedback.classList.add("correct-feedback");
     feedback.textContent = "正解！";
     document.body.appendChild(feedback);
     
-    // 1秒後に削除
     setTimeout(() => {
         feedback.remove();
     }, 1000);
 }
 
 // 次の問題へ
-function nextGameQuestion() {
-    gameCurrentIndex++;
-    if (gameCurrentIndex < gameQuestions.length) {
-        showGameQuestion();
+function nextQuestion() {
+    gameState.currentIndex++;
+    if (gameState.currentIndex < quizData.length) {
+        showQuestion();
     } else {
-        showGameResult();
+        showResult();
     }
 }
 
-// ゲーム終了時の処理
-function showGameResult() {
-    gameQuizScreen.style.display = "none";
-    gameResultScreen.style.display = "block";
-    document.getElementById("game-final-score").textContent = `最終スコア: ${gameScore}/${gameQuestions.length}`;
+// 結果画面表示
+function showResult() {
+    DOM.screens.quiz.style.display = "none";
+    DOM.screens.result.style.display = "block";
+    DOM.result.finalScore.textContent = `最終スコア: ${gameState.score}/${quizData.length}`;
     
-    // 問題と回答の表を作成
     createResultTable();
 }
 
-// 結果テーブルの作成
+// 結果テーブル作成
 function createResultTable() {
-    const resultContainer = document.getElementById("game-result-screen");
-    
     // 既存のテーブルがあれば削除
     const existingTable = document.querySelector(".result-table");
     if (existingTable) {
@@ -248,67 +286,90 @@ function createResultTable() {
     const table = document.createElement("table");
     table.classList.add("result-table");
     
-    // テーブルヘッダー
+    // テーブルヘッダーとボディを追加
+    table.appendChild(createTableHeader());
+    table.appendChild(createTableBody());
+    
+    // 再プレイボタンの前に挿入
+    DOM.screens.result.insertBefore(table, DOM.buttons.restart);
+}
+
+// テーブルヘッダー作成
+function createTableHeader() {
     const thead = document.createElement("thead");
     const headerRow = document.createElement("tr");
+    
     ["問題", "あなたの回答", "正解"].forEach(headerText => {
         const th = document.createElement("th");
         th.textContent = headerText;
         headerRow.appendChild(th);
     });
-    thead.appendChild(headerRow);
-    table.appendChild(thead);
     
-    // テーブルボディ
+    thead.appendChild(headerRow);
+    return thead;
+}
+
+// テーブルボディ作成
+function createTableBody() {
     const tbody = document.createElement("tbody");
-    userAnswers.forEach(answer => {
+    
+    gameState.userAnswers.forEach(answer => {
         const row = document.createElement("tr");
+        const questionData = quizData[answer.questionIndex];
         
-        // 問題
+        // 問題セル
         const questionCell = document.createElement("td");
-        questionCell.textContent = gameQuestions[answer.questionIndex].gameQuestion;
+        questionCell.textContent = questionData.question;
         row.appendChild(questionCell);
         
-        // ユーザーの回答
-        const userAnswerCell = document.createElement("td");
-        const userAnswerIndex = answer.userAnswer;
-        if (userAnswerIndex === -1) {
-            userAnswerCell.textContent = "時間切れ";
-            userAnswerCell.classList.add("answer-wrong");
-        } else {
-            userAnswerCell.textContent = gameQuestions[answer.questionIndex].gameChoices[userAnswerIndex];
-            if (userAnswerIndex === gameQuestions[answer.questionIndex].gameAnswer) {
-                userAnswerCell.classList.add("answer-correct");
-            } else {
-                userAnswerCell.classList.add("answer-wrong");
-            }
-        }
-        row.appendChild(userAnswerCell);
+        // ユーザー回答セル
+        row.appendChild(createUserAnswerCell(answer, questionData));
         
-        // 正解
-        const correctAnswerCell = document.createElement("td");
-        const correctIndex = gameQuestions[answer.questionIndex].gameAnswer;
-        correctAnswerCell.textContent = gameQuestions[answer.questionIndex].gameChoices[correctIndex];
-        correctAnswerCell.classList.add("answer-correct");
-        row.appendChild(correctAnswerCell);
+        // 正解セル
+        row.appendChild(createCorrectAnswerCell(questionData));
         
         tbody.appendChild(row);
     });
     
-    table.appendChild(tbody);
+    return tbody;
+}
+
+// ユーザー回答セル作成
+function createUserAnswerCell(answer, questionData) {
+    const userAnswerCell = document.createElement("td");
+    const userAnswerIndex = answer.userAnswer;
     
-    // 再プレイボタンの前に挿入
-    const restartButton = document.getElementById("game-restart");
-    resultContainer.insertBefore(table, restartButton);
+    if (userAnswerIndex === -1) {
+        userAnswerCell.textContent = "時間切れ";
+        userAnswerCell.classList.add("answer-wrong");
+    } else {
+        userAnswerCell.textContent = questionData.choices[userAnswerIndex];
+        
+        if (userAnswerIndex === questionData.answer) {
+            userAnswerCell.classList.add("answer-correct");
+        } else {
+            userAnswerCell.classList.add("answer-wrong");
+        }
+    }
+    
+    return userAnswerCell;
+}
+
+// 正解セル作成
+function createCorrectAnswerCell(questionData) {
+    const correctAnswerCell = document.createElement("td");
+    correctAnswerCell.textContent = questionData.choices[questionData.answer];
+    correctAnswerCell.classList.add("answer-correct");
+    return correctAnswerCell;
 }
 
 // もう一度プレイ
 function restartGame() {
-    gameResultScreen.style.display = "none";
-    gameQuizScreen.style.display = "block";
-    gameCurrentIndex = 0;
-    gameScore = 0;
-    userAnswers = [];
-    document.getElementById("game-score-count").textContent = "0";
-    showGameQuestion();
+    DOM.screens.result.style.display = "none";
+    DOM.screens.quiz.style.display = "block";
+    resetGameState();
+    showQuestion();
 }
+
+// ゲーム初期化
+initGame();

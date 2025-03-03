@@ -638,7 +638,7 @@ main {
     filter: invert(100%);
 }
 
-/* gameページ */
+/* 変数定義 */
 :root {
     --primary-color: #6a5acd;
     --secondary-color: #9370db;
@@ -649,34 +649,43 @@ main {
     --card-background: #ffffff;
     --text-color: #333333;
     --timer-bg: #e0e0e0;
+    --shadow-sm: 0 3px 5px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.1);
+    --border-radius: 8px;
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 0.8rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
   }
   
-.game-container {
+  /* コンテナスタイル */
+  .game-container {
     background-color: var(--card-background);
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
+    border-radius: calc(var(--border-radius) * 1.5);
+    box-shadow: var(--shadow-md);
+    padding: var(--spacing-xl);
     max-width: 600px;
     width: 90%;
     text-align: center;
     transition: all 0.3s ease;
   }
-
-
+  
+  /* ボタンスタイル */
   .game-button {
     background-color: var(--primary-color);
     color: white;
     border: none;
-    border-radius: 8px;
-    padding: 0.8rem 1.5rem;
-    margin: 0.5rem;
+    border-radius: var(--border-radius);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    margin: var(--spacing-xs);
     font-size: 1rem;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: transform 0.2s ease, background-color 0.2s ease;
     width: calc(100% - 2rem);
     text-align: left;
     position: relative;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-sm);
   }
   
   .game-button:hover {
@@ -688,13 +697,15 @@ main {
     transform: translateY(1px);
   }
   
-  #game-start, #game-restart {
+  /* コントロールボタン */
+  #game-start, 
+  #game-restart {
     width: auto;
     display: inline-block;
     text-align: center;
     font-size: 1.2rem;
     background-color: var(--accent-color);
-    padding: 1rem 2rem;
+    padding: var(--spacing-md) var(--spacing-xl);
   }
   
   /* 正解・不正解スタイル */
@@ -723,8 +734,8 @@ main {
     transform: translate(-50%, -50%);
     background-color: rgba(76, 175, 80, 0.9);
     color: white;
-    padding: 1.5rem 3rem;
-    border-radius: 8px;
+    padding: var(--spacing-lg) var(--spacing-xl);
+    border-radius: var(--border-radius);
     font-size: 1.5rem;
     font-weight: bold;
     z-index: 100;
@@ -742,13 +753,13 @@ main {
     to { opacity: 0; }
   }
   
-  /* タイマーゲージ */
+  /* タイマーゲージ - transition修正 */
   .timer-container {
     width: 100%;
     height: 10px;
     background-color: var(--timer-bg);
     border-radius: 5px;
-    margin: 1rem 0;
+    margin: var(--spacing-md) 0;
     overflow: hidden;
   }
   
@@ -756,7 +767,7 @@ main {
     height: 100%;
     background-color: var(--primary-color);
     width: 100%;
-    transition: width 1s linear;
+    /* トランジションを削除（JavaScriptで直接制御） */
   }
   
   .timer-critical {
@@ -764,12 +775,14 @@ main {
   }
   
   /* スコア表示 */
-  #game-score, #game-timer {
-    margin: 1rem 0;
+  #game-score, 
+  #game-timer {
+    margin: var(--spacing-md) 0;
     font-size: 1.1rem;
   }
   
-  #game-score-count, #game-time-left {
+  #game-score-count, 
+  #game-time-left {
     font-weight: bold;
     color: var(--accent-color);
   }
@@ -778,18 +791,20 @@ main {
   #game-final-score {
     font-size: 1.5rem;
     font-weight: bold;
-    margin: 1.5rem 0;
+    margin: var(--spacing-lg) 0;
     color: var(--accent-color);
   }
   
+  /* 結果テーブル */
   .result-table {
     width: 100%;
     border-collapse: collapse;
-    margin: 1.5rem 0;
+    margin: var(--spacing-lg) 0;
     text-align: left;
   }
   
-  .result-table th, .result-table td {
+  .result-table th, 
+  .result-table td {
     padding: 0.75rem;
     border-bottom: 1px solid #ddd;
   }
@@ -812,6 +827,7 @@ main {
     color: var(--wrong-color);
     font-weight: bold;
   }
+  
 /* フッター */
 .footer__list {
     background-color: #cecece;
@@ -1051,6 +1067,18 @@ main {
     tr td:nth-child(1){
         padding-top: 12px;
     }
+    .game-container {
+        width: 95%;
+        padding: var(--spacing-md);
+      }
+      
+      .game-button {
+        font-size: 0.9rem;
+        padding: var(--spacing-xs) var(--spacing-md);
+      }
+      
+      #game-final-score {
+        font-size: 1.2rem;
 
     .footer__list__left,
     .footer__list__right {
