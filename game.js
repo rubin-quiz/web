@@ -69,6 +69,7 @@ const gameState = {
     timeLeft: 10,
     maxTime: 10, // 最大時間を定数として保持
     timer: null,
+    animationId: null, // requestAnimationFrameのIDを保存
     userAnswers: []
 };
 
@@ -126,6 +127,7 @@ function resetGameState() {
 function showQuestion() {
     // タイマーをクリア
     clearInterval(gameState.timer);
+    cancelAnimationFrame(gameState.animationId);
     
     // タイマーを初期化
     gameState.timeLeft = gameState.maxTime;
@@ -178,34 +180,49 @@ function renderChoices(questionData) {
 
 // タイマー開始
 function startTimer() {
-    // 最初のゲージ更新（遅延なしで即時反映）
-    updateTimerGauge();
+    const startTime = Date.now();
+    const duration = gameState.maxTime * 1000; // ミリ秒に変換
     
+    // 最初のゲージ更新（遅延なしで即時反映）
+    updateTimerGauge(100);
+    
+    // 1秒ごとの表示更新用タイマー
     gameState.timer = setInterval(() => {
         gameState.timeLeft--;
         DOM.quiz.timeDisplay.textContent = gameState.timeLeft;
         
-        // タイマーゲージの更新
-        updateTimerGauge();
-        
         if (gameState.timeLeft <= 0) {
             clearInterval(gameState.timer);
+            cancelAnimationFrame(gameState.animationId);
             checkAnswer(-1); // 時間切れ
         }
     }, 1000);
+    
+    // アニメーションフレームを使った滑らかなゲージ更新
+    function animate() {
+        const elapsedTime = Date.now() - startTime;
+        const remainingPercentage = Math.max(0, 100 - (elapsedTime / duration * 100));
+        
+        updateTimerGauge(remainingPercentage);
+        
+        if (remainingPercentage > 0 && gameState.timeLeft > 0) {
+            gameState.animationId = requestAnimationFrame(animate);
+        }
+    }
+    
+    gameState.animationId = requestAnimationFrame(animate);
 }
 
 // タイマーゲージの更新
-function updateTimerGauge() {
+function updateTimerGauge(percentage) {
     const gauge = document.querySelector(".timer-gauge");
     if (!gauge) return;
     
-    // 表示秒数に正確に同期したゲージ幅を設定
-    const percentage = (gameState.timeLeft / gameState.maxTime) * 100;
+    // 渡されたパーセンテージでゲージ幅を設定
     gauge.style.width = `${percentage}%`;
     
-    // 3秒以下で赤色に変更
-    if (gameState.timeLeft <= 3) {
+    // 30%以下で赤色に変更
+    if (percentage <= 30) {
         gauge.classList.add("timer-critical");
     } else {
         gauge.classList.remove("timer-critical");
@@ -215,6 +232,8 @@ function updateTimerGauge() {
 // 回答チェック
 function checkAnswer(index) {
     clearInterval(gameState.timer);
+    cancelAnimationFrame(gameState.animationId); // アニメーションをキャンセル
+    
     const correctIndex = quizData[gameState.currentIndex].answer;
     const buttons = document.querySelectorAll("#game-choices-container .game-button");
 
