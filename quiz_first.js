@@ -4,10 +4,10 @@ function displayFirstQuiz() {
     quizContainer.innerHTML = '';
     
     const quiz = {
-        question: "「M-1グランプリ2024」で優勝し大会史上初の2連覇を果たした、髙比良くるまと松井ケムリからなるお笑いコンビは何でしょう？",
-        answer: "令和ロマン",
-        categories: ["芸能", ],
-        supplement: "2大会連続のトップバッターからの優勝という偉業にも注目されました！", 
+        question: "和歌の世界では「他人が詠んだ歌の一部を変えて即座に返すこと」を意味している、「他人の言葉をそのまま返すこと」をある鳥の名前を用いて「何返し」というでしょう？",
+        answer: "オウム返し",
+        categories: ["文化", "ことば"],
+        supplement: "人の言葉を真似して話すオウムの習性に由来します", 
     };
     const quizElement = document.createElement('div');
     quizElement.className = 'quiz-item';
