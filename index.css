@@ -998,6 +998,7 @@ main {
     color: white;
   }
 
+
 /* フッター */
 .footer__list {
     background-color: #cecece;
@@ -1242,13 +1243,14 @@ main {
         padding: var(--spacing-md);
       }
       
-      .game-button {
+    .game-button {
         font-size: 0.9rem;
         padding: var(--spacing-xs) var(--spacing-md);
-      }
+    }
       
-      #game-final-score {
+    #game-final-score {
         font-size: 1.2rem;
+    }
 
     .footer__list__left,
     .footer__list__right {
