@@ -349,6 +349,7 @@ main {
     cursor: default;
     margin-top: 5px; /* 上部マージン */
     margin-bottom: 5px; /* 下部マージン */
+    pointer-events: none;
 }
 
 .caption .tags {
