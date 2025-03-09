@@ -1,4 +1,3 @@
-// クイズデータ - ウェルノウンポート番号
 const quizData = [
     {
         question: "HTTPのポート番号は？",
@@ -70,7 +69,8 @@ const gameState = {
     maxTime: 10, // 最大時間を定数として保持
     timer: null,
     animationId: null, // requestAnimationFrameのIDを保存
-    userAnswers: []
+    userAnswers: [],
+    answered: false // 回答済みかどうかのフラグ
 };
 
 // DOM要素
@@ -89,7 +89,7 @@ const DOM = {
         choices: document.getElementById("game-choices-container"),
         timeDisplay: document.getElementById("game-time-left"),
         scoreDisplay: document.getElementById("game-score-count"),
-        timerContainer: document.getElementById("game-timer")
+        timerContainer: null // initTimerGaugeで動的に設定
     },
     result: {
         finalScore: document.getElementById("game-final-score")
@@ -120,6 +120,7 @@ function resetGameState() {
     gameState.score = 0;
     gameState.timeLeft = gameState.maxTime;
     gameState.userAnswers = [];
+    gameState.answered = false;
     DOM.quiz.scoreDisplay.textContent = "0";
 }
 
@@ -128,6 +129,9 @@ function showQuestion() {
     // タイマーをクリア
     clearInterval(gameState.timer);
     cancelAnimationFrame(gameState.animationId);
+    
+    // 回答済みフラグをリセット
+    gameState.answered = false;
     
     // タイマーを初期化
     gameState.timeLeft = gameState.maxTime;
@@ -139,6 +143,16 @@ function showQuestion() {
     // 問題と選択肢を表示
     const currentQuestion = quizData[gameState.currentIndex];
     DOM.quiz.question.textContent = currentQuestion.question;
+    
+    // アニメーション効果のクラスを追加
+    DOM.quiz.question.classList.add('question-appear');
+    
+    // アニメーション終了後にクラスを削除（次回のために）
+    setTimeout(() => {
+        DOM.quiz.question.classList.remove('question-appear');
+    }, 500);
+    
+    // 選択肢を表示
     renderChoices(currentQuestion);
 
     // タイマー開始
@@ -162,7 +176,13 @@ function initTimerGauge() {
     timerGauge.style.width = "100%";
     
     timerContainer.appendChild(timerGauge);
-    DOM.quiz.timerContainer.parentNode.insertBefore(timerContainer, DOM.quiz.timerContainer);
+    
+    // タイマー表示の前に挿入
+    const timerDisplay = document.getElementById("game-timer");
+    timerDisplay.parentNode.insertBefore(timerContainer, timerDisplay);
+    
+    // DOMオブジェクトに格納
+    DOM.quiz.timerContainer = timerContainer;
 }
 
 // 選択肢の表示
@@ -173,6 +193,8 @@ function renderChoices(questionData) {
         const button = document.createElement("button");
         button.textContent = choice;
         button.classList.add("game-button");
+        // data-indexを設定
+        button.setAttribute("data-index", String.fromCharCode(65 + index)); // A, B, C, Dのようにアルファベットで表示
         button.onclick = () => checkAnswer(index);
         DOM.quiz.choices.appendChild(button);
     });
@@ -205,7 +227,7 @@ function startTimer() {
         
         updateTimerGauge(remainingPercentage);
         
-        if (remainingPercentage > 0 && gameState.timeLeft > 0) {
+        if (remainingPercentage > 0 && gameState.timeLeft > 0 && !gameState.answered) {
             gameState.animationId = requestAnimationFrame(animate);
         }
     }
@@ -231,6 +253,12 @@ function updateTimerGauge(percentage) {
 
 // 回答チェック
 function checkAnswer(index) {
+    // 既に回答済みの場合は処理しない
+    if (gameState.answered) return;
+    
+    // 回答済みにする
+    gameState.answered = true;
+    
     clearInterval(gameState.timer);
     cancelAnimationFrame(gameState.animationId); // アニメーションをキャンセル
     
@@ -289,7 +317,20 @@ function nextQuestion() {
 function showResult() {
     DOM.screens.quiz.style.display = "none";
     DOM.screens.result.style.display = "block";
-    DOM.result.finalScore.textContent = `最終スコア: ${gameState.score}/${quizData.length}`;
+    
+    // スコア表示を整形
+    const scoreText = `${gameState.score}/${quizData.length}`;
+    DOM.result.finalScore.textContent = `Score: ${scoreText}`;
+    
+    // 合格/不合格の判定（オプション）
+    const passPercent = 70; // 70%以上で合格
+    const userPercent = (gameState.score / quizData.length) * 100;
+    
+    if (userPercent >= passPercent) {
+        DOM.result.finalScore.innerHTML += `<br><span style="color:var(--correct-color);font-size:1.2rem;">合格！おめでとうございます！</span>`;
+    } else {
+        DOM.result.finalScore.innerHTML += `<br><span style="color:var(--wrong-color);font-size:1.2rem;">もう少し頑張りましょう！</span>`;
+    }
     
     createResultTable();
 }
@@ -391,4 +432,4 @@ function restartGame() {
 }
 
 // ゲーム初期化
-initGame();
+document.addEventListener('DOMContentLoaded', initGame);
