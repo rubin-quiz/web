@@ -96,80 +96,6 @@ const DOM = {
     }
 };
 
-const settings = {
-    soundEnabled: true // デフォルトでは音を有効に
-};
-
-// DOM要素に音設定ボタンを追加
-function addSoundToggle() {
-    // 開始画面に設定ボタンを追加
-    const soundToggle = document.createElement("button");
-    soundToggle.id = "sound-toggle";
-    soundToggle.classList.add("settings-button");
-    soundToggle.innerHTML = '<span class="material-symbols-outlined">volume_up</span>';
-    soundToggle.title = "音のオン/オフ";
-    soundToggle.onclick = toggleSound;
-    
-    // ボタンを開始画面に追加
-    DOM.screens.start.appendChild(soundToggle);
-    
-    // 結果画面にも同じボタンを追加
-    const resultSoundToggle = soundToggle.cloneNode(true);
-    resultSoundToggle.onclick = toggleSound;
-    DOM.screens.result.appendChild(resultSoundToggle);
-    
-    // クイズ画面にも同じボタンを追加
-    const quizSoundToggle = soundToggle.cloneNode(true);
-    quizSoundToggle.onclick = toggleSound;
-    DOM.screens.quiz.appendChild(quizSoundToggle);
-    
-    // 設定を読み込む（ローカルストレージから）
-    loadSettings();
-    
-    // ボタンの見た目を更新
-    updateSoundToggleUI();
-}
-
-// 音のオン/オフ切り替え
-function toggleSound() {
-    settings.soundEnabled = !settings.soundEnabled;
-    saveSettings();
-    updateSoundToggleUI();
-}
-
-// 音設定のUI更新
-function updateSoundToggleUI() {
-    const buttons = document.querySelectorAll("#sound-toggle");
-    buttons.forEach(button => {
-        if (settings.soundEnabled) {
-            button.innerHTML = '<span class="material-symbols-outlined">volume_up</span>';
-        } else {
-            button.innerHTML = '<span class="material-symbols-outlined">volume_off</span>';
-        }
-    });
-}
-
-// 設定の保存（ローカルストレージ使用）
-function saveSettings() {
-    localStorage.setItem('quizGameSettings', JSON.stringify(settings));
-}
-
-// 設定の読み込み
-function loadSettings() {
-    const savedSettings = localStorage.getItem('quizGameSettings');
-    if (savedSettings) {
-        const parsedSettings = JSON.parse(savedSettings);
-        settings.soundEnabled = parsedSettings.soundEnabled;
-    }
-}
-
-// 効果音再生関数の修正
-function playSound(sound) {
-    if (settings.soundEnabled && window.soundEffects && window.soundEffects[sound]) {
-        window.soundEffects[sound].play().catch(e => console.log('効果音の再生に失敗:', e));
-    }
-}
-
 // イベントリスナーの設定
 function initGame() {
     DOM.buttons.start.addEventListener("click", startGame);
@@ -178,23 +104,6 @@ function initGame() {
     // 初期表示設定
     DOM.screens.quiz.style.display = "none";
     DOM.screens.result.style.display = "none";
-
-    // 音設定ボタンを追加
-    addSoundToggle();
-    
-    // 画面がロードされた時に要素が存在することを確認
-    window.addEventListener('DOMContentLoaded', () => {
-        preloadSoundEffects();
-    });
-}
-
-// 効果音のプリロード
-function preloadSoundEffects() {
-    // 効果音のオブジェクトを作成（オプション）
-    window.soundEffects = {
-        correct: new Audio('data:audio/wav;base64,UklGRqQIAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YYAIAACAgICAgICAgICAgICAgICAgICAgICAAICKiorDw8Pm5uby8vLm5ubDw8OKiooAgICAgICAgICAgICAgICAgICAgICAgACAioqKw8PD5ubm8vLy5ubmw8PDioqKAICAgICAgICAgICAgICAgICAgICAgIAAgIqKisPDw+bm5vLy8ubm5sPDw4qKigCAgICAgICAgICAgICAgICAgICAgICAgAAA//8AAAAAAAAAAP//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NAAkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJAA0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NAAAMDAwMDAwMDAwMDAwMDAwMDAwMDAwMAA0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NAAAMDAwMDAwMDAwMDAwMDAwMDAwMDAwMAAkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJAA='),
-        wrong: new Audio('data:audio/wav;base64,UklGRgQGAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YeAFAAAAAAAAAAAAAAAAAACAgICAgICAgICAgICAgICAgICAgICAgAAAAAAAAAAAAACAgICAgICAgICAgICAgICAgICAgICAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDA////////////////wMDAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDA////////////////wMDAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDA////////////////wMDAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDA////////////////wMDAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDA////////////////wMDAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDA////////////////wMDAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDA////////////////wMDAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDA////////////////wMDAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDA////////////////wMDAwAAAAAAAAAAAJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//////////////////////////////////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=')
-    };
 }
 
 // ゲーム開始
@@ -377,12 +286,6 @@ function checkAnswer(index) {
         gameState.score++;
         DOM.quiz.scoreDisplay.textContent = gameState.score;
         showCorrectFeedback();
-        
-        // 正解の効果音を再生
-        playSound('correct');
-    } else {
-        // 不正解の効果音を再生
-        playSound('wrong');
     }
 
     setTimeout(nextQuestion, 1500);
