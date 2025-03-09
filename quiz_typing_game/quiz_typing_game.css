@@ -2,7 +2,19 @@ body {
     font-family: 'Arial', sans-serif;
     text-align: center;
     margin: 40px;
-    background-color: #f8f9fa;
+    background-color: #ffffff;
+}
+.title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.title-image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
 }
 h1 {
     font-size: 2rem;
@@ -13,25 +25,44 @@ h1 {
     background-color: #fff;
     padding: 10px;
     margin: 10px auto;
-    width: 100%;
+    /* width: 100%; */
     border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: left;
+}
+
+#question {
+    font-size: 1.8rem; /* 変更したいサイズを指定 */
+    font-weight: bold;
+    margin-bottom: 0px;
+    border: 2px solid black;
+    padding: 15px 0px;
+}
+
+#options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    /* max-width: 500px; */
+    margin: 20px auto;
 }
 .option {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 15px auto;
     padding: 15px;
-    width: 250px;
     font-size: 1.2rem;
     background-color: white;
     border-radius: 8px;
     border: 1px solid #ccc;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.1s;
+}
+.option:active {
+    transform: scale(0.95);
 }
 .highlight {
     color: orange;
@@ -59,7 +90,7 @@ h1 {
     background-color: lightcoral !important;
 }
 
-#game-timer-container {
+#timer-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -68,17 +99,26 @@ h1 {
     width: 60%;
 }
 
-#game-timer {
+#timer-text {
     font-size: 1.2rem;
     font-weight: bold;
     color: #333;
     margin-bottom: 5px;
 }
 
-#game-timer-bar {
+#timer-container {
     width: 100%;
     height: 20px;
+    background-color: #ddd;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+#timer-bar {
+    height: 100%;
     background-color: #007BFF;
     border-radius: 10px;
     transition: width 0.1s linear, background-color 0.5s;
+    min-width: 0%;
 }

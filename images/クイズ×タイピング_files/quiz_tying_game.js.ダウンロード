@@ -1,0 +1,133 @@
+const quizData = [
+    {
+        question: "日本の首都は？",
+        options: [
+            { text: "東京", roman: "toukyou", correct: true },
+            { text: "大阪", roman: "oosaka", correct: false },
+            { text: "京都", roman: "kyouto", correct: false },
+            { text: "福岡", roman: "fukuoka", correct: false }
+        ]
+    },
+    {
+        question: "医学用語で「母斑細胞母斑」とは？",
+        options: [
+            { text: "ほくろ", roman: "hokuro", correct: true },
+            { text: "かさぶた", roman: "kasabuta", correct: false },
+            { text: "にきび", roman: "nikibi", correct: false },
+            { text: "そばかす", roman: "sobakasu", correct: false }
+        ]
+    }
+];
+
+let currentQuestionIndex = 0;
+let correctAnswers = 0;
+let typedInput = "";
+let timer;
+let timeLeft = 10;
+
+function loadQuestion() {
+    if (currentQuestionIndex >= quizData.length) {
+        document.getElementById("quiz-container").innerHTML = `<h2>クイズ終了！</h2><p>正解数: ${correctAnswers} / ${quizData.length}</p>`;
+        return;
+    }
+    
+    const quiz = quizData[currentQuestionIndex];
+    document.getElementById("question").textContent = quiz.question;
+    
+    const optionsContainer = document.getElementById("options");
+    optionsContainer.innerHTML = "";
+    quiz.options.forEach(option => {
+        const div = document.createElement("div");
+        div.className = "option";
+        div.dataset.roman = option.roman;
+        div.dataset.correct = option.correct;
+        div.innerHTML = `${option.text}<span class="roman-text">${option.roman}</span>`;
+        optionsContainer.appendChild(div);
+    });
+    
+    document.getElementById("result").textContent = "";
+    typedInput = "";
+    resetTimer();
+}
+
+document.addEventListener("keydown", (event) => {
+    if (event.key.length === 1) {
+        const newInput = typedInput + event.key.toLowerCase();
+        if (quizData[currentQuestionIndex].options.some(opt => opt.roman.startsWith(newInput))) {
+            typedInput = newInput;
+            highlightMatchingOption();
+            checkFinalAnswer();
+        }
+    } else if (event.key === "Backspace") {
+        typedInput = typedInput.slice(0, -1);
+        highlightMatchingOption();
+    } else if (event.key === "Enter") {
+        typedInput = "";
+        highlightMatchingOption();
+        document.getElementById("result").textContent = "";
+    }
+});
+
+function highlightMatchingOption() {
+    document.querySelectorAll(".option").forEach(option => {
+        const romanText = option.dataset.roman;
+        const romanSpan = option.querySelector(".roman-text");
+        romanSpan.innerHTML = romanText.startsWith(typedInput) ? `<span class="highlight">${typedInput}</span>${romanText.slice(typedInput.length)}` : romanText;
+    });
+}
+
+function checkFinalAnswer() {
+    const matchedOption = quizData[currentQuestionIndex].options.find(opt => opt.roman === typedInput);
+    
+    if (matchedOption) {
+        document.querySelectorAll(".option").forEach(option => {
+            if (option.dataset.roman === matchedOption.roman) {
+                option.classList.add(matchedOption.correct ? "correct-answer" : "wrong-answer");
+            }
+            if (option.dataset.correct === "true") {
+                option.classList.add("correct-answer");
+            }
+        });
+        
+        if (matchedOption.correct) correctAnswers++;
+        document.getElementById("result").textContent = matchedOption.correct ? "正解！" : "不正解...";
+        document.getElementById("result").className = matchedOption.correct ? "correct" : "incorrect";
+        clearInterval(timer);
+        
+        setTimeout(() => {
+            resetTimer(() => {
+                currentQuestionIndex++;
+                loadQuestion();
+            });
+        }, 1500);
+    }
+}
+
+function resetTimer(callback) {
+    clearInterval(timer);
+    timeLeft = 10;
+    updateTimerDisplay();
+    timer = setInterval(() => {
+        updateTimerDisplay();
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            if (callback) {
+                setTimeout(callback, 500);
+            } else {
+                currentQuestionIndex++;
+                loadQuestion();
+            }
+        }
+        timeLeft--;
+    }, 1000);
+}
+
+function updateTimerDisplay() {
+    const timerBar = document.getElementById("timer-bar");
+    timerBar.style.width = (timeLeft * 10) + "%";
+    if (timeLeft <= 1) {
+        timerBar.style.backgroundColor = "red";
+    } else if (timeLeft <= 5) {
+        timerBar.style.backgroundColor = "orange";
+    } else {
+        timerBar.style.background
