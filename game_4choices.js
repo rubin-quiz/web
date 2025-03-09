@@ -70,7 +70,9 @@ const gameState = {
     timer: null,
     animationId: null, // requestAnimationFrameのIDを保存
     userAnswers: [],
-    answered: false // 回答済みかどうかのフラグ
+    answered: false, // 回答済みかどうかのフラグ
+    questionCount: 5, // デフォルトは5問モード
+    selectedQuestions: [] // ランダムに選択された問題
 };
 
 // DOM要素
@@ -81,14 +83,18 @@ const DOM = {
         result: document.getElementById("game-result-screen")
     },
     buttons: {
-        start: document.getElementById("game-start"),
-        restart: document.getElementById("game-restart")
+        mode5: document.getElementById("game-mode-5"),
+        mode10: document.getElementById("game-mode-10"),
+        restart: document.getElementById("game-restart"),
+        return: document.getElementById("game-return")
     },
     quiz: {
         question: document.getElementById("game-question"),
         choices: document.getElementById("game-choices-container"),
         timeDisplay: document.getElementById("game-time-left"),
         scoreDisplay: document.getElementById("game-score-count"),
+        currentQuestion: document.getElementById("current-question"),
+        totalQuestions: document.getElementById("total-questions"),
         timerContainer: null // initTimerGaugeで動的に設定
     },
     result: {
@@ -98,30 +104,50 @@ const DOM = {
 
 // イベントリスナーの設定
 function initGame() {
-    DOM.buttons.start.addEventListener("click", startGame);
+    DOM.buttons.mode5.addEventListener("click", () => startGame(5));
+    DOM.buttons.mode10.addEventListener("click", () => startGame(10));
     DOM.buttons.restart.addEventListener("click", restartGame);
+    DOM.buttons.return.addEventListener("click", returnToModeSelection);
     
     // 初期表示設定
     DOM.screens.quiz.style.display = "none";
     DOM.screens.result.style.display = "none";
 }
 
+// ランダムに問題を選択
+function selectRandomQuestions(count) {
+    // 配列をコピーしてシャッフル
+    const shuffled = [...quizData].sort(() => 0.5 - Math.random());
+    // 必要な数だけ問題を取得
+    return shuffled.slice(0, count);
+}
+
 // ゲーム開始
-function startGame() {
+function startGame(questionCount) {
     DOM.screens.start.style.display = "none";
     DOM.screens.quiz.style.display = "block";
+    
+    // 問題数を設定
+    gameState.questionCount = questionCount;
+    DOM.quiz.totalQuestions.textContent = questionCount;
+    
     resetGameState();
     showQuestion();
 }
 
 // ゲーム状態のリセット
 function resetGameState() {
+    // ランダムに問題を選択
+    gameState.selectedQuestions = selectRandomQuestions(gameState.questionCount);
+    
     gameState.currentIndex = 0;
     gameState.score = 0;
     gameState.timeLeft = gameState.maxTime;
     gameState.userAnswers = [];
     gameState.answered = false;
+    
     DOM.quiz.scoreDisplay.textContent = "0";
+    DOM.quiz.currentQuestion.textContent = "1";
 }
 
 // 問題表示
@@ -140,8 +166,11 @@ function showQuestion() {
     // タイマーゲージを初期化
     initTimerGauge();
 
+    // 現在の問題番号を更新
+    DOM.quiz.currentQuestion.textContent = gameState.currentIndex + 1;
+
     // 問題と選択肢を表示
-    const currentQuestion = quizData[gameState.currentIndex];
+    const currentQuestion = gameState.selectedQuestions[gameState.currentIndex];
     DOM.quiz.question.textContent = currentQuestion.question;
     
     // アニメーション効果のクラスを追加
@@ -262,12 +291,15 @@ function checkAnswer(index) {
     clearInterval(gameState.timer);
     cancelAnimationFrame(gameState.animationId); // アニメーションをキャンセル
     
-    const correctIndex = quizData[gameState.currentIndex].answer;
+    const currentQuestion = gameState.selectedQuestions[gameState.currentIndex];
+    const correctIndex = currentQuestion.answer;
     const buttons = document.querySelectorAll("#game-choices-container .game-button");
 
     // ユーザーの回答を記録
     gameState.userAnswers.push({
-        questionIndex: gameState.currentIndex,
+        question: currentQuestion.question,
+        choices: currentQuestion.choices,
+        correctIndex: correctIndex,
         userAnswer: index
     });
 
@@ -306,7 +338,7 @@ function showCorrectFeedback() {
 // 次の問題へ
 function nextQuestion() {
     gameState.currentIndex++;
-    if (gameState.currentIndex < quizData.length) {
+    if (gameState.currentIndex < gameState.questionCount) {
         showQuestion();
     } else {
         showResult();
@@ -319,17 +351,17 @@ function showResult() {
     DOM.screens.result.style.display = "block";
     
     // スコア表示を整形
-    const scoreText = `${gameState.score}/${quizData.length}`;
+    const scoreText = `${gameState.score}/${gameState.questionCount}`;
     DOM.result.finalScore.textContent = `Score: ${scoreText}`;
     
-    // 合格/不合格の判定（オプション）
-    const passPercent = 70; // 70%以上で合格
-    const userPercent = (gameState.score / quizData.length) * 100;
+    // 合格/不合格の判定
+    const passPercent = 80; // 80%以上で合格
+    const userPercent = (gameState.score / gameState.questionCount) * 100;
     
     if (userPercent >= passPercent) {
         DOM.result.finalScore.innerHTML += `<br><span style="color:var(--correct-color);font-size:1.2rem;">合格！おめでとうございます！</span>`;
     } else {
-        DOM.result.finalScore.innerHTML += `<br><span style="color:var(--wrong-color);font-size:1.2rem;">もう少し頑張りましょう！</span>`;
+        DOM.result.finalScore.innerHTML += `<br><span style="color:var(--wrong-color);font-size:1.2rem;">不合格です！もう一度チャレンジしてみよう！</span>`;
     }
     
     createResultTable();
@@ -351,7 +383,8 @@ function createResultTable() {
     table.appendChild(createTableBody());
     
     // 再プレイボタンの前に挿入
-    DOM.screens.result.insertBefore(table, DOM.buttons.restart);
+    const restartButtons = document.querySelector(".restart-buttons");
+    DOM.screens.result.insertBefore(table, restartButtons);
 }
 
 // テーブルヘッダー作成
@@ -373,20 +406,19 @@ function createTableHeader() {
 function createTableBody() {
     const tbody = document.createElement("tbody");
     
-    gameState.userAnswers.forEach(answer => {
+    gameState.userAnswers.forEach((answer, index) => {
         const row = document.createElement("tr");
-        const questionData = quizData[answer.questionIndex];
         
         // 問題セル
         const questionCell = document.createElement("td");
-        questionCell.textContent = questionData.question;
+        questionCell.textContent = answer.question;
         row.appendChild(questionCell);
         
         // ユーザー回答セル
-        row.appendChild(createUserAnswerCell(answer, questionData));
+        row.appendChild(createUserAnswerCell(answer));
         
         // 正解セル
-        row.appendChild(createCorrectAnswerCell(questionData));
+        row.appendChild(createCorrectAnswerCell(answer));
         
         tbody.appendChild(row);
     });
@@ -395,7 +427,7 @@ function createTableBody() {
 }
 
 // ユーザー回答セル作成
-function createUserAnswerCell(answer, questionData) {
+function createUserAnswerCell(answer) {
     const userAnswerCell = document.createElement("td");
     const userAnswerIndex = answer.userAnswer;
     
@@ -403,9 +435,9 @@ function createUserAnswerCell(answer, questionData) {
         userAnswerCell.textContent = "時間切れ";
         userAnswerCell.classList.add("answer-wrong");
     } else {
-        userAnswerCell.textContent = questionData.choices[userAnswerIndex];
+        userAnswerCell.textContent = answer.choices[userAnswerIndex];
         
-        if (userAnswerIndex === questionData.answer) {
+        if (userAnswerIndex === answer.correctIndex) {
             userAnswerCell.classList.add("answer-correct");
         } else {
             userAnswerCell.classList.add("answer-wrong");
@@ -416,9 +448,9 @@ function createUserAnswerCell(answer, questionData) {
 }
 
 // 正解セル作成
-function createCorrectAnswerCell(questionData) {
+function createCorrectAnswerCell(answer) {
     const correctAnswerCell = document.createElement("td");
-    correctAnswerCell.textContent = questionData.choices[questionData.answer];
+    correctAnswerCell.textContent = answer.choices[answer.correctIndex];
     correctAnswerCell.classList.add("answer-correct");
     return correctAnswerCell;
 }
@@ -429,6 +461,12 @@ function restartGame() {
     DOM.screens.quiz.style.display = "block";
     resetGameState();
     showQuestion();
+}
+
+// モード選択画面に戻る
+function returnToModeSelection() {
+    DOM.screens.result.style.display = "none";
+    DOM.screens.start.style.display = "block";
 }
 
 // ゲーム初期化

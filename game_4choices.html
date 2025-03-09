@@ -22,14 +22,14 @@
     <body>
         <div class="game-container" id="game-start-screen">
             <h1>4択クイズ</h1>
-            <button id="game-start" class="game-button">Play</button>
+            <div class="mode-selection">
+                <button id="game-mode-5" class="game-button mode-button">5問モード（4問以上で合格）</button>
+                <button id="game-mode-10" class="game-button mode-button">10問モード（8問以上で合格）</button>
+            </div>
             <br><br>
             <p>
-            各問題に10秒の制限時間があります。<br>
-            正解するとScoreが加算されます。<br>
-            7割以上の正解率で合格です！
+            10秒以内に正解の選択肢をクリックしよう！
             </p>
-            
         </div>
     
         <div class="game-container" id="game-quiz-screen" style="display: none;">
@@ -38,15 +38,18 @@
             <!-- タイマーゲージはJSで動的に追加 -->
             <p id="game-timer">残り時間: <span id="game-time-left">10</span>秒</p>
             <p id="game-score">Score: <span id="game-score-count">0</span></p>
+            <p id="game-progress">Question: <span id="current-question">1</span>/<span id="total-questions">5</span></p>
         </div>
     
         <div class="game-container" id="game-result-screen" style="display: none;">
             <h1>Finish</h1>
             <p id="game-final-score"></p>
             <!-- 結果テーブルはJSで動的に追加 -->
-            <button id="game-restart" class="game-button">Play again</button>
+            <div class="restart-buttons">
+                <button id="game-restart" class="game-button">Play again</button>
+                <button id="game-return" class="game-button">モード選択に戻る</button>
+            </div>
         </div>
-    
         <script src="game_4choices.js"></script>
     </body>
 </html>
