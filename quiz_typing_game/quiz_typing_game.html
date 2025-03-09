@@ -7,29 +7,34 @@
     <link rel="stylesheet" href="quiz_typing_game.css">
 </head>
 <body>
-    <div class="title-container">
-        <img src="../images/QuizTyper_logo.webp" alt="クイズ×タイピング" class="title-image">
-    </div>
-    <div class="notice">
-        【ルール】<br>
-        ・クイズの答えだと思う選択肢の言葉ををタイピングしてください<br>
-        ・選択肢にないキーを打っても認識されません<br>
-        ・BackSpaceキーで戻ることもできます<br>
-        ・Enterキーを押すと入力をリセットできます<br>
-    </div>
-    <div id="quiz-container">
-        <p id="question"></p>
-        <div id="timer-wrapper">
-            <p id="timer-text">残り時間: <span id="timer-value">10.0</span>s</p>
-            <div id="timer-container">
-                <div id="timer-bar"></div>
-            </div>
+    <div id="start-screen" class="screen">
+        <div class="title-container">
+            <img src="../images/QuizTyper_logo.webp" alt="クイズ×タイピング" class="title-image">
         </div>
-        <div id="options"></div>
-        <p id="result"></p>
+        <div class="notice">
+            【ルール】<br>
+            ・クイズの答えだと思う選択肢の言葉をタイピングしてください<br>
+            ・選択肢にないキーを打っても認識されません<br>
+            ・BackSpaceキーで戻ることもできます<br>
+            ・Enterキーを押すと入力をリセットできます<br>
+        </div>
+        <button id="start-button" class="game-button">ゲーム開始</button>
+    </div>
+
+    <div id="game-screen" class="screen" style="display: none;">
+        <div id="quiz-container">
+            <p id="question"></p>
+            <div id="timer-wrapper">
+                <p id="timer-text">残り時間: <span id="timer-value">10.0</span>s</p>
+                <div id="timer-container">
+                    <div id="timer-bar"></div>
+                </div>
+            </div>
+            <div id="options"></div>
+            <p id="result"></p>
+        </div>
     </div>
     
     <script src="quiz_tying_game.js"></script>
 </body>
 </html>
-

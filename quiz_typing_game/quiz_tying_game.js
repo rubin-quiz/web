@@ -16,6 +16,15 @@ const quizData = [
             { text: "にきび", roman: "nikibi", correct: false },
             { text: "そばかす", roman: "sobakasu", correct: false }
         ]
+    },
+    {
+        question: "マックス・ウェーバーの著書「プロ倫」といえば？",
+        options: [
+            { text: "『プロテスタンディズムの倫理と資本主義の精神』", roman: "purotesutanthizumunorinritosihonsyuginoseisinn", correct: true },
+            { text: "『プロテスタンディズムの精神と資本主義の倫理』", roman: "purotesutanthizumunoseisinntosihonsyuginorinri", correct: false },
+            { text: "『プロテスタンディズムと資本主義の倫理と精神』", roman: "purotesutanthizumutosihonsyuginorinritoseisinn", correct: false },
+            { text: "『プロゴルファー猿の倫理観について』", roman: "purogorufa-sarunorinrikannnituite", correct: false }
+        ]
     }
 ];
 
@@ -61,16 +70,65 @@ function loadQuestion() {
     resetTimer();
 }
 
+document.addEventListener("keydown", (event) => {
+    if (/^[a-zA-Z]$/.test(event.key)) {
+        typedInput += event.key.toLowerCase();
+        highlightMatchingOption();
+        checkFinalAnswer();
+    } else if (event.key === "Backspace") {
+        typedInput = typedInput.slice(0, -1);
+        highlightMatchingOption();
+    } else if (event.key === "Enter") {
+        typedInput = "";
+        highlightMatchingOption();
+        document.getElementById("result").textContent = "";
+    }
+});
+
+function highlightMatchingOption() {
+    document.querySelectorAll(".option").forEach(option => {
+        const romanText = option.dataset.roman;
+        const romanSpan = option.querySelector(".roman-text");
+        if (romanText.startsWith(typedInput)) {
+            romanSpan.innerHTML = `<span class="highlight">${typedInput}</span>${romanText.slice(typedInput.length)}`;
+        } else {
+            romanSpan.innerHTML = romanText;
+        }
+    });
+}
+
+function checkFinalAnswer() {
+    const matchedOption = quizData[currentQuestionIndex].options.find(opt => opt.roman === typedInput);
+    
+    if (matchedOption) {
+        document.querySelectorAll(".option").forEach(option => {
+            if (option.dataset.roman === matchedOption.roman) {
+                option.classList.add(matchedOption.correct ? "correct-answer" : "wrong-answer");
+            }
+            if (option.dataset.correct === "true") {
+                option.classList.add("correct-answer");
+            }
+        });
+        
+        if (matchedOption.correct) correctAnswers++;
+        document.getElementById("result").textContent = matchedOption.correct ? "正解！" : "不正解...";
+        document.getElementById("result").className = matchedOption.correct ? "correct" : "incorrect";
+        clearInterval(timer);
+        
+        setTimeout(() => {
+            currentQuestionIndex++;
+            loadQuestion();
+        }, 1500);
+    }
+}
+
 function resetTimer() {
     clearInterval(timer);
     timeLeft = 10.0;
     updateTimerDisplay();
-    
     timer = setInterval(() => {
-        timeLeft = parseFloat(timeLeft) - 0.1;
-        timeLeft = Math.max(0, timeLeft);
+        timeLeft = Math.max(0, (timeLeft - 0.1).toFixed(1));
         updateTimerDisplay();
-        
         if (timeLeft <= 0) {
             clearInterval(timer);
             document.getElementById("result").textContent = "不正解... 時間切れ";
