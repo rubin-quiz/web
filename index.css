@@ -26,12 +26,590 @@ h1 {
     justify-content: center;
     margin: 15px auto;
     padding: 15px;
-    width: 250px;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+.modal-arrow.prev { left: 20px; }
+.modal-arrow.next { right: 20px; }
+
+.modal-indicators {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+}
+
+.modal-dot {
+    width: 12px;
+    height: 12px;
+    background-color: rgb(205, 205, 205);
+    border: 1px solid white;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.modal-dot.active {
+    background-color: black;
+}
+
+/* タグ */
+
+.tags {
+    list-style: none;
+    display: flex;
+    flex:wrap;
+    gap: 0 10px
+}
+
+.tags a {
+    position: relative;
+    display: inline-block;
+    margin: 5px 10px 5px 0;
+    padding: 8px 12px;
+    line-height: 1;
+    color: #fff;
+    text-decoration: none;
+    background-color: var(--tag-color, #566270);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    cursor: default;
+    margin-top: 5px; /* 上部マージン */
+    margin-bottom: 5px; /* 下部マージン */
+    pointer-events: none;
+}
+
+.caption .tags {
+    flex-wrap: wrap;
+}
+
+.book .tags {
+    flex-wrap: wrap;
+}
+
+.tags .tag a{
+    margin:5px 0px;
+}
+
+
+.tag-a a {
+    background-color: #ffb46a; /* 青色 */
+    color: #000;/* 青色 */
+  }
+
+.tag-b a {
+    background-color: #dbdbdb; 
+    color: #000;/* 青色 */
+  }
+
+/* ショップリンク */
+.book .shops{
+    list-style: none;
+}
+
+.shops a {
+    display: inline-block;
+    margin: 5px 0px;
+    padding: .6em;
+    line-height: 1;
+    text-decoration: none;
+    background-color: #fff;
+    font-size: 15px;
+    width: 100%;
+}
+
+.shops :nth-child(2n-1) a{
+    color: #000088;
+    border: 1.5px solid #000088;
+}
+
+.shops :nth-child(2n-1) a:hover{
+    background-color: #000088;
+    color: white;
+}
+
+.shops :nth-child(2n) a{
+    color: #880000;
+    border: 1.5px solid #880000;
+}
+
+.shops :nth-child(2n) a:hover{
+    background-color: #880000;
+    color: white;
+}
+
+.shops span{
+    float: right;
+}
+
+/* ニュース */
+.news-container {
+}
+.news-container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.news-container th, .news-container td {
+    border-bottom: 1px solid #d0cbcb; /* ニュース間の区切り線のみ */
+    padding: 10px;
+    text-align: left;
+}
+.news-container th {
+    color: white;
+}
+.news-container td:nth-child(1) {
+    white-space: nowrap;
+
+}
+.news-container td:nth-child(2) {
+    text-align: center;
+    white-space: nowrap;
+}
+.news-container .box {
+    padding: 3px 5px;
+    margin: 2em 0;
+    border-radius: 10px;
+}
+
+
+/* カテゴリーフィルターのスタイル */
+.category-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.category-filter {
+    background: #ffffff;
+    border: 2px solid #ffd93d;
+    color: #333;
+    padding: 4px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.9em;
+    font-weight:bold;
+}
+
+/* .category-filter:hover {
+    background: #ffd93d;
+    color: #333;
+} */
+
+.category-filter.active {
+    background: #ffd93d;
+    color: #333;
+}
+
+.category-filter.clear-all {
+    border-color: #ff6b6b;
+    color: #ff6b6b;
+}
+
+/* .category-filter.clear-all:hover {
+    background: #ff6b6b;
+    color: white;
+} */
+
+/* クイズコンテナのスタイル */
+.quiz-container {
+    width: 100%;
+    margin: 0 auto;
+
+}
+
+/* クイズアイテムのスタイル */
+.quiz-item {
+    background: #fff;
+    box-shadow: 
+        0 1px 3px rgba(0, 0, 0, 0.12),
+        0 1px 2px rgba(0, 0, 0, 0.24),
+        0 0 0 1px rgba(0, 0, 0, 0.05);
+    border-radius: 2px;
+    padding: 20px 20px 10px 20px;
+    line-height: 1.8;
+    color: black;
+    position: relative;
+    font-weight: bold;
+    border-left: 5px solid #2c3e50;
+    margin-bottom: 22px;
+    
+    /* 新聞らしい質感を追加 */
+    background-image: 
+        linear-gradient(90deg, 
+            rgba(0,0,0,0.06) 1px, 
+            transparent 1px),
+        linear-gradient(rgba(0,0,0,0.06) 1px, 
+            transparent 1px);
+    background-size: 20px 20px;
+    /* hover時のエフェクト */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* hover時の挙動 */
+.quiz-item:hover {
+    box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.15),
+        0 2px 4px rgba(0, 0, 0, 0.12),
+        0 0 0 1px rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
+}
+
+/* 問題文のスタイル */
+.quiz-question {
+    font-size: 1.1em;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* フッター部分のスタイル */
+.quiz-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* カテゴリーグループのスタイル */
+.quiz-categories {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.quiz-category {
+    background: #ffd93d;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    color: #333;
+}
+
+/* 回答トグル */
+.answer-toggle {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #38a1db;
+    transition: color 0.3s ease-out, transform 0.2s ease-out;
+}
+
+.answer-toggle:hover {
+    color: #2d89c3;
+    transform: scale(1.05);
+}
+
+.toggle-icon {
+    font-size: 1.5em;
+    line-height: 1;
+}
+
+.toggle-text {
+    font-size: 1em;
+}
+
+.answer-toggle.active {
+    color: #ff6b6b;
+}
+
+/* 答えのスタイル */
+.answer {
+    padding: 10px;
+    color: #495057;
+}
+
+.supplement {
+    font-size: 0.9em;
+    background-color: #ececec; /* 優しいグレー */
+    padding: 8px 12px;
+    margin-top: 6px;
+    border-radius: 6px;
+    font-weight: 300;
+}
+
+/* ページネーションのスタイル */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.page-button {
+    background: #fff;
+    border: 1px solid #ddd;
+    color: #666;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.page-button:hover {
+    background: #f5f5f5;
+}
+
+.page-button.active {
+    background: #f5f5f5;
+    border-color: #ccc;
+    color: #333;
+}
+
+.sns img {
+    height: 30px;
+    width: 30px;
+    filter: invert(100%);
+}
+/* コンテナスタイル */
+.game-container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    max-width: 600px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    border: 1px solid #e0e0e0;
+  }
+  
+  /* ボタンスタイル */
+  .game-button {
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 0.8rem 1.2rem;
+    margin: 0.6rem 0;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    width: 100%;
+    text-align: left;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .game-button:hover {
+    background-color: #3a7bd5;
+  }
+  
+  .game-button:active {
+    transform: translateY(1px);
+  }
+  
+  /* コントロールボタン */
+  #game-start, 
+  #game-restart {
+    width: auto;
+    display: inline-block;
+    text-align: center;
+    font-size: 1.1rem;
+    background-color: #5c6bc0;
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+    margin-top: 1.2rem;
+  }
+  
+  /* 正解・不正解スタイル */
+  .game-correct {
+    background-color: #66bb6a !important;
+    color: white;
+  }
+  
+  .game-wrong {
+    background-color: #ef5350 !important;
+    color: white;
+  }
+  
+  /* 正解エフェクト */
+  .correct-feedback {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(102, 187, 106, 0.9);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 6px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    z-index: 100;
+    opacity: 0;
+    animation: simpleFadeIn 0.3s forwards, simpleFadeOut 0.3s 0.7s forwards;
+    pointer-events: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  @keyframes simpleFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes simpleFadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+  
+  /* タイマーゲージ */
+  .timer-container {
+    width: 100%;
+    height: 8px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    margin: 0.8rem 0;
+    overflow: hidden;
+  }
+  
+  .timer-gauge {
+    height: 100%;
+    background-color: #4a90e2;
+    width: 100%;
+    border-radius: 4px;
+  }
+  
+  .timer-critical {
+    background-color: #ef5350;
+  }
+  
+  /* スコア表示 */
+  #game-score, 
+  #game-timer {
+    margin: 0.8rem 0;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0.5rem;
+    display: inline-block;
+  }
+  
+  #game-score-count, 
+  #game-time-left {
+    font-weight: bold;
+    color: #5c6bc0;
+    font-size: 1.1rem;
+  }
+  
+  /* リザルト画面 */
+  #game-final-score {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 1.2rem 0;
+    color: #5c6bc0;
+  }
+  
+  /* 結果テーブル */
+.result-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.2rem 0;
+    text-align: left;
+    border: 1px solid #e0e0e0;
+  }
+  
+  .result-table th, 
+  .result-table td {
+    padding: 0.8rem;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .result-table th {
+    background-color: #4a90e2;
+    color: white;
+    font-weight: 500;
+  }
+  
+  .result-table tr:last-child td {
+    border-bottom: none;
+  }
+  
+  /* 行のスタイル - 答えの正誤によって行全体の色を変更 */
+  .result-table tr:has(.answer-correct) {
+    background-color: rgba(102, 187, 106, 0.15);
+  }
+  
+  .result-table tr:has(.answer-wrong) {
+    background-color: rgba(239, 83, 80, 0.15);
+  }
+  
+
+  /* 正解マーク */
+  .answer-correct {
+    color: #2e7d32;
+    font-weight: 500;
+    position: relative;
+    padding-left: 25px;
+  }
+
+  
+  /* 不正解マーク */
+  .answer-wrong {
+    color: #c62828;
+    font-weight: 500;
+    position: relative;
+    padding-left: 25px;
+  }
+  
+
+  /* 不正解の場合の正解表示 - 同じ行の最後のセルをスタイリング */
+  .result-table tr:has(.answer-wrong) td:last-child {
+    color: #c62828;
+    font-weight: 500;
+    border-radius: 3px;
+  }
+
+  /* 問題表示 */
+  #game-question {
     font-size: 1.2rem;
-    background-color: white;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    transition: background-color 0.3s ease;
+    margin: 0.8rem 0 1.2rem;
+    color: #333333;
+    font-weight: 500;
+    background-color: #f5f7fa;
+    padding: 0.8rem;
+    border-radius: 6px;
+    border-left: 3px solid #4a90e2;
+    text-align: left;
+  }
+  
+  /* 選択肢のコンテナ */
+  #game-choices-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 1.2rem;
+  }
+  
+  /* 選択肢の番号表示 */
+  .game-button::before {
+    content: attr(data-index);
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    margin-right: 8px;
+    text-align: center;
+    line-height: 24px;
+    font-weight: normal;
+    color: white;
+  }
+
+/* フッター */
+.footer__list {
+    background-color: #cecece;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
 }
 .highlight {
     color: orange;
