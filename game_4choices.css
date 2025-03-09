@@ -35,7 +35,7 @@ body {
   
   /* ボタンスタイル */
   .game-button {
-    background-color: #3498db;
+    background-color: #8e44ad;
     color: white;
     border: none;
     border-radius: 8px;
@@ -53,7 +53,7 @@ body {
   }
   
   .game-button:hover {
-    background-color: #2980b9;
+    background-color: #572a6a;
     transform: translateY(-2px);
   }
   
@@ -292,7 +292,7 @@ body {
     padding: 1.8rem 1.5rem;
     border-radius: 18px;
     text-align: center;
-    box-shadow: 0 10px 25px rgba(142, 68, 173, 0.2);
+    box-shadow: 0 10px 25px rgba(142, 68, 173, 0.5);
     line-height: 1.6;
     position: relative;
     border: none;
@@ -333,8 +333,8 @@ body {
       45deg,
       #f9f4ff,
       #f9f4ff 10px,
-      #f5edff 10px,
-      #f5edff 20px
+      #e6dcf3 10px,
+      #e6dcf3 20px
     );
     opacity: 0.4;
     border-radius: 18px;

@@ -320,7 +320,7 @@ function showResult() {
     
     // スコア表示を整形
     const scoreText = `${gameState.score}/${quizData.length}`;
-    DOM.result.finalScore.textContent = `最終スコア: ${scoreText}`;
+    DOM.result.finalScore.textContent = `Score: ${scoreText}`;
     
     // 合格/不合格の判定（オプション）
     const passPercent = 70; // 70%以上で合格
