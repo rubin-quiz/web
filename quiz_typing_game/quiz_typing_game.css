@@ -4,6 +4,11 @@ body {
     margin: 40px;
     background-color: #f8f9fa;
 }
+
+.hidden {
+    display: none;
+}
+
 .screen {
     display: flex;
     flex-direction: column;
@@ -11,6 +16,7 @@ body {
     justify-content: center;
     height: 100vh;
 }
+
 .title-container {
     display: flex;
     flex-direction: column;
@@ -18,11 +24,13 @@ body {
     justify-content: center;
     margin-bottom: 20px;
 }
+
 .title-image {
     max-width: 100%;
     height: auto;
     margin-bottom: 10px;
 }
+
 .game-button {
     font-size: 1.5rem;
     padding: 10px 20px;
@@ -33,9 +41,11 @@ body {
     cursor: pointer;
     transition: background-color 0.3s;
 }
+
 .game-button:hover {
     background-color: #0056b3;
 }
+
 .notice {
     font-size: 1rem;
     background-color: #fff;
@@ -47,22 +57,27 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: left;
 }
+
 #question {
-    font-size: 1.8rem; /* 変更したいサイズを指定 */
+    font-size: 1.8rem;
     font-weight: bold;
-    margin-bottom: 0px;
+    margin-bottom: 20px;
     border: 2px solid black;
-    padding: 15px 0px;
+    padding: 15px 0;
+    background-color: #f9f9f9;
+    border-radius: 8px;
 }
+
 #options {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
     justify-content: center;
     align-items: center;
-    /* max-width: 500px; */
     margin: 20px auto;
+    width: 80%;
 }
+
 .option {
     display: flex;
     flex-direction: column;
@@ -74,34 +89,45 @@ body {
     border-radius: 8px;
     border: 1px solid #ccc;
     transition: background-color 0.3s ease, transform 0.1s;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 .option:active {
     transform: scale(0.95);
 }
-.highlight {
-    color: orange;
+
+.option .highlight {
+    color: red;
     font-weight: bold;
 }
+
 .correct {
     color: green;
     font-size: 1.5rem;
     font-weight: bold;
 }
+
 .incorrect {
     color: red;
     font-size: 1.5rem;
     font-weight: bold;
 }
+
 .roman-text {
     display: block;
     font-size: 1.5rem;
     color: gray;
 }
+
 .correct-answer {
     background-color: lightgreen !important;
+    color: #fff;
 }
+
 .wrong-answer {
     background-color: lightcoral !important;
+    color: #fff;
 }
 
 #timer-wrapper {
@@ -118,6 +144,7 @@ body {
     font-weight: bold;
     color: #333;
     margin-bottom: 5px;
+    text-align: center;
 }
 
 #timer-container {
@@ -126,13 +153,40 @@ body {
     background-color: #ddd;
     border-radius: 10px;
     position: relative;
-    overflow: hidden;
+    /* overflow: hidden; */
+    border: 2px solid #ccc;
+    margin-bottom: 10px;
 }
 
 #timer-bar {
     height: 100%;
-    background-color: #007BFF;
+    width: 100%;
+    background-color: #28a745; /* 初期状態: 緑 */
     border-radius: 10px;
     transition: width 0.1s linear, background-color 0.5s;
-    min-width: 0%;
+}
+
+
+
+/* 結果表示 */
+#result {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+/* ボタンのアクション */
+.game-button {
+    font-size: 1.5rem;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.game-button:hover {
+    background-color: #0056b3;
 }

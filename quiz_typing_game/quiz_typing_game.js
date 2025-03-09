@@ -1,4 +1,21 @@
-const quizData = [
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("ページが完全に読み込まれました");
+    
+    const startButton = document.getElementById("start-button");
+    console.log(startButton); // ボタンが取得できているか確認
+    
+    if (startButton) {
+        console.log("start-button が見つかりました");
+        startButton.addEventListener("click", () => {
+            console.log("ゲーム開始ボタンがクリックされました");
+            startGame();
+        });
+    } else {
+        console.error("start-button が見つかりません！");
+    }
+});
+
+let quizData = [
     {
         question: "日本の首都は？",
         options: [
@@ -34,6 +51,31 @@ let typedInput = "";
 let timer;
 let timeLeft = 10.0;
 
+function startGame() {
+    console.log("startGame() 関数が実行されました");
+
+    const startScreen = document.getElementById("start-screen");
+    const gameScreen = document.getElementById("game-screen");
+
+    if (!startScreen || !gameScreen) {
+        console.error("start-screen または game-screen が見つかりません！");
+        return;
+    }
+
+    startScreen.style.display = "none";
+    gameScreen.style.display = "block";
+    
+    gameScreen.classList.remove("hidden");
+    
+    console.log("start-screen を非表示、game-screen を表示");
+
+    currentQuestionIndex = 0;
+    correctAnswers = 0;
+    typedInput = "";
+
+    loadQuestion();
+}
+
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -42,6 +84,7 @@ function shuffleArray(array) {
 }
 
 function loadQuestion() {
+    console.log("loadQuestion() 実行");
     if (currentQuestionIndex >= quizData.length) {
         document.getElementById("quiz-container").innerHTML = `<h2>クイズ終了！</h2><p>正解数: ${correctAnswers} / ${quizData.length}</p>`;
         return;
@@ -70,20 +113,76 @@ function loadQuestion() {
     resetTimer();
 }
 
+function resetTimer() {
+    clearInterval(timer);
+    timeLeft = 10.0;
+    updateTimerDisplay();
+    updateTimerBar(); // タイムバーの更新
+
+    timer = setInterval(() => {
+        timeLeft = parseFloat((timeLeft - 0.1).toFixed(1)); // 文字列にならないように修正
+        updateTimerDisplay();
+        updateTimerBar(); // タイムバーの更新
+
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            document.getElementById("result").textContent = "不正解... 時間切れ";
+            document.getElementById("result").className = "incorrect";
+            setTimeout(() => {
+                currentQuestionIndex++;
+                loadQuestion();
+            }, 1500);
+        }
+    }, 100);
+}
+
+
+function updateTimerDisplay() {
+    document.getElementById("timer-text").textContent = `${timeLeft}s`;
+}
+
 document.addEventListener("keydown", (event) => {
-    if (/^[a-zA-Z]$/.test(event.key)) {
-        typedInput += event.key.toLowerCase();
-        highlightMatchingOption();
-        checkFinalAnswer();
-    } else if (event.key === "Backspace") {
+    if (event.key === "Backspace") {
         typedInput = typedInput.slice(0, -1);
         highlightMatchingOption();
+        return;
     } else if (event.key === "Enter") {
         typedInput = "";
         highlightMatchingOption();
         document.getElementById("result").textContent = "";
+        return;
     }
+
+    // 現在のクイズの選択肢から有効なキーを取得
+    const validKeys = new Set(quizData[currentQuestionIndex].options.flatMap(option => option.roman.split("")));
+
+    // 入力が有効なキーに含まれていない場合は無視（typedInputは維持）
+    if (!validKeys.has(event.key.toLowerCase())) {
+        return;
+    }
+
+    // 入力が有効な場合のみ処理を続行
+    typedInput += event.key.toLowerCase();
+    highlightMatchingOption();
+    checkFinalAnswer();
 });
+
+
+function updateTimerBar() {
+    const timerBar = document.getElementById("timer-bar");
+    const percentage = (timeLeft / 10.0) * 100;
+    timerBar.style.width = `${percentage}%`;
+
+    // 残り時間によって色を変更
+    if (percentage > 50) {
+        timerBar.style.backgroundColor = "#28a745"; // 緑
+    } else if (percentage > 20) {
+        timerBar.style.backgroundColor = "#ffc107"; // 黄色
+    } else {
+        timerBar.style.backgroundColor = "#dc3545"; // 赤
+    }
+}
+
 
 function highlightMatchingOption() {
     document.querySelectorAll(".option").forEach(option => {
@@ -121,38 +220,3 @@ function checkFinalAnswer() {
         }, 1500);
     }
 }
-
-function resetTimer() {
-    clearInterval(timer);
-    timeLeft = 10.0;
-    updateTimerDisplay();
-    timer = setInterval(() => {
-        timeLeft = Math.max(0, (timeLeft - 0.1).toFixed(1));
-        updateTimerDisplay();
-        if (timeLeft <= 0) {
-            clearInterval(timer);
-            document.getElementById("result").textContent = "不正解... 時間切れ";
-            document.getElementById("result").className = "incorrect";
-            setTimeout(() => {
-                currentQuestionIndex++;
-                loadQuestion();
-            }, 1500);
-        }
-    }, 100);
-}
-
-function updateTimerDisplay() {
-    const timerBar = document.getElementById("timer-bar");
-    const timerText = document.getElementById("timer-text");
-    timerBar.style.width = (timeLeft * 10) + "%";
-    timerText.textContent = timeLeft.toFixed(1) + "s";
-    if (timeLeft <= 1) {
-        timerBar.style.backgroundColor = "red";
-    } else if (timeLeft <= 5) {
-        timerBar.style.backgroundColor = "orange";
-    } else {
-        timerBar.style.backgroundColor = "#007BFF";
-    }
-}
-
-loadQuestion();
