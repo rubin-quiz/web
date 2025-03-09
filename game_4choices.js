@@ -1,4 +1,3 @@
-// クイズデータ - ウェルノウンポート番号
 const quizData = [
     {
         question: "HTTPのポート番号は？",
@@ -70,7 +69,8 @@ const gameState = {
     maxTime: 10, // 最大時間を定数として保持
     timer: null,
     animationId: null, // requestAnimationFrameのIDを保存
-    userAnswers: []
+    userAnswers: [],
+    answered: false // 回答済みかどうかのフラグ
 };
 
 // DOM要素
@@ -89,12 +89,86 @@ const DOM = {
         choices: document.getElementById("game-choices-container"),
         timeDisplay: document.getElementById("game-time-left"),
         scoreDisplay: document.getElementById("game-score-count"),
-        timerContainer: document.getElementById("game-timer")
+        timerContainer: null // initTimerGaugeで動的に設定
     },
     result: {
         finalScore: document.getElementById("game-final-score")
     }
 };
+
+const settings = {
+    soundEnabled: true // デフォルトでは音を有効に
+};
+
+// DOM要素に音設定ボタンを追加
+function addSoundToggle() {
+    // 開始画面に設定ボタンを追加
+    const soundToggle = document.createElement("button");
+    soundToggle.id = "sound-toggle";
+    soundToggle.classList.add("settings-button");
+    soundToggle.innerHTML = '<span class="material-symbols-outlined">volume_up</span>';
+    soundToggle.title = "音のオン/オフ";
+    soundToggle.onclick = toggleSound;
+    
+    // ボタンを開始画面に追加
+    DOM.screens.start.appendChild(soundToggle);
+    
+    // 結果画面にも同じボタンを追加
+    const resultSoundToggle = soundToggle.cloneNode(true);
+    resultSoundToggle.onclick = toggleSound;
+    DOM.screens.result.appendChild(resultSoundToggle);
+    
+    // クイズ画面にも同じボタンを追加
+    const quizSoundToggle = soundToggle.cloneNode(true);
+    quizSoundToggle.onclick = toggleSound;
+    DOM.screens.quiz.appendChild(quizSoundToggle);
+    
+    // 設定を読み込む（ローカルストレージから）
+    loadSettings();
+    
+    // ボタンの見た目を更新
+    updateSoundToggleUI();
+}
+
+// 音のオン/オフ切り替え
+function toggleSound() {
+    settings.soundEnabled = !settings.soundEnabled;
+    saveSettings();
+    updateSoundToggleUI();
+}
+
+// 音設定のUI更新
+function updateSoundToggleUI() {
+    const buttons = document.querySelectorAll("#sound-toggle");
+    buttons.forEach(button => {
+        if (settings.soundEnabled) {
+            button.innerHTML = '<span class="material-symbols-outlined">volume_up</span>';
+        } else {
+            button.innerHTML = '<span class="material-symbols-outlined">volume_off</span>';
+        }
+    });
+}
+
+// 設定の保存（ローカルストレージ使用）
+function saveSettings() {
+    localStorage.setItem('quizGameSettings', JSON.stringify(settings));
+}
+
+// 設定の読み込み
+function loadSettings() {
+    const savedSettings = localStorage.getItem('quizGameSettings');
+    if (savedSettings) {
+        const parsedSettings = JSON.parse(savedSettings);
+        settings.soundEnabled = parsedSettings.soundEnabled;
+    }
+}
+
+// 効果音再生関数の修正
+function playSound(sound) {
+    if (settings.soundEnabled && window.soundEffects && window.soundEffects[sound]) {
+        window.soundEffects[sound].play().catch(e => console.log('効果音の再生に失敗:', e));
+    }
+}
 
 // イベントリスナーの設定
 function initGame() {
@@ -104,6 +178,23 @@ function initGame() {
     // 初期表示設定
     DOM.screens.quiz.style.display = "none";
     DOM.screens.result.style.display = "none";
+
+    // 音設定ボタンを追加
+    addSoundToggle();
+    
+    // 画面がロードされた時に要素が存在することを確認
+    window.addEventListener('DOMContentLoaded', () => {
+        preloadSoundEffects();
+    });
+}
+
+// 効果音のプリロード
+function preloadSoundEffects() {
+    // 効果音のオブジェクトを作成（オプション）
+    window.soundEffects = {
+        correct: new Audio('data:audio/wav;base64,UklGRqQIAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YYAIAACAgICAgICAgICAgICAgICAgICAgICAAICKiorDw8Pm5uby8vLm5ubDw8OKiooAgICAgICAgICAgICAgICAgICAgICAgACAioqKw8PD5ubm8vLy5ubmw8PDioqKAICAgICAgICAgICAgICAgICAgICAgIAAgIqKisPDw+bm5vLy8ubm5sPDw4qKigCAgICAgICAgICAgICAgICAgICAgICAgAAA//8AAAAAAAAAAP//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NAAkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJAA0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NAAAMDAwMDAwMDAwMDAwMDAwMDAwMDAwMAA0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NAAAMDAwMDAwMDAwMDAwMDAwMDAwMDAwMAAkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJAA='),
+        wrong: new Audio('data:audio/wav;base64,UklGRgQGAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YeAFAAAAAAAAAAAAAAAAAACAgICAgICAgICAgICAgICAgICAgICAgAAAAAAAAAAAAACAgICAgICAgICAgICAgICAgICAgICAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDA////////////////wMDAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDA////////////////wMDAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDA////////////////wMDAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDA////////////////wMDAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDA////////////////wMDAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDA////////////////wMDAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDA////////////////wMDAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDA////////////////wMDAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMDA////////////////wMDAwAAAAAAAAAAAJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQAP//////////////////////////////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//////////////////////////////////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=')
+    };
 }
 
 // ゲーム開始
@@ -120,6 +211,7 @@ function resetGameState() {
     gameState.score = 0;
     gameState.timeLeft = gameState.maxTime;
     gameState.userAnswers = [];
+    gameState.answered = false;
     DOM.quiz.scoreDisplay.textContent = "0";
 }
 
@@ -128,6 +220,9 @@ function showQuestion() {
     // タイマーをクリア
     clearInterval(gameState.timer);
     cancelAnimationFrame(gameState.animationId);
+    
+    // 回答済みフラグをリセット
+    gameState.answered = false;
     
     // タイマーを初期化
     gameState.timeLeft = gameState.maxTime;
@@ -139,6 +234,16 @@ function showQuestion() {
     // 問題と選択肢を表示
     const currentQuestion = quizData[gameState.currentIndex];
     DOM.quiz.question.textContent = currentQuestion.question;
+    
+    // アニメーション効果のクラスを追加
+    DOM.quiz.question.classList.add('question-appear');
+    
+    // アニメーション終了後にクラスを削除（次回のために）
+    setTimeout(() => {
+        DOM.quiz.question.classList.remove('question-appear');
+    }, 500);
+    
+    // 選択肢を表示
     renderChoices(currentQuestion);
 
     // タイマー開始
@@ -162,7 +267,13 @@ function initTimerGauge() {
     timerGauge.style.width = "100%";
     
     timerContainer.appendChild(timerGauge);
-    DOM.quiz.timerContainer.parentNode.insertBefore(timerContainer, DOM.quiz.timerContainer);
+    
+    // タイマー表示の前に挿入
+    const timerDisplay = document.getElementById("game-timer");
+    timerDisplay.parentNode.insertBefore(timerContainer, timerDisplay);
+    
+    // DOMオブジェクトに格納
+    DOM.quiz.timerContainer = timerContainer;
 }
 
 // 選択肢の表示
@@ -173,6 +284,8 @@ function renderChoices(questionData) {
         const button = document.createElement("button");
         button.textContent = choice;
         button.classList.add("game-button");
+        // data-indexを設定
+        button.setAttribute("data-index", String.fromCharCode(65 + index)); // A, B, C, Dのようにアルファベットで表示
         button.onclick = () => checkAnswer(index);
         DOM.quiz.choices.appendChild(button);
     });
@@ -205,7 +318,7 @@ function startTimer() {
         
         updateTimerGauge(remainingPercentage);
         
-        if (remainingPercentage > 0 && gameState.timeLeft > 0) {
+        if (remainingPercentage > 0 && gameState.timeLeft > 0 && !gameState.answered) {
             gameState.animationId = requestAnimationFrame(animate);
         }
     }
@@ -231,6 +344,12 @@ function updateTimerGauge(percentage) {
 
 // 回答チェック
 function checkAnswer(index) {
+    // 既に回答済みの場合は処理しない
+    if (gameState.answered) return;
+    
+    // 回答済みにする
+    gameState.answered = true;
+    
     clearInterval(gameState.timer);
     cancelAnimationFrame(gameState.animationId); // アニメーションをキャンセル
     
@@ -258,6 +377,12 @@ function checkAnswer(index) {
         gameState.score++;
         DOM.quiz.scoreDisplay.textContent = gameState.score;
         showCorrectFeedback();
+        
+        // 正解の効果音を再生
+        playSound('correct');
+    } else {
+        // 不正解の効果音を再生
+        playSound('wrong');
     }
 
     setTimeout(nextQuestion, 1500);
@@ -289,7 +414,20 @@ function nextQuestion() {
 function showResult() {
     DOM.screens.quiz.style.display = "none";
     DOM.screens.result.style.display = "block";
-    DOM.result.finalScore.textContent = `最終スコア: ${gameState.score}/${quizData.length}`;
+    
+    // スコア表示を整形
+    const scoreText = `${gameState.score}/${quizData.length}`;
+    DOM.result.finalScore.textContent = `最終スコア: ${scoreText}`;
+    
+    // 合格/不合格の判定（オプション）
+    const passPercent = 70; // 70%以上で合格
+    const userPercent = (gameState.score / quizData.length) * 100;
+    
+    if (userPercent >= passPercent) {
+        DOM.result.finalScore.innerHTML += `<br><span style="color:var(--correct-color);font-size:1.2rem;">合格！おめでとうございます！</span>`;
+    } else {
+        DOM.result.finalScore.innerHTML += `<br><span style="color:var(--wrong-color);font-size:1.2rem;">もう少し頑張りましょう！</span>`;
+    }
     
     createResultTable();
 }
@@ -391,4 +529,4 @@ function restartGame() {
 }
 
 // ゲーム初期化
-initGame();
+document.addEventListener('DOMContentLoaded', initGame);

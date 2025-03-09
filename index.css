@@ -639,6 +639,7 @@ main {
     filter: invert(100%);
 }
 
+<<<<<<< Updated upstream
 
 :root {
     /* カラフルでポップなカラーテーマ */
@@ -998,6 +999,8 @@ main {
     font-weight: bold;
     color: white;
   }
+=======
+>>>>>>> Stashed changes
 
 
 /* フッター */
@@ -1238,19 +1241,6 @@ main {
 
     tr td:nth-child(1){
         padding-top: 12px;
-    }
-    .game-container {
-        width: 95%;
-        padding: var(--spacing-md);
-      }
-      
-    .game-button {
-        font-size: 0.9rem;
-        padding: var(--spacing-xs) var(--spacing-md);
-    }
-      
-    #game-final-score {
-        font-size: 1.2rem;
     }
 
     .footer__list__left,
