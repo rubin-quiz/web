@@ -1,13 +1,13 @@
 const quizData = [
     {
         question: "HTTPのポート番号は？",
-        choices: ["21", "80", "443", "22"],
-        answer: 1
+        choices: ["80", "21", "443", "22"],
+        answer: 0
     },
     {
         question: "HTTPSのポート番号は？",
-        choices: ["80", "443", "8080", "22"],
-        answer: 1
+        choices: ["443", "80", "8080", "22"],
+        answer: 0
     },
     {
         question: "FTPのポート番号は？",
@@ -16,38 +16,38 @@ const quizData = [
     },
     {
         question: "SSHのポート番号は？",
-        choices: ["21", "22", "23", "25"],
-        answer: 1
+        choices: ["22", "21", "23", "25"],
+        answer: 0
     },
     {
         question: "Telnetのポート番号は？",
-        choices: ["21", "22", "23", "25"],
-        answer: 2
+        choices: ["23", "21", "22", "25"],
+        answer: 0
     },
     {
         question: "SMTPのポート番号は？",
-        choices: ["21", "23", "25", "110"],
-        answer: 2
+        choices: ["25", "21", "23", "110"],
+        answer: 0
     },
     {
         question: "DNSのポート番号は？",
-        choices: ["43", "53", "67", "69"],
-        answer: 1
+        choices: ["53", "43", "67", "69"],
+        answer: 0
     },
     {
         question: "DHCPのポート番号は？",
-        choices: ["53", "67/68", "69", "80"],
-        answer: 1
+        choices: ["67/68", "53", "69", "80"],
+        answer: 0
     },
     {
         question: "POP3のポート番号は？",
-        choices: ["25", "110", "143", "389"],
-        answer: 1
+        choices: ["110", "25", "143", "389"],
+        answer: 0
     },
     {
         question: "IMAPのポート番号は？",
-        choices: ["110", "143", "389", "443"],
-        answer: 1
+        choices: ["143", "110", "389", "443"],
+        answer: 0
     },
     {
         question: "SNMPのポート番号は？",
@@ -56,8 +56,8 @@ const quizData = [
     },
     {
         question: "LDAPのポート番号は？",
-        choices: ["161", "389", "443", "636"],
-        answer: 1
+        choices: ["389", "161", "443", "636"],
+        answer: 0
     },
 ];
 
@@ -214,19 +214,88 @@ function initTimerGauge() {
     DOM.quiz.timerContainer = timerContainer;
 }
 
-// 選択肢の表示
 function renderChoices(questionData) {
     DOM.quiz.choices.innerHTML = "";
     
-    questionData.choices.forEach((choice, index) => {
+    // 選択肢と正解のインデックスをペアにして配列を作成
+    const choicesWithCorrectIndex = questionData.choices.map((choice, index) => {
+        return {
+            text: choice,
+            isCorrect: index === questionData.answer
+        };
+    });
+    
+    // 選択肢をシャッフル
+    const shuffledChoices = [...choicesWithCorrectIndex].sort(() => 0.5 - Math.random());
+    
+    // シャッフルした選択肢を表示
+    shuffledChoices.forEach((choiceObj, index) => {
         const button = document.createElement("button");
-        button.textContent = choice;
+        button.textContent = choiceObj.text;
         button.classList.add("game-button");
-        // data-indexを設定
         button.setAttribute("data-index", String.fromCharCode(65 + index)); // A, B, C, Dのようにアルファベットで表示
-        button.onclick = () => checkAnswer(index);
+        
+        // 正解かどうかの情報を使って回答チェック
+        button.onclick = () => checkAnswerByCorrectFlag(choiceObj.isCorrect);
+        
         DOM.quiz.choices.appendChild(button);
     });
+}
+
+// 正解フラグによる回答チェック
+function checkAnswerByCorrectFlag(isCorrect) {
+    // 既に回答済みの場合は処理しない
+    if (gameState.answered) return;
+    
+    // 回答済みにする
+    gameState.answered = true;
+    
+    clearInterval(gameState.timer);
+    cancelAnimationFrame(gameState.animationId); // アニメーションをキャンセル
+    
+    const currentQuestion = gameState.selectedQuestions[gameState.currentIndex];
+    const buttons = document.querySelectorAll("#game-choices-container .game-button");
+    
+    // 正解の選択肢を探す
+    let correctButton = null;
+    let selectedButton = null;
+    
+    // クリックされたボタンと正解のボタンを特定
+    buttons.forEach((button, i) => {
+        if (button === event.target) {
+            selectedButton = button;
+        }
+        if (button.textContent === currentQuestion.choices[currentQuestion.answer]) {
+            correctButton = button;
+        }
+    });
+
+    // ユーザーの回答を記録 (シャッフル後の選択肢の順番を考慮)
+    gameState.userAnswers.push({
+        question: currentQuestion.question,
+        choices: currentQuestion.choices,
+        correctAnswer: currentQuestion.choices[currentQuestion.answer],
+        userAnswer: selectedButton ? selectedButton.textContent : null
+    });
+
+    // 選択肢の色を変更
+    buttons.forEach((button) => {
+        if (button.textContent === currentQuestion.choices[currentQuestion.answer]) {
+            button.classList.add("game-correct");
+        } else if (button === selectedButton && !isCorrect) {
+            button.classList.add("game-wrong");
+        }
+        button.disabled = true;
+    });
+
+    // 正解なら得点を加算
+    if (isCorrect) {
+        gameState.score++;
+        DOM.quiz.scoreDisplay.textContent = gameState.score;
+        showCorrectFeedback();
+    }
+
+    setTimeout(nextQuestion, 1500);
 }
 
 // タイマー開始
@@ -245,7 +314,7 @@ function startTimer() {
         if (gameState.timeLeft <= 0) {
             clearInterval(gameState.timer);
             cancelAnimationFrame(gameState.animationId);
-            checkAnswer(-1); // 時間切れ
+            timeOut();
         }
     }, 1000);
     
@@ -262,6 +331,34 @@ function startTimer() {
     }
     
     gameState.animationId = requestAnimationFrame(animate);
+}
+
+// 時間切れ処理
+function timeOut() {
+    if (gameState.answered) return;
+    
+    gameState.answered = true;
+    
+    const currentQuestion = gameState.selectedQuestions[gameState.currentIndex];
+    const buttons = document.querySelectorAll("#game-choices-container .game-button");
+    
+    // ユーザーの回答を記録
+    gameState.userAnswers.push({
+        question: currentQuestion.question,
+        choices: currentQuestion.choices,
+        correctAnswer: currentQuestion.choices[currentQuestion.answer],
+        userAnswer: null // 時間切れ
+    });
+    
+    // 正解の選択肢を強調表示
+    buttons.forEach((button) => {
+        if (button.textContent === currentQuestion.choices[currentQuestion.answer]) {
+            button.classList.add("game-correct");
+        }
+        button.disabled = true;
+    });
+    
+    setTimeout(nextQuestion, 1500);
 }
 
 // タイマーゲージの更新
@@ -414,11 +511,27 @@ function createTableBody() {
         questionCell.textContent = answer.question;
         row.appendChild(questionCell);
         
-        // ユーザー回答セル
-        row.appendChild(createUserAnswerCell(answer));
+        // ユーザー回答セル (修正)
+        const userAnswerCell = document.createElement("td");
+        if (!answer.userAnswer) {
+            userAnswerCell.textContent = "時間切れ";
+            userAnswerCell.classList.add("answer-wrong");
+        } else {
+            userAnswerCell.textContent = answer.userAnswer;
+            
+            if (answer.userAnswer === answer.correctAnswer) {
+                userAnswerCell.classList.add("answer-correct");
+            } else {
+                userAnswerCell.classList.add("answer-wrong");
+            }
+        }
+        row.appendChild(userAnswerCell);
         
-        // 正解セル
-        row.appendChild(createCorrectAnswerCell(answer));
+        // 正解セル (修正)
+        const correctAnswerCell = document.createElement("td");
+        correctAnswerCell.textContent = answer.correctAnswer;
+        correctAnswerCell.classList.add("answer-correct");
+        row.appendChild(correctAnswerCell);
         
         tbody.appendChild(row);
     });
