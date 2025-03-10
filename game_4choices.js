@@ -455,14 +455,54 @@ function showResult() {
     const passPercent = 80; // 80%以上で合格
     const userPercent = (gameState.score / gameState.questionCount) * 100;
     
+    let resultMessage;
     if (userPercent >= passPercent) {
-        DOM.result.finalScore.innerHTML += `<br><span style="color:var(--correct-color);font-size:1.2rem;">合格！おめでとうございます！</span>`;
+        resultMessage = "合格！おめでとうございます！";
+        DOM.result.finalScore.innerHTML += `<br><span style="color:var(--correct-color);font-size:1.2rem;">${resultMessage}</span>`;
     } else {
-        DOM.result.finalScore.innerHTML += `<br><span style="color:var(--wrong-color);font-size:1.2rem;">不合格です！もう一度チャレンジしてみよう！</span>`;
+        resultMessage = "不合格です！もう一度チャレンジしてみよう！";
+        DOM.result.finalScore.innerHTML += `<br><span style="color:var(--wrong-color);font-size:1.2rem;">${resultMessage}</span>`;
     }
+    
+    // X共有ボタンの追加
+    addTwitterSharingButton(gameState.score, gameState.questionCount, resultMessage);
     
     createResultTable();
 }
+
+function addTwitterSharingButton(score, totalQuestions, resultMessage) {
+    // 既存の共有ボタンがあれば削除
+    const existingShareContainer = document.getElementById('twitter-share-container');
+    if (existingShareContainer) {
+        existingShareContainer.remove();
+    }
+    
+    // 共有コンテナの作成
+    const shareContainer = document.createElement('div');
+    shareContainer.id = 'twitter-share-container';
+    
+    // 共有テキストの作成
+    const shareText = `【ルビンの思うつぼ】4択クイズ(${totalQuestions}問モード)に挑戦し、${score}点を獲得しました！みんなもプレイしてみてね！`;
+    const shareUrl = 'https://rubin-quiz.github.io/web/game_4choices.html';
+    
+    // Xボタンの作成
+    const twitterButton = document.createElement('button');
+    twitterButton.className = 'twitter-share-button';
+    twitterButton.textContent = 'Xでシェア';
+    
+    twitterButton.addEventListener('click', () => {
+        const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
+        window.open(twitterUrl, '_blank');
+    });
+    
+    // ボタンを追加
+    shareContainer.appendChild(twitterButton);
+    
+    // 共有コンテナを結果画面に追加
+    const restartButtonsContainer = document.querySelector('.restart-buttons');
+    DOM.screens.result.insertBefore(shareContainer, restartButtonsContainer);
+}
+
 
 // 結果テーブル作成
 function createResultTable() {

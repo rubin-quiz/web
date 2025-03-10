@@ -425,7 +425,29 @@ body {
     color: white;
     box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.3);
   }
-  
+  /* X共有ボタンのスタイル */
+ #twitter-share-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+ }
+
+ .twitter-share-button {
+    background-color: #000;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+ }
+
+ .twitter-share-button:hover {
+    opacity: 0.8;
+    transform: translateY(-2px);
+ }
   /* レスポンシブデザイン - スマホ用 */
   @media (max-width: 600px) {
     body {
