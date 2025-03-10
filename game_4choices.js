@@ -1,68 +1,270 @@
-const quizData = [
-    {
-        question: "HTTPのポート番号は？",
-        choices: ["80", "21", "443", "22"],
-        answer: 0
-    },
-    {
-        question: "HTTPSのポート番号は？",
-        choices: ["443", "80", "8080", "22"],
-        answer: 0
-    },
-    {
-        question: "FTPのポート番号は？",
-        choices: ["20/21", "22", "23", "25"],
-        answer: 0
-    },
-    {
-        question: "SSHのポート番号は？",
-        choices: ["22", "21", "23", "25"],
-        answer: 0
-    },
-    {
-        question: "Telnetのポート番号は？",
-        choices: ["23", "21", "22", "25"],
-        answer: 0
-    },
-    {
-        question: "SMTPのポート番号は？",
-        choices: ["25", "21", "23", "110"],
-        answer: 0
-    },
-    {
-        question: "DNSのポート番号は？",
-        choices: ["53", "43", "67", "69"],
-        answer: 0
-    },
-    {
-        question: "DHCPのポート番号は？",
-        choices: ["67/68", "53", "69", "80"],
-        answer: 0
-    },
-    {
-        question: "POP3のポート番号は？",
-        choices: ["110", "25", "143", "389"],
-        answer: 0
-    },
-    {
-        question: "IMAPのポート番号は？",
-        choices: ["143", "110", "389", "443"],
-        answer: 0
-    },
-    {
-        question: "SNMPのポート番号は？",
-        choices: ["161/162", "389", "443", "636"],
-        answer: 0
-    },
-    {
-        question: "LDAPのポート番号は？",
-        choices: ["389", "161", "443", "636"],
-        answer: 0
-    },
-];
+const quizDataByGenre = {
+    "3大○○に含まれないもの": [
+        {
+            question: "3大栄養素に含まれないのはどれ？",
+            choices: ["ビタミン", "タンパク質", "炭水化物", "脂質"],
+            answer: 0
+        },
+        {
+            question: "3大アレルギーに含まれないのはどれ？",
+            choices: ["乳製品", "卵", "そば", "小麦"],
+            answer: 0
+        },
+        {
+            question: "日本三大祭りに含まれないのはどれ？",
+            choices: ["神田祭", "祇園祭", "天神祭", "高山祭"],
+            answer: 0
+        },
+        {
+            question: "世界三大料理に含まれないのはどれ？",
+            choices: ["イタリア料理", "中華料理", "フランス料理", "トルコ料理"],
+            answer: 0
+        },
+        {
+            question: "世界三大珍味に含まれないのはどれ？",
+            choices: ["フォアグラ", "トリュフ", "フカヒレ", "キャビア"],
+            answer: 0
+        },
+        {
+            question: "世界三大美女に含まれないのはどれ？",
+            choices: ["クレオパトラ", "楊貴妃", "マリリン・モンロー", "小野小町"],
+            answer: 0
+        },
+        {
+            question: "世界三大宗教に含まれないのはどれ？",
+            choices: ["ヒンドゥー教", "キリスト教", "イスラム教", "仏教"],
+            answer: 0
+        },
+        {
+            question: "日本三景に含まれないのはどれ？",
+            choices: ["富士山", "天橋立", "松島", "宮島"],
+            answer: 0
+        },
+        {
+            question: "世界三大夜景に含まれないのはどれ？",
+            choices: ["香港", "ナポリ", "マカオ", "モナコ"],
+            answer: 0
+        },
+        {
+            question: "世界三大美人に含まれないのはどれ？",
+            choices: ["フランス人", "スペイン人", "イタリア人", "ロシア人"],
+            answer: 0
+        },
+    ],
+    "国の首都": [
+        {
+            question: "オーストラリアの首都は？",
+            choices: ["キャンベラ", "ウェリントン", "プレトリア", "オタワ"],
+            answer: 0
+        },
+        {
+            question: "ブラジルの首都は？",
+            choices: ["ブラジリア", "リマ", "ブエノスアイレス", "カラカス"],
+            answer: 0
+        },
+        {
+            question: "カナダの首都は？",
+            choices: ["オタワ", "ワシントンD.C.", "メキシコシティ", "ハバナ"],
+            answer: 0
+        },
+        {
+            question: "エジプトの首都は？",
+            choices: ["カイロ", "アンカラ", "ラバト", "ハルツーム"],
+            answer: 0
+        },
+        {
+            question: "トルコの首都は？",
+            choices: ["アンカラ", "アテネ", "テヘラン", "ベイルート"],
+            answer: 0
+        },
+        {
+            question: "スイスの首都は？",
+            choices: ["ベルン", "ウィーン", "ブリュッセル", "ルクセンブルク"],
+            answer: 0
+        },
+        {
+            question: "ニュージーランドの首都は？",
+            choices: ["ウェリントン", "キャンベラ", "スバ", "マニラ"],
+            answer: 0
+        },
+        {
+            question: "モロッコの首都は？",
+            choices: ["ラバト", "チュニス", "アルジェ", "トリポリ"],
+            answer: 0
+        },
+        {
+            question: "フィンランドの首都は？",
+            choices: ["ヘルシンキ", "ストックホルム", "オスロ", "コペンハーゲン"],
+            answer: 0
+        },
+        {
+            question: "アルゼンチンの首都は？",
+            choices: ["ブエノスアイレス", "サンティアゴ", "モンテビデオ", "アスンシオン"],
+            answer: 0
+        },
+        {
+            question: "タイの首都は？",
+            choices: ["バンコク", "ハノイ", "ビエンチャン", "プノンペン"],
+            answer: 0
+        },
+        {
+            question: "ベトナムの首都は？",
+            choices: ["ハノイ", "バンコク", "クアラルンプール", "ジャカルタ"],
+            answer: 0
+        },
+        {
+            question: "ペルーの首都は？",
+            choices: ["リマ", "キト", "ラパス", "ボゴタ"],
+            answer: 0
+        },
+        {
+            question: "インドネシアの首都は？",
+            choices: ["ジャカルタ", "マニラ", "クアラルンプール", "シンガポール"],
+            answer: 0
+        },
+        {
+            question: "ノルウェーの首都は？",
+            choices: ["オスロ", "ストックホルム", "コペンハーゲン", "ヘルシンキ"],
+            answer: 0
+        },
+        {
+            question: "ポルトガルの首都は？",
+            choices: ["リスボン", "マドリード", "アンドラ・ラ・ベリャ", "ダブリン"],
+            answer: 0
+        },
+        {
+            question: "メキシコの首都は？",
+            choices: ["メキシコシティ", "ハバナ", "グアテマラシティ", "サンサルバドル"],
+            answer: 0
+        },
+        {
+            question: "オーストリアの首都は？",
+            choices: ["ウィーン", "ベルン", "プラハ", "ブラチスラバ"],
+            answer: 0
+        },
+        {
+            question: "アイルランドの首都は？",
+            choices: ["ダブリン", "ロンドン", "エジンバラ", "ベルファスト"],
+            answer: 0
+        },
+        {
+            question: "ギリシャの首都は？",
+            choices: ["アテネ", "ローマ", "ニコシア", "ソフィア"],
+            answer: 0
+        },
+        {
+            question: "スウェーデンの首都は？",
+            choices: ["ストックホルム", "オスロ", "ヘルシンキ", "コペンハーゲン"],
+            answer: 0
+        },
+        {
+            question: "チリの首都は？",
+            choices: ["サンティアゴ", "ブエノスアイレス", "リマ", "ラパス"],
+            answer: 0
+        },
+        {
+            question: "デンマークの首都は？",
+            choices: ["コペンハーゲン", "オスロ", "ストックホルム", "ヘルシンキ"],
+            answer: 0
+        },
+        {
+            question: "ハンガリーの首都は？",
+            choices: ["ブダペスト", "プラハ", "ワルシャワ", "ベオグラード"],
+            answer: 0
+        },
+        {
+            question: "オランダの首都は？",
+            choices: ["アムステルダム", "ブリュッセル", "コペンハーゲン", "ベルリン"],
+            answer: 0
+        },
+        {
+            question: "フィリピンの首都は？",
+            choices: ["マニラ", "ジャカルタ", "バンコク", "クアラルンプール"],
+            answer: 0
+        },
+        {
+            question: "ポーランドの首都は？",
+            choices: ["ワルシャワ", "プラハ", "ブダペスト", "キエフ"],
+            answer: 0
+        },
+        {
+            question: "イランの首都は？",
+            choices: ["テヘラン", "バグダッド", "カブール", "アンカラ"],
+            answer: 0
+        },
+        {
+            question: "ウクライナの首都は？",
+            choices: ["キエフ", "ミンスク", "モスクワ", "ブカレスト"],
+            answer: 0
+        },
+    ],
+    "ポート番号": [
+        {
+            question: "HTTPのポート番号は？",
+            choices: ["80", "21", "443", "22"],
+            answer: 0
+        },
+        {
+            question: "HTTPSのポート番号は？",
+            choices: ["443", "80", "8080", "22"],
+            answer: 0
+        },
+        {
+            question: "FTPのポート番号は？",
+            choices: ["20/21", "22", "23", "25"],
+            answer: 0
+        },
+        {
+            question: "SSHのポート番号は？",
+            choices: ["22", "21", "23", "25"],
+            answer: 0
+        },
+        {
+            question: "Telnetのポート番号は？",
+            choices: ["23", "21", "22", "25"],
+            answer: 0
+        },
+        {
+            question: "SMTPのポート番号は？",
+            choices: ["25", "21", "23", "110"],
+            answer: 0
+        },
+        {
+            question: "DNSのポート番号は？",
+            choices: ["53", "43", "67", "69"],
+            answer: 0
+        },
+        {
+            question: "DHCPのポート番号は？",
+            choices: ["67/68", "53", "69", "80"],
+            answer: 0
+        },
+        {
+            question: "POP3のポート番号は？",
+            choices: ["110", "25", "143", "389"],
+            answer: 0
+        },
+        {
+            question: "IMAPのポート番号は？",
+            choices: ["143", "110", "389", "443"],
+            answer: 0
+        },
+        {
+            question: "SNMPのポート番号は？",
+            choices: ["161/162", "389", "443", "636"],
+            answer: 0
+        },
+        {
+            question: "LDAPのポート番号は？",
+            choices: ["389", "161", "443", "636"],
+            answer: 0
+        },
+    ],
+};
 
 // ゲーム状態管理
 const gameState = {
+    currentGenre: "",
     currentIndex: 0,
     score: 0,
     timeLeft: 10,
@@ -78,17 +280,21 @@ const gameState = {
 // DOM要素
 const DOM = {
     screens: {
-        start: document.getElementById("game-start-screen"),
+        genre: document.getElementById("game-genre-screen"),
+        mode: document.getElementById("game-mode-screen"),
         quiz: document.getElementById("game-quiz-screen"),
         result: document.getElementById("game-result-screen")
     },
     buttons: {
+        genreButtons: document.getElementById("genre-buttons-container"),
         mode5: document.getElementById("game-mode-5"),
         mode10: document.getElementById("game-mode-10"),
         restart: document.getElementById("game-restart"),
-        return: document.getElementById("game-return")
+        returnToGenre: document.getElementById("game-return-genre"),
+        returnToMode: document.getElementById("game-return-mode")
     },
     quiz: {
+        genreTitle: document.getElementById("game-genre-title"),
         question: document.getElementById("game-question"),
         choices: document.getElementById("game-choices-container"),
         timeDisplay: document.getElementById("game-time-left"),
@@ -98,33 +304,67 @@ const DOM = {
         timerContainer: null // initTimerGaugeで動的に設定
     },
     result: {
-        finalScore: document.getElementById("game-final-score")
+        finalScore: document.getElementById("game-final-score"),
+        resultsContainer: document.getElementById("game-results-container")
     }
 };
 
 // イベントリスナーの設定
 function initGame() {
+    // ジャンルボタンを動的に作成
+    createGenreButtons();
+    
+    // モード選択ボタン
     DOM.buttons.mode5.addEventListener("click", () => startGame(5));
     DOM.buttons.mode10.addEventListener("click", () => startGame(10));
+    
+    // 結果画面のボタン
     DOM.buttons.restart.addEventListener("click", restartGame);
-    DOM.buttons.return.addEventListener("click", returnToModeSelection);
+    DOM.buttons.returnToGenre.addEventListener("click", returnToGenreSelection);
+    DOM.buttons.returnToMode.addEventListener("click", returnToModeSelection);
     
     // 初期表示設定
+    DOM.screens.mode.style.display = "none";
     DOM.screens.quiz.style.display = "none";
     DOM.screens.result.style.display = "none";
 }
 
+// ジャンルボタンを動的に作成
+function createGenreButtons() {
+    const container = DOM.buttons.genreButtons;
+    
+    Object.keys(quizDataByGenre).forEach(genre => {
+        const button = document.createElement("button");
+        button.textContent = genre;
+        button.className = "game-button genre-button";
+        button.addEventListener("click", () => selectGenre(genre));
+        container.appendChild(button);
+    });
+}
+
+// ジャンル選択時の処理
+function selectGenre(genre) {
+    gameState.currentGenre = genre;
+    DOM.screens.genre.style.display = "none";
+    DOM.screens.mode.style.display = "block";
+    DOM.quiz.genreTitle.textContent = genre + "クイズ"; // モード選択画面のタイトルを更新
+}
+
 // ランダムに問題を選択
 function selectRandomQuestions(count) {
+    // 選択されたジャンルの問題を取得
+    const genreQuestions = quizDataByGenre[gameState.currentGenre];
+    
     // 配列をコピーしてシャッフル
-    const shuffled = [...quizData].sort(() => 0.5 - Math.random());
+    const shuffled = [...genreQuestions].sort(() => 0.5 - Math.random());
+    
     // 必要な数だけ問題を取得
     return shuffled.slice(0, count);
 }
 
 // ゲーム開始
 function startGame(questionCount) {
-    DOM.screens.start.style.display = "none";
+    DOM.screens.mode.style.display = "none";
     DOM.screens.quiz.style.display = "block";
     
     // 問題数を設定
@@ -186,6 +426,48 @@ function showQuestion() {
 
     // タイマー開始
     startTimer();
+}
+
+// リスタート機能（結果画面から同じモードで再プレイ）
+function restartGame() {
+    DOM.screens.result.style.display = "none";
+    DOM.screens.quiz.style.display = "block";
+    
+    resetGameState();
+    showQuestion();
+}
+
+// ジャンル選択に戻る
+function returnToGenreSelection() {
+    DOM.screens.result.style.display = "none";
+    DOM.screens.genre.style.display = "block";
+}
+
+// モード選択に戻る
+function returnToModeSelection() {
+    DOM.screens.result.style.display = "none";
+    DOM.screens.mode.style.display = "block";
+}
+
+// 選択肢をレンダリング
+function renderChoices(question) {
+    const choicesContainer = DOM.quiz.choices;
+    choicesContainer.innerHTML = ""; // 既存の選択肢をクリア
+    
+    question.choices.forEach((choice, index) => {
+        const button = document.createElement("button");
+        button.textContent = choice;
+        button.className = "choice-button";
+        button.dataset.index = index;
+        
+        button.addEventListener("click", () => {
+            if (!gameState.answered) {
+                checkAnswer(index);
+            }
+        });
+        
+        choicesContainer.appendChild(button);
+    });
 }
 
 // タイマーゲージの初期化
