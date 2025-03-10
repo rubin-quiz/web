@@ -849,7 +849,7 @@ function createTableBody() {
         }
         row.appendChild(userAnswerCell);
         
-        // 正解セル (修正)
+        // 正解セル（修正）
         const correctAnswerCell = document.createElement("td");
         correctAnswerCell.textContent = answer.correctAnswer;
         correctAnswerCell.classList.add("answer-correct");
