@@ -83,19 +83,18 @@ main {
 
 .vertical-text {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 42%;
+    left: 49%;
     transform: translate(-50%, -50%);
     writing-mode: vertical-rl;
     text-orientation: upright;
     color: black; /* 白色テキスト */
-    font-size: 28px;
-    font-family: "Yu Mincho", "YuMincho", "HG明朝E", "MS Mincho", "ヒラギノ明朝 ProN", "Hiragino Mincho ProN", serif;
+    font-size: 16px;
+    font-family: "Yu Mincho", "YuMincho", "HG明朝E", "MS Mincho", "ヒラギノ明朝 ProN", "Hiragino Mincho ProN", sans-serif;
     font-weight: normal;
     letter-spacing: 0.1em; /* 文字間隔を少し広げる */
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); /* テキストに影をつける */
     line-height: 1.8;
-    padding: 15px;
 }
 
 /* .weeklyquiz{
@@ -817,6 +816,13 @@ main {
     .header__list {
         display: none;
     }
+
+    .vertical-text {
+        font-size: 11px;
+        top: 39%;
+        letter-spacing: 0.08em;
+        line-height: 1.6;
+    }
     
     .book{
         width: 100%;
@@ -855,13 +861,16 @@ main {
         margin: -20px calc(50% - 50vw) 10px;
         width: 100vw;
     }
-    
-    .profile {
-        /* width: 170px; */
-        /* height: 170px; */
-        /* flex-direction: column; */
-    }
 
+    .vertical-text {
+        font-size: 8px;
+        top: 35%;
+        left: 49%;
+        letter-spacing: 0.05em;
+        line-height: 1.4;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    }
+    
     .book{
         height: 200px;
         margin: 0 0 50px 0; 
