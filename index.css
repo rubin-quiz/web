@@ -77,8 +77,8 @@ main {
 }
 
 .banner img{
-    margin: -20px calc(50% - 45vw) 10px;
-    width: 90vw;
+    margin: -20px calc(50% - 50vw) 10px;
+    width: 100vw;
 }
 
 .vertical-text {
@@ -89,7 +89,7 @@ main {
     writing-mode: vertical-rl;
     text-orientation: upright;
     color: black; /* 白色テキスト */
-    font-size: 16px;
+    font-size: 18px;
     font-family: "Yu Mincho", "YuMincho", "HG明朝E", "MS Mincho", "ヒラギノ明朝 ProN", "Hiragino Mincho ProN", sans-serif;
     font-weight: normal;
     letter-spacing: 0.1em; /* 文字間隔を少し広げる */
@@ -818,7 +818,7 @@ main {
     }
 
     .vertical-text {
-        font-size: 11px;
+        font-size: 12px;
         top: 39%;
         letter-spacing: 0.08em;
         line-height: 1.6;
