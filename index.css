@@ -72,9 +72,30 @@ main {
     margin: 20px 0;
 }
 
+.banner{
+    position: relative;
+}
+
 .banner img{
     margin: -20px calc(50% - 45vw) 10px;
     width: 90vw;
+}
+
+.vertical-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    color: black; /* 白色テキスト */
+    font-size: 28px;
+    font-family: "Yu Mincho", "YuMincho", "HG明朝E", "MS Mincho", "ヒラギノ明朝 ProN", "Hiragino Mincho ProN", serif;
+    font-weight: normal;
+    letter-spacing: 0.1em; /* 文字間隔を少し広げる */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); /* テキストに影をつける */
+    line-height: 1.8;
+    padding: 15px;
 }
 
 /* .weeklyquiz{
