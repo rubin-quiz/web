@@ -92,11 +92,40 @@ main {
     font-size: 18px;
     font-family: "Yu Mincho", "YuMincho", "HG明朝E", "MS Mincho", "ヒラギノ明朝 ProN", "Hiragino Mincho ProN", sans-serif;
     font-weight: normal;
-    letter-spacing: 0.1em; /* 文字間隔を少し広げる */
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); /* テキストに影をつける */
     line-height: 1.8;
 }
 
+.char {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(-30px);
+    animation: fadeInDown 0.5s forwards;
+    margin-top: -15px;
+}
+
+/* 文字ごとに遅延させてアニメーションを実行 */
+.char:nth-child(1) { animation-delay: 0.1s; }
+.char:nth-child(2) { animation-delay: 0.2s; }
+.char:nth-child(3) { animation-delay: 0.3s; }
+.char:nth-child(4) { animation-delay: 0.4s; }
+.char:nth-child(5) { animation-delay: 0.5s; }
+.char:nth-child(6) { animation-delay: 0.6s; }
+.char:nth-child(7) { animation-delay: 0.7s; }
+.char:nth-child(8) { animation-delay: 0.8s; }
+.char:nth-child(9) { animation-delay: 0.9s; }
+.char:nth-child(10) { animation-delay: 1.0s; }
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 /* .weeklyquiz{
     background: linear-gradient(135deg, #fff8f0 0%, #ffe4c4 100%);
     box-shadow: 0 4px 15px rgba(255, 140, 0, 0.15);
@@ -823,6 +852,11 @@ main {
         letter-spacing: 0.08em;
         line-height: 1.6;
     }
+
+    .char {
+        margin-top: -12px;
+    }
+    
     
     .book{
         width: 100%;
@@ -869,6 +903,10 @@ main {
         letter-spacing: 0.05em;
         line-height: 1.4;
         text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    }
+
+    .char {
+        margin-top: -7px;
     }
     
     .book{
