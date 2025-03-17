@@ -56,7 +56,7 @@ header {
 /* メインコンテンツ */
 main {
     margin: 0% 15%;
-    padding-top: 50px;
+    padding-top: 35px;
     min-height: 100vh
 }
 
@@ -89,11 +89,11 @@ main {
     writing-mode: vertical-rl;
     text-orientation: upright;
     color: black; /* 白色テキスト */
-    font-size: 18px;
-    font-family: "Yu Mincho", "YuMincho", "HG明朝E", "MS Mincho", "ヒラギノ明朝 ProN", "Hiragino Mincho ProN", sans-serif;
-    font-weight: normal;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); /* テキストに影をつける */
-    line-height: 1.8;
+    font-size: 22px;
+    font-family:  "UD デジタル 教科書体 NP", "HG丸ｺﾞｼｯｸM-PRO" , sans-serif;
+    font-weight:  bold;
+    text-shadow: 8px 5px 1px rgba(0, 0, 0, 0.1);
+    line-height: 1.5;
 }
 
 .char {
@@ -101,8 +101,9 @@ main {
     opacity: 0;
     transform: translateY(-30px);
     animation: fadeInDown 0.5s forwards;
-    margin-top: -15px;
+    margin-top: -16px;
 }
+
 
 /* 文字ごとに遅延させてアニメーションを実行 */
 .char:nth-child(1) { animation-delay: 0.1s; }
@@ -113,7 +114,8 @@ main {
 .char:nth-child(6) { animation-delay: 0.6s; }
 .char:nth-child(7) { animation-delay: 0.7s; }
 .char:nth-child(8) { animation-delay: 0.8s; }
-.char:nth-child(9) { animation-delay: 0.9s; }
+.char:nth-child(9) { animation-delay: 0.9s;
+color: red; }
 .char:nth-child(10) { animation-delay: 1.0s; }
 
 @keyframes fadeInDown {
@@ -126,15 +128,7 @@ main {
         transform: translateY(0);
     }
 }
-/* .weeklyquiz{
-    background: linear-gradient(135deg, #fff8f0 0%, #ffe4c4 100%);
-    box-shadow: 0 4px 15px rgba(255, 140, 0, 0.15);
-    border-left: 5px solid #ff8c00;
-    border-radius: 0 10px 10px 0;
-    padding: 25px 30px;
-    line-height: 1.8;
-    color: black;
-} */
+
 
 .latestnews {
     background: #fff;
@@ -847,7 +841,7 @@ main {
     }
 
     .vertical-text {
-        font-size: 12px;
+        font-size: 15px;
         top: 39%;
         letter-spacing: 0.08em;
         line-height: 1.6;
@@ -902,7 +896,6 @@ main {
         left: 49%;
         letter-spacing: 0.05em;
         line-height: 1.4;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
     }
 
     .char {
