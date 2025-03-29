@@ -855,6 +855,11 @@ color: red; }
 
 /* レスポンシブデザイン */
 @media screen and (max-width: 900px) {
+    
+    .side-ad {
+        display: none;
+    }
+
     main {
         margin: 0% 10%;
     }
