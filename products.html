@@ -12,8 +12,8 @@
 
         gtag('config', 'G-Y48G5L07GS');
     </script>
-        <title>Products | ルビンの思うつぼ</title>
-        <link rel="icon" href="./images/rubin_logo_main.png" type="image/x-icon">
+    <title>Products | ルビンの思うつぼ</title>
+    <link rel="icon" href="./images/rubin_logo_main.png" type="image/x-icon">
     <link rel="stylesheet" href="https://unpkg.com/ress@4.0.0/dist/ress.min.css">
     <link rel="stylesheet" href="./index.css" />
     <link rel="stylesheet"
@@ -42,63 +42,85 @@
     </header>
 
     <main>
-        <div class="content">
-            <h2 class="title">Products</h2>
-            <p class="description">販売中のクイズ問題集やオリジナルグッズを紹介します！</p>
-            <div class="subcontent">
-                <h3 class="title">Quiz Books</h3>
-                <ul class="book__list">
-                    <li class="book">
-                        <div class="slider" data-images="images/quizbook1_frontcover.jpg,images/quizbook1_firstpage.jpg,images/quizbook1_backcover.jpg">
-                            <button class="arrow prev" onclick="changeImage(-1)">&#9665;</button>
-                            <img class="quizImage" src="images/quizbook1_frontcover.jpg" alt="Quiz Book" onclick="openModal(this)">
-                            <button class="arrow next" onclick="changeImage(1)">&#9655;</button>
-                            <div class="indicators">
-                                <span class="dot"></span>
-                                <span class="dot"></span>
-                                <span class="dot"></span>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <h4>クイズの壺～日常に興を添える300問～</h4>
-                            <ul class="tags">
-                                <li class="tag"><a href="#"># 初心者向け</a></li>
-                                <li class="tag"><a href="#"># ノンジャンル</a></li>
-                            </ul>
-                            <ul class="shops">
-                                <li class="shop"><a href="https://q-tak.com/?p=16998" target="_blank"
-                                        rel="noopener noreferrer">クイズ宅配便 <span>¥501</span></a></li>
-                                <li class="shop"><a href="https://booth.pm/ja/items/5348850" target="_blank"
-                                        rel="noopener noreferrer">BOOTH <span>¥500</span></a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="book">
-                        <div class="slider" data-images="images/quizbook2_frontcover.jpg,images/quizbook2_firstpage.jpg,images/quizbook2_backcover.jpg">
-                            <button class="arrow prev" onclick="changeImage(-1)">&#9665;</button>
-                            <img class="quizImage" src="images/quizbook2_frontcover.jpg" alt="Quiz Book2" onclick="openModal(this)">
-                            <button class="arrow next" onclick="changeImage(1)">&#9655;</button>
-                            <div class="indicators">
-                                <span class="dot"></span>
-                                <span class="dot"></span>
-                                <span class="dot"></span>
-                            </div>
-                        </div>
-                        <div class="info">
-                            <h4>クイズの壺2～世界の解像度を上げる300問～</h4>
-                            <ul class="tags">
-                                <li class="tag"><a href="#"># 初心者向け</a></li>
-                                <li class="tag"><a href="#"># ノンジャンル</a></li>
-                            </ul>
-                            <ul class="shops">
-                                <li class="shop"><a href="https://q-tak.com/?p=18280" target="_blank"
-                                        rel="noopener noreferrer">クイズ宅配便 <span>¥501</span></a></li>
-                                <li class="shop"><a href="https://booth.pm/ja/items/6254358" target="_blank"
-                                        rel="noopener noreferrer">BOOTH <span>¥500</span></a></li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
+        <div class="main-wrapper">
+            <!-- 左広告 -->
+            <div class="side-ad">
+                <div class="admax-ads" data-admax-id="左の広告ID" style="display:inline-block;width:160px;height:600px;">
+                </div>
+                <script>(admaxads = window.admaxads || []).push({ admax_id: "左の広告ID", type: "banner" });</script>
+            </div>
+
+            <div class="main-content">
+                <div class="content">
+                    <h2 class="title">Products</h2>
+                    <p class="description">販売中のクイズ問題集やオリジナルグッズを紹介します！</p>
+                    <div class="subcontent">
+                        <h3 class="title">Quiz Books</h3>
+                        <ul class="book__list">
+                            <li class="book">
+                                <div class="slider"
+                                    data-images="images/quizbook1_frontcover.jpg,images/quizbook1_firstpage.jpg,images/quizbook1_backcover.jpg">
+                                    <button class="arrow prev" onclick="changeImage(-1)">&#9665;</button>
+                                    <img class="quizImage" src="images/quizbook1_frontcover.jpg" alt="Quiz Book"
+                                        onclick="openModal(this)">
+                                    <button class="arrow next" onclick="changeImage(1)">&#9655;</button>
+                                    <div class="indicators">
+                                        <span class="dot"></span>
+                                        <span class="dot"></span>
+                                        <span class="dot"></span>
+                                    </div>
+                                </div>
+                                <div class="info">
+                                    <h4>クイズの壺～日常に興を添える300問～</h4>
+                                    <ul class="tags">
+                                        <li class="tag"><a href="#"># 初心者向け</a></li>
+                                        <li class="tag"><a href="#"># ノンジャンル</a></li>
+                                    </ul>
+                                    <ul class="shops">
+                                        <li class="shop"><a href="https://q-tak.com/?p=16998" target="_blank"
+                                                rel="noopener noreferrer">クイズ宅配便 <span>¥501</span></a></li>
+                                        <li class="shop"><a href="https://booth.pm/ja/items/5348850" target="_blank"
+                                                rel="noopener noreferrer">BOOTH <span>¥500</span></a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="book">
+                                <div class="slider"
+                                    data-images="images/quizbook2_frontcover.jpg,images/quizbook2_firstpage.jpg,images/quizbook2_backcover.jpg">
+                                    <button class="arrow prev" onclick="changeImage(-1)">&#9665;</button>
+                                    <img class="quizImage" src="images/quizbook2_frontcover.jpg" alt="Quiz Book2"
+                                        onclick="openModal(this)">
+                                    <button class="arrow next" onclick="changeImage(1)">&#9655;</button>
+                                    <div class="indicators">
+                                        <span class="dot"></span>
+                                        <span class="dot"></span>
+                                        <span class="dot"></span>
+                                    </div>
+                                </div>
+                                <div class="info">
+                                    <h4>クイズの壺2～世界の解像度を上げる300問～</h4>
+                                    <ul class="tags">
+                                        <li class="tag"><a href="#"># 初心者向け</a></li>
+                                        <li class="tag"><a href="#"># ノンジャンル</a></li>
+                                    </ul>
+                                    <ul class="shops">
+                                        <li class="shop"><a href="https://q-tak.com/?p=18280" target="_blank"
+                                                rel="noopener noreferrer">クイズ宅配便 <span>¥501</span></a></li>
+                                        <li class="shop"><a href="https://booth.pm/ja/items/6254358" target="_blank"
+                                                rel="noopener noreferrer">BOOTH <span>¥500</span></a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右広告 -->
+            <div class="side-ad">
+                <div class="admax-ads" data-admax-id="右の広告ID" style="display:inline-block;width:160px;height:600px;">
+                </div>
+                <script>(admaxads = window.admaxads || []).push({ admax_id: "右の広告ID", type: "banner" });</script>
             </div>
         </div>
     </main>

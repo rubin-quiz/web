@@ -3,6 +3,7 @@ body {
     font-family: Arial, sans-serif;
 }
 
+
 /* ヘッダー */
 header {
     height: 50px;
@@ -53,9 +54,33 @@ header {
     filter: invert(1);
 }
 
+/* メイン部と左右のバナー部を分ける */
+
+.main-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 50px; /* 広告と本文の間の余白 */
+    /* max-width: 1200px; */
+    /* margin: 0 auto; */
+}
+
+.side-ad {
+    /* background-color: rgb(161, 161, 161); */
+    width: 160px;
+    height: 600px;
+    flex-shrink: 0;
+    margin-top: 400px;
+}
+
+.main-content {
+    flex: 1;
+    min-width: 0;
+}
+
 /* メインコンテンツ */
 main {
-    margin: 0% 15%;
+    margin: 0% 1%;
     padding-top: 35px;
     min-height: 100vh
 }
@@ -825,6 +850,8 @@ color: red; }
     width: 30px;
     filter: invert(100%);
 }
+
+
 
 /* レスポンシブデザイン */
 @media screen and (max-width: 900px) {

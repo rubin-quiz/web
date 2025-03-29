@@ -12,8 +12,8 @@
 
         gtag('config', 'G-Y48G5L07GS');
     </script>
-        <title>Quiz | ルビンの思うつぼ</title>
-        <link rel="icon" href="./images/rubin_logo_main.png" type="image/x-icon">
+    <title>Quiz | ルビンの思うつぼ</title>
+    <link rel="icon" href="./images/rubin_logo_main.png" type="image/x-icon">
     <link rel="stylesheet" href="https://unpkg.com/ress@4.0.0/dist/ress.min.css">
     <link rel="stylesheet" href="./index.css" />
     <link rel="stylesheet"
@@ -32,10 +32,28 @@
     </header>
 
     <main>
-        <div class="content">
-            <h2 class="title">Quiz</h2>
+        <div class="main-wrapper">
+            <!-- 左広告 -->
+            <div class="side-ad">
+                <div class="admax-ads" data-admax-id="左の広告ID" style="display:inline-block;width:160px;height:600px;">
+                </div>
+                <script>(admaxads = window.admaxads || []).push({ admax_id: "左の広告ID", type: "banner" });</script>
+            </div>
+
+            <div class="main-content">
+                <div class="content">
+                    <h2 class="title">Quiz</h2>
                     <div id="quiz-container" class="quiz-container"></div>
                     <div class="pagination" id="pagination"></div>
+                </div>
+            </div>
+
+            <!-- 右広告 -->
+            <div class="side-ad">
+                <div class="admax-ads" data-admax-id="右の広告ID" style="display:inline-block;width:160px;height:600px;">
+                </div>
+                <script>(admaxads = window.admaxads || []).push({ admax_id: "右の広告ID", type: "banner" });</script>
+            </div>
         </div>
     </main>
     <script src="quiz.js"></script>

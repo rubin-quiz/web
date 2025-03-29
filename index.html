@@ -35,108 +35,129 @@
                 .then(data => document.querySelector("header").innerHTML = data);
         </script>
     </header>
+
+    
+    
     <main>
-        <div class="content">
-            <div class="banner">
-                <img src="./images/bannar1.png" alt="rubin_banner">
-                <div class="vertical-text">
-                    <span class="char">知</span>
-                    <span class="char">識</span>
-                    <span class="char">で</span><br>
-                    <span class="char">　</span>
-                    <span class="char">日</span>
-                    <span class="char">常</span>
-                    <span class="char">に</span>
-                    <span class="char">興</span>
-                    <span class="char">を</span>
-                </div>
+        <div class="main-wrapper">
+            <!-- 左広告 -->
+            <div class="side-ad">
+                <div class="admax-ads" data-admax-id="左の広告ID" style="display:inline-block;width:160px;height:600px;"></div>
+                <script>(admaxads = window.admaxads || []).push({admax_id: "左の広告ID",type: "banner"});</script>
             </div>
-        </div>
-        <div class="content">
-            <h2 class="title">New Quiz</h2>
-                <p>
-                    <div id="quiz-container">
-                        <div class="quiz-item">
-                            <div class="quiz-question">
-                                和歌の世界では「他人が詠んだ歌の一部を変えて即座に返すこと」を意味している、「他人の言葉をそのまま返すこと」をある鳥の名前を用いて「何返し」というでしょう？
-                            </div>
-                            <div class="quiz-footer">
-                                <div class="answer-toggle" onclick="toggleAnswer(this)">
-                                    <span class="toggle-icon">+</span>
-                                    <span class="toggle-text">回答を表示</span>
-                                </div>
-                                <div class="quiz-categories">
-                                    <span class="quiz-category">文化</span>
-                                    <span class="quiz-category">ことば</span>
-                                </div>
-                            </div>
-                            <div class="answer" style="display: none;">
-                                オウム返し
-                                <div class="supplement">
-                                    人の言葉を真似して話すオウムの習性に由来します
-                                </div>
-                            </div>
+
+            <div class="main-content">
+                <!-- ここに今までのコンテンツ（h2, quizなど） -->
+                <div class="content">
+                    <div class="banner">
+                        <img src="./images/bannar1.png" alt="rubin_banner">
+                        <div class="vertical-text">
+                            <span class="char">知</span>
+                            <span class="char">識</span>
+                            <span class="char">で</span><br>
+                            <span class="char">　</span>
+                            <span class="char">日</span>
+                            <span class="char">常</span>
+                            <span class="char">に</span>
+                            <span class="char">興</span>
+                            <span class="char">を</span>
                         </div>
                     </div>
-                
-                    <script>
-                        function toggleAnswer(element) {
-                            const answerDiv = element.closest('.quiz-item').querySelector('.answer');
-                            const toggleIcon = element.querySelector('.toggle-icon');
-                            const toggleText = element.querySelector('.toggle-text');
-                            
-                            if (answerDiv.style.display === 'none') {
-                                answerDiv.style.display = 'block';
-                                toggleIcon.textContent = '−';
-                                toggleText.textContent = '回答を隠す';
-                            } else {
-                                answerDiv.style.display = 'none';
-                                toggleIcon.textContent = '+';
-                                toggleText.textContent = '回答を表示';
-                            }
-                        }
-                    </script>
-                </p>
-                <a href="quiz.html">過去のQuizはこちら</a>
-        </div>
-        <div class="content">
-            <h2 class="title">Latest News</h2>
-            <div class="article">
-                <div class="latestnews">
-                    <!-- クイズ問題集第2弾『クイズの壺2 〜世界の解像度を上げる300問〜』を発売しました！
-                    <a href="https://q-tak.com/?p=18280" target="_blank" rel="noopener noreferrer">クイズ宅配便</a>と<a
-                        href="https://booth.pm/ja/items/6254358" target="_blank"
-                        rel="noopener noreferrer">BOOTH</a>にて好評発売中です。ぜひお買い求めください！ -->
-                    <div class="news-container">
-                        <table>
-                            <tr>
-                                <td style="border-bottom: 0px;">2024.11.03</td>
-                                <td style="border-bottom: 0px;">
-                                    <ul class="tags">
-                                        <li class="tag-a"><a href="#">問題集</a></li>
-                                    </ul>
-                                </td>
-                                <td style="border-bottom: 0px;">
-                                    クイズ問題集第2弾『クイズの壺2 〜世界の解像度を上げる300問〜』を発売しました！
-                                    <a href="https://q-tak.com/?p=18280" target="_blank" rel="noopener noreferrer">クイズ宅配便</a>と<a
-                                    href="https://booth.pm/ja/items/6254358" target="_blank"
-                                    rel="noopener noreferrer">BOOTH</a>にて好評発売中です。ぜひお買い求めください！
-                                </td>
-                            </tr>
-                        </table>
+                </div>
+                <div class="content">
+                    <h2 class="title">New Quiz</h2>
+                        <p>
+                            <div id="quiz-container">
+                                <div class="quiz-item">
+                                    <div class="quiz-question">
+                                        和歌の世界では「他人が詠んだ歌の一部を変えて即座に返すこと」を意味している、「他人の言葉をそのまま返すこと」をある鳥の名前を用いて「何返し」というでしょう？
+                                    </div>
+                                    <div class="quiz-footer">
+                                        <div class="answer-toggle" onclick="toggleAnswer(this)">
+                                            <span class="toggle-icon">+</span>
+                                            <span class="toggle-text">回答を表示</span>
+                                        </div>
+                                        <div class="quiz-categories">
+                                            <span class="quiz-category">文化</span>
+                                            <span class="quiz-category">ことば</span>
+                                        </div>
+                                    </div>
+                                    <div class="answer" style="display: none;">
+                                        オウム返し
+                                        <div class="supplement">
+                                            人の言葉を真似して話すオウムの習性に由来します
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <script>
+                                function toggleAnswer(element) {
+                                    const answerDiv = element.closest('.quiz-item').querySelector('.answer');
+                                    const toggleIcon = element.querySelector('.toggle-icon');
+                                    const toggleText = element.querySelector('.toggle-text');
+                                    
+                                    if (answerDiv.style.display === 'none') {
+                                        answerDiv.style.display = 'block';
+                                        toggleIcon.textContent = '−';
+                                        toggleText.textContent = '回答を隠す';
+                                    } else {
+                                        answerDiv.style.display = 'none';
+                                        toggleIcon.textContent = '+';
+                                        toggleText.textContent = '回答を表示';
+                                    }
+                                }
+                            </script>
+                        </p>
+                        <a href="quiz.html">過去のQuizはこちら</a>
+                </div>
+                <div class="content">
+                    <h2 class="title">Latest News</h2>
+                    <div class="article">
+                        <div class="latestnews">
+                            <!-- クイズ問題集第2弾『クイズの壺2 〜世界の解像度を上げる300問〜』を発売しました！
+                            <a href="https://q-tak.com/?p=18280" target="_blank" rel="noopener noreferrer">クイズ宅配便</a>と<a
+                                href="https://booth.pm/ja/items/6254358" target="_blank"
+                                rel="noopener noreferrer">BOOTH</a>にて好評発売中です。ぜひお買い求めください！ -->
+                            <div class="news-container">
+                                <table>
+                                    <tr>
+                                        <td style="border-bottom: 0px;">2024.11.03</td>
+                                        <td style="border-bottom: 0px;">
+                                            <ul class="tags">
+                                                <li class="tag-a"><a href="#">問題集</a></li>
+                                            </ul>
+                                        </td>
+                                        <td style="border-bottom: 0px;">
+                                            クイズ問題集第2弾『クイズの壺2 〜世界の解像度を上げる300問〜』を発売しました！
+                                            <a href="https://q-tak.com/?p=18280" target="_blank" rel="noopener noreferrer">クイズ宅配便</a>と<a
+                                            href="https://booth.pm/ja/items/6254358" target="_blank"
+                                            rel="noopener noreferrer">BOOTH</a>にて好評発売中です。ぜひお買い求めください！
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <a href="news.html">過去のNewsはこちら</a>
                     </div>
                 </div>
-                <a href="news.html">過去のNewsはこちら</a>
+            </div>
+
+            <!-- 右広告 -->
+            <div class="side-ad">
+                <div class="admax-ads" data-admax-id="右の広告ID" style="display:inline-block;width:160px;height:600px;"></div>
+                <script>(admaxads = window.admaxads || []).push({admax_id: "右の広告ID",type: "banner"});</script>
             </div>
         </div>
+
         <!-- admax -->
-        <div class="admax-ads" data-admax-id="29ad01e887deb41d0e0625f170e9ea42" style="display:inline-block;width:160px;height:600px;"></div>
+        <!-- <div class="admax-ads" data-admax-id="29ad01e887deb41d0e0625f170e9ea42" style="display:inline-block;width:160px;height:600px;"></div>
         <script type="text/javascript">(admaxads = window.admaxads || []).push({admax_id: "29ad01e887deb41d0e0625f170e9ea42",type: "banner"});</script>
-        <script type="text/javascript" charset="utf-8" src="https://adm.shinobi.jp/st/t.js" async></script>
+        <script type="text/javascript" charset="utf-8" src="https://adm.shinobi.jp/st/t.js" async></script> -->
         <!-- admax -->
         <!-- admax -->
-        <div id="ninjad_adzone"></div>
-        <script src="https://adm.shinobi.jp/s/9de2abbf15a090fe932d5f5b915939ba"></script>
+        <!-- <div id="ninjad_adzone"></div>
+        <script src="https://adm.shinobi.jp/s/9de2abbf15a090fe932d5f5b915939ba"></script> -->
         <!-- admax -->
     </main>
 
