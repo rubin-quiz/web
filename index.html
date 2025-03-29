@@ -55,7 +55,47 @@
         <div class="content">
             <h2 class="title">New Quiz</h2>
                 <p>
-                    <div id="quiz-container" class="quiz-container"></div>
+                    <div id="quiz-container">
+                        <div class="quiz-item">
+                            <div class="quiz-question">
+                                和歌の世界では「他人が詠んだ歌の一部を変えて即座に返すこと」を意味している、「他人の言葉をそのまま返すこと」をある鳥の名前を用いて「何返し」というでしょう？
+                            </div>
+                            <div class="quiz-footer">
+                                <div class="answer-toggle" onclick="toggleAnswer(this)">
+                                    <span class="toggle-icon">+</span>
+                                    <span class="toggle-text">回答を表示</span>
+                                </div>
+                                <div class="quiz-categories">
+                                    <span class="quiz-category">文化</span>
+                                    <span class="quiz-category">ことば</span>
+                                </div>
+                            </div>
+                            <div class="answer" style="display: none;">
+                                オウム返し
+                                <div class="supplement">
+                                    人の言葉を真似して話すオウムの習性に由来します
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <script>
+                        function toggleAnswer(element) {
+                            const answerDiv = element.closest('.quiz-item').querySelector('.answer');
+                            const toggleIcon = element.querySelector('.toggle-icon');
+                            const toggleText = element.querySelector('.toggle-text');
+                            
+                            if (answerDiv.style.display === 'none') {
+                                answerDiv.style.display = 'block';
+                                toggleIcon.textContent = '−';
+                                toggleText.textContent = '回答を隠す';
+                            } else {
+                                answerDiv.style.display = 'none';
+                                toggleIcon.textContent = '+';
+                                toggleText.textContent = '回答を表示';
+                            }
+                        }
+                    </script>
                 </p>
                 <a href="quiz.html">過去のQuizはこちら</a>
         </div>
@@ -100,7 +140,6 @@
         <script type="text/javascript" charset="utf-8" src="https://adm.shinobi.jp/st/t.js" async></script>
         <!-- admax -->
     </main>
-    <script src="quiz_first.js"></script>
 
     <!-- フッターを外部ファイルから読み込む -->
     <footer>
