@@ -73,9 +73,6 @@ header {
     margin-top: 400px;
 }
 
-.under-ad {
-    display:none;
-}
 
 .main-content {
     flex: 1;
@@ -862,10 +859,6 @@ color: red; }
     
     .side-ad {
         display: none;
-    }
-
-    .under-ad {
-        display:block;
     }
 
     main {
