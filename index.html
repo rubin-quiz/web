@@ -12,13 +12,13 @@
 
         gtag('config', 'G-Y48G5L07GS');
     </script>
-        <title>ルビンの思うつぼ</title>
-        <meta name="description" content="知っていると日常がちょっとだけ楽しくなるような雑学を発信していきます">
-        <meta property="og:title" content="ルビンの思うつぼ">
-        <meta property="og:description" content="知っていると日常がちょっとだけ楽しくなるような雑学を発信していきます">
-        <meta property="og:type" content="website">
-        <meta property="og:url" content="https://rubin-quiz.github.io/web/images/rubin_logo_main.png">
-        <link rel="icon" href="./images/rubin_logo_main.png" type="image/x-icon">
+    <title>ルビンの思うつぼ</title>
+    <meta name="description" content="知っていると日常がちょっとだけ楽しくなるような雑学を発信していきます">
+    <meta property="og:title" content="ルビンの思うつぼ">
+    <meta property="og:description" content="知っていると日常がちょっとだけ楽しくなるような雑学を発信していきます">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rubin-quiz.github.io/web/images/rubin_logo_main.png">
+    <link rel="icon" href="./images/rubin_logo_main.png" type="image/x-icon">
     <link rel="stylesheet" href="https://unpkg.com/ress@4.0.0/dist/ress.min.css">
     <link rel="stylesheet" href="./index.css" />
     <link rel="stylesheet"
@@ -36,82 +36,80 @@
         </script>
     </header>
 
-    
-    
     <main>
+        <div class="banner">
+            <img src="./images/bannar1.png" alt="rubin_banner">
+            <div class="vertical-text">
+                <span class="char">知</span>
+                <span class="char">識</span>
+                <span class="char">で</span><br>
+                <span class="char">　</span>
+                <span class="char">日</span>
+                <span class="char">常</span>
+                <span class="char">に</span>
+                <span class="char">興</span>
+                <span class="char">を</span>
+            </div>
+        </div>
+
         <div class="main-wrapper">
             <!-- 左広告 -->
             <div class="side-ad">
-            <!-- admax -->
-            <div class="admax-ads" data-admax-id="29ad01e887deb41d0e0625f170e9ea42" style="display:inline-block;width:160px;height:600px;"></div>
-            <script type="text/javascript">(admaxads = window.admaxads || []).push({admax_id: "29ad01e887deb41d0e0625f170e9ea42",type: "banner"});</script>
-            <script type="text/javascript" charset="utf-8" src="https://adm.shinobi.jp/st/t.js" async></script>
-            <!-- admax -->
+                <!-- admax -->
+                <div class="admax-ads" data-admax-id="29ad01e887deb41d0e0625f170e9ea42"
+                    style="display:inline-block;width:160px;height:600px;"></div>
+                <script
+                    type="text/javascript">(admaxads = window.admaxads || []).push({ admax_id: "29ad01e887deb41d0e0625f170e9ea42", type: "banner" });</script>
+                <script type="text/javascript" charset="utf-8" src="https://adm.shinobi.jp/st/t.js" async></script>
+                <!-- admax -->
             </div>
 
             <div class="main-content">
-                <!-- ここに今までのコンテンツ（h2, quizなど） -->
-                <div class="content">
-                    <div class="banner">
-                        <img src="./images/bannar1.png" alt="rubin_banner">
-                        <div class="vertical-text">
-                            <span class="char">知</span>
-                            <span class="char">識</span>
-                            <span class="char">で</span><br>
-                            <span class="char">　</span>
-                            <span class="char">日</span>
-                            <span class="char">常</span>
-                            <span class="char">に</span>
-                            <span class="char">興</span>
-                            <span class="char">を</span>
-                        </div>
-                    </div>
-                </div>
                 <div class="content">
                     <h2 class="title">New Quiz</h2>
-                        <p>
-                            <div id="quiz-container">
-                                <div class="quiz-item">
-                                    <div class="quiz-question">
-                                        さまざまな角度から見た物の形を一つの画面に収めるなどの特徴を持つ、20世紀はじめにパブロ・ピカソとジョルジュ・ブラックによって創始された芸術運動を何というでしょう？
-                                    </div>
-                                    <div class="quiz-footer">
-                                        <div class="answer-toggle" onclick="toggleAnswer(this)">
-                                            <span class="toggle-icon">+</span>
-                                            <span class="toggle-text">回答を表示</span>
-                                        </div>
-                                        <div class="quiz-categories">
-                                            <span class="quiz-category">芸術</span>
-                                        </div>
-                                    </div>
-                                    <div class="answer" style="display: none;">
-                                        キュビスム（立体派）
-                                        <!-- <div class="supplement">
-                                            
-                                        </div> -->
-                                    </div>
+                    <p>
+                    <div id="quiz-container">
+                        <div class="quiz-item">
+                            <div class="quiz-question">
+                                さまざまな角度から見た物の形を一つの画面に収めるなどの特徴を持つ、20世紀はじめにパブロ・ピカソとジョルジュ・ブラックによって創始された芸術運動を何というでしょう？
+                            </div>
+                            <div class="quiz-footer">
+                                <div class="answer-toggle" onclick="toggleAnswer(this)">
+                                    <span class="toggle-icon">+</span>
+                                    <span class="toggle-text">回答を表示</span>
+                                </div>
+                                <div class="quiz-categories">
+                                    <span class="quiz-category">芸術</span>
                                 </div>
                             </div>
-                        
-                            <script>
-                                function toggleAnswer(element) {
-                                    const answerDiv = element.closest('.quiz-item').querySelector('.answer');
-                                    const toggleIcon = element.querySelector('.toggle-icon');
-                                    const toggleText = element.querySelector('.toggle-text');
-                                    
-                                    if (answerDiv.style.display === 'none') {
-                                        answerDiv.style.display = 'block';
-                                        toggleIcon.textContent = '−';
-                                        toggleText.textContent = '回答を隠す';
-                                    } else {
-                                        answerDiv.style.display = 'none';
-                                        toggleIcon.textContent = '+';
-                                        toggleText.textContent = '回答を表示';
-                                    }
-                                }
-                            </script>
-                        </p>
-                        <a href="quiz.html">過去のQuizはこちら</a>
+                            <div class="answer" style="display: none;">
+                                キュビスム（立体派）
+                                <!-- <div class="supplement">
+                                            
+                                        </div> -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <script>
+                        function toggleAnswer(element) {
+                            const answerDiv = element.closest('.quiz-item').querySelector('.answer');
+                            const toggleIcon = element.querySelector('.toggle-icon');
+                            const toggleText = element.querySelector('.toggle-text');
+
+                            if (answerDiv.style.display === 'none') {
+                                answerDiv.style.display = 'block';
+                                toggleIcon.textContent = '−';
+                                toggleText.textContent = '回答を隠す';
+                            } else {
+                                answerDiv.style.display = 'none';
+                                toggleIcon.textContent = '+';
+                                toggleText.textContent = '回答を表示';
+                            }
+                        }
+                    </script>
+                    </p>
+                    <a href="quiz.html">過去のQuizはこちら</a>
                 </div>
                 <div class="content">
                     <h2 class="title">Latest News</h2>
@@ -132,9 +130,10 @@
                                         </td>
                                         <td style="border-bottom: 0px;">
                                             クイズ問題集第2弾『クイズの壺2 〜世界の解像度を上げる300問〜』を発売しました！
-                                            <a href="https://q-tak.com/?p=18280" target="_blank" rel="noopener noreferrer">クイズ宅配便</a>と<a
-                                            href="https://booth.pm/ja/items/6254358" target="_blank"
-                                            rel="noopener noreferrer">BOOTH</a>にて好評発売中です。ぜひお買い求めください！
+                                            <a href="https://q-tak.com/?p=18280" target="_blank"
+                                                rel="noopener noreferrer">クイズ宅配便</a>と<a
+                                                href="https://booth.pm/ja/items/6254358" target="_blank"
+                                                rel="noopener noreferrer">BOOTH</a>にて好評発売中です。ぜひお買い求めください！
                                         </td>
                                     </tr>
                                 </table>
@@ -143,22 +142,31 @@
                         <a href="news.html">過去のNewsはこちら</a>
                     </div>
                 </div>
-                <!-- admax -->
-                <div class="admax-ads" data-admax-id="9ee7b8b1c8e091021dff3909436eaeab" style="display:inline-block;"></div>
-                <script type="text/javascript">(admaxads = window.admaxads || []).push({admax_id: "9ee7b8b1c8e091021dff3909436eaeab",type: "banner"});</script>
-                <script type="text/javascript" charset="utf-8" src="https://adm.shinobi.jp/st/t.js" async></script>
-                <!-- admax -->
             </div>
 
             <!-- 右広告 -->
             <div class="side-ad">
+                <!-- admax -->
+                <div class="admax-ads" data-admax-id="9de2abbf15a090fe932d5f5b915939ba"
+                    style="display:inline-block;width:160px;height:600px;"></div>
+                <script
+                    type="text/javascript">(admaxads = window.admaxads || []).push({ admax_id: "9de2abbf15a090fe932d5f5b915939ba", type: "banner" });</script>
+                <script type="text/javascript" charset="utf-8" src="https://adm.shinobi.jp/st/t.js" async></script>
+                <!-- admax -->
+            </div>
+
+        </div>
+
+        <!-- バナー広告 -->
+        <div class="banner-ad">
             <!-- admax -->
-            <div class="admax-ads" data-admax-id="9de2abbf15a090fe932d5f5b915939ba" style="display:inline-block;width:160px;height:600px;"></div>
-            <script type="text/javascript">(admaxads = window.admaxads || []).push({admax_id: "9de2abbf15a090fe932d5f5b915939ba",type: "banner"});</script>
+            <div class="admax-ads" data-admax-id="9ee7b8b1c8e091021dff3909436eaeab" style="display:inline-block;"></div>
+            <script
+                type="text/javascript">(admaxads = window.admaxads || []).push({ admax_id: "9ee7b8b1c8e091021dff3909436eaeab", type: "banner" });</script>
             <script type="text/javascript" charset="utf-8" src="https://adm.shinobi.jp/st/t.js" async></script>
             <!-- admax -->
-            </div>
         </div>
+
     </main>
 
     <!-- フッターを外部ファイルから読み込む -->

@@ -70,7 +70,15 @@ header {
     width: 160px;
     height: 600px;
     flex-shrink: 0;
-    margin-top: 400px;
+    /* margin-top: 400px; */
+}
+
+.banner-ad{
+    /* background-color: rgb(161, 161, 161); */
+    margin: 0 auto;
+    display: none;
+    width: 320px;
+    height: 50px;
 }
 
 
@@ -98,11 +106,18 @@ main {
     margin: 20px 0;
 }
 
-.banner{
+.banner {
     position: relative;
+    /* width: 100%; */
+    /* overflow: hidden; */
+    /* margin-bottom: 20px; */
+    margin-top: 30px;
 }
 
-.banner img{
+.banner img {
+    /* display: block;
+    width: 100%;
+    height: auto; */
     margin: -20px calc(50% - 50vw) 10px;
     width: 100vw;
 }
@@ -860,6 +875,9 @@ color: red; }
     .side-ad {
         display: none;
     }
+    .banner-ad{
+        display: flex;
+    }
 
     main {
         margin: 0% 10%;
@@ -960,6 +978,7 @@ color: red; }
         padding: 10px;
     }
     
+
 
     tr td:nth-child(1),
     tr td:nth-child(2) {
