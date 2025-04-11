@@ -500,8 +500,6 @@ color: red; }
 }
 
 /* ニュース */
-.news-container {
-}
 .news-container table {
     width: 100%;
     border-collapse: collapse;
@@ -838,6 +836,8 @@ color: red; }
 .menu-overlay img{
     width: 24px;
     height: 24px;
+    margin-bottom: -3px;
+    margin-right: 5px;
     filter: invert(100%);
 }
 
