@@ -67,6 +67,7 @@ header {
 
 .side-ad {
     /* background-color: rgb(161, 161, 161); */
+    margin-top: 100px;
     width: 160px;
     height: 600px;
     flex-shrink: 0;
@@ -131,7 +132,7 @@ main {
     text-orientation: upright;
     color: black; /* 白色テキスト */
     font-size: 22px;
-    font-family:  "UD デジタル 教科書体 NP", "HG丸ｺﾞｼｯｸM-PRO" , sans-serif;
+    font-family:  "UD デジタル 教科書体 NP", sans-serif;
     font-weight:  bold;
     text-shadow: 8px 5px 1px rgba(0, 0, 0, 0.1);
     line-height: 1.5;
@@ -500,8 +501,6 @@ color: red; }
 }
 
 /* ニュース */
-.news-container {
-}
 .news-container table {
     width: 100%;
     border-collapse: collapse;
@@ -838,6 +837,8 @@ color: red; }
 .menu-overlay img{
     width: 24px;
     height: 24px;
+    margin-bottom: -3px;
+    margin-right: 5px;
     filter: invert(100%);
 }
 
