@@ -67,6 +67,7 @@ header {
 
 .side-ad {
     /* background-color: rgb(161, 161, 161); */
+    margin-top: 100px;
     width: 160px;
     height: 600px;
     flex-shrink: 0;
