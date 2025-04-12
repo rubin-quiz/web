@@ -1,7 +1,7 @@
 /* 全体的なスタイル */
 body {
     font-family: 'Hiragino Kaku Gothic Pro', 'メイリオ', sans-serif;
-    background: linear-gradient(135deg, #f0e6ff 0%, #e8e0f7 100%);
+    background: linear-gradient(145deg, #d0bcff, #e0c3fc, #f4ecf7);
     padding: 20px;
     min-height: 100vh;
     display: flex;
