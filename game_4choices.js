@@ -297,7 +297,7 @@ const DOM = {
         returnToMode: document.getElementById("game-result-to-mode")
     },
     quiz: {
-        genreTitle: document.getElementById("game-genre-title"),
+        genreTitle: document.getElementById("game-mode-title"),
         question: document.getElementById("game-question"),
         choices: document.getElementById("game-choices-container"),
         timeDisplay: document.getElementById("game-time-left"),
@@ -354,7 +354,7 @@ function selectGenre(genre) {
     gameState.currentGenre = genre;
     DOM.screens.genre.style.display = "none";
     DOM.screens.mode.style.display = "block";
-    DOM.quiz.genreTitle.textContent = genre + "クイズ"; // モード選択画面のタイトルを更新
+    DOM.quiz.genreTitle.textContent = genre; // モード選択画面のタイトルを更新
 }
 
 // ランダムに問題を選択
