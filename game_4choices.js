@@ -290,8 +290,11 @@ const DOM = {
         mode5: document.getElementById("game-mode-5"),
         mode10: document.getElementById("game-mode-10"),
         restart: document.getElementById("game-restart"),
-        returnToGenre: document.getElementById("game-return-genre"),
-        returnToMode: document.getElementById("game-return-mode")
+        returnToGenre: {
+            fromMode: document.getElementById("game-return-to-genre"),
+            fromResult: document.getElementById("game-result-to-genre")
+        },
+        returnToMode: document.getElementById("game-result-to-mode")
     },
     quiz: {
         genreTitle: document.getElementById("game-genre-title"),
@@ -318,9 +321,12 @@ function initGame() {
     DOM.buttons.mode5.addEventListener("click", () => startGame(5));
     DOM.buttons.mode10.addEventListener("click", () => startGame(10));
     
+    // モード選択画面からジャンル選択に戻るボタン
+    DOM.buttons.returnToGenre.fromMode.addEventListener("click", returnToGenreSelection);
+    
     // 結果画面のボタン
     DOM.buttons.restart.addEventListener("click", restartGame);
-    DOM.buttons.returnToGenre.addEventListener("click", returnToGenreSelection);
+    DOM.buttons.returnToGenre.fromResult.addEventListener("click", returnToGenreSelection);
     DOM.buttons.returnToMode.addEventListener("click", returnToModeSelection);
     
     // 初期表示設定
@@ -332,6 +338,7 @@ function initGame() {
 // ジャンルボタンを動的に作成
 function createGenreButtons() {
     const container = DOM.buttons.genreButtons;
+    container.innerHTML = ""; // 既存のボタンをクリア
     
     Object.keys(quizDataByGenre).forEach(genre => {
         const button = document.createElement("button");
@@ -428,45 +435,32 @@ function showQuestion() {
     startTimer();
 }
 
-// リスタート機能（結果画面から同じモードで再プレイ）
-function restartGame() {
-    DOM.screens.result.style.display = "none";
-    DOM.screens.quiz.style.display = "block";
-    
-    resetGameState();
-    showQuestion();
-}
-
-// ジャンル選択に戻る
-function returnToGenreSelection() {
-    DOM.screens.result.style.display = "none";
-    DOM.screens.genre.style.display = "block";
-}
-
-// モード選択に戻る
-function returnToModeSelection() {
-    DOM.screens.result.style.display = "none";
-    DOM.screens.mode.style.display = "block";
-}
-
 // 選択肢をレンダリング
-function renderChoices(question) {
-    const choicesContainer = DOM.quiz.choices;
-    choicesContainer.innerHTML = ""; // 既存の選択肢をクリア
+function renderChoices(questionData) {
+    DOM.quiz.choices.innerHTML = "";
     
-    question.choices.forEach((choice, index) => {
+    // 選択肢と正解のインデックスをペアにして配列を作成
+    const choicesWithCorrectIndex = questionData.choices.map((choice, index) => {
+        return {
+            text: choice,
+            isCorrect: index === questionData.answer
+        };
+    });
+    
+    // 選択肢をシャッフル
+    const shuffledChoices = [...choicesWithCorrectIndex].sort(() => 0.5 - Math.random());
+    
+    // シャッフルした選択肢を表示
+    shuffledChoices.forEach((choiceObj, index) => {
         const button = document.createElement("button");
-        button.textContent = choice;
-        button.className = "choice-button";
-        button.dataset.index = index;
+        button.textContent = choiceObj.text;
+        button.classList.add("game-button");
+        button.setAttribute("data-index", String.fromCharCode(65 + index)); // A, B, C, Dのようにアルファベットで表示
         
-        button.addEventListener("click", () => {
-            if (!gameState.answered) {
-                checkAnswer(index);
-            }
-        });
+        // 正解かどうかの情報を使って回答チェック
+        button.onclick = () => checkAnswerByCorrectFlag(choiceObj.isCorrect, button);
         
-        choicesContainer.appendChild(button);
+        DOM.quiz.choices.appendChild(button);
     });
 }
 
@@ -496,36 +490,8 @@ function initTimerGauge() {
     DOM.quiz.timerContainer = timerContainer;
 }
 
-function renderChoices(questionData) {
-    DOM.quiz.choices.innerHTML = "";
-    
-    // 選択肢と正解のインデックスをペアにして配列を作成
-    const choicesWithCorrectIndex = questionData.choices.map((choice, index) => {
-        return {
-            text: choice,
-            isCorrect: index === questionData.answer
-        };
-    });
-    
-    // 選択肢をシャッフル
-    const shuffledChoices = [...choicesWithCorrectIndex].sort(() => 0.5 - Math.random());
-    
-    // シャッフルした選択肢を表示
-    shuffledChoices.forEach((choiceObj, index) => {
-        const button = document.createElement("button");
-        button.textContent = choiceObj.text;
-        button.classList.add("game-button");
-        button.setAttribute("data-index", String.fromCharCode(65 + index)); // A, B, C, Dのようにアルファベットで表示
-        
-        // 正解かどうかの情報を使って回答チェック
-        button.onclick = () => checkAnswerByCorrectFlag(choiceObj.isCorrect);
-        
-        DOM.quiz.choices.appendChild(button);
-    });
-}
-
 // 正解フラグによる回答チェック
-function checkAnswerByCorrectFlag(isCorrect) {
+function checkAnswerByCorrectFlag(isCorrect, selectedButton) {
     // 既に回答済みの場合は処理しない
     if (gameState.answered) return;
     
@@ -538,24 +504,10 @@ function checkAnswerByCorrectFlag(isCorrect) {
     const currentQuestion = gameState.selectedQuestions[gameState.currentIndex];
     const buttons = document.querySelectorAll("#game-choices-container .game-button");
     
-    // 正解の選択肢を探す
-    let correctButton = null;
-    let selectedButton = null;
-    
-    // クリックされたボタンと正解のボタンを特定
-    buttons.forEach((button, i) => {
-        if (button === event.target) {
-            selectedButton = button;
-        }
-        if (button.textContent === currentQuestion.choices[currentQuestion.answer]) {
-            correctButton = button;
-        }
-    });
-
-    // ユーザーの回答を記録 (シャッフル後の選択肢の順番を考慮)
+    // ユーザーの回答を記録
     gameState.userAnswers.push({
         question: currentQuestion.question,
-        choices: currentQuestion.choices,
+        choices: [...buttons].map(b => b.textContent), // 表示されている選択肢（シャッフル後）
         correctAnswer: currentQuestion.choices[currentQuestion.answer],
         userAnswer: selectedButton ? selectedButton.textContent : null
     });
@@ -627,7 +579,7 @@ function timeOut() {
     // ユーザーの回答を記録
     gameState.userAnswers.push({
         question: currentQuestion.question,
-        choices: currentQuestion.choices,
+        choices: [...buttons].map(b => b.textContent), // 表示されている選択肢（シャッフル後）
         correctAnswer: currentQuestion.choices[currentQuestion.answer],
         userAnswer: null // 時間切れ
     });
@@ -657,49 +609,6 @@ function updateTimerGauge(percentage) {
     } else {
         gauge.classList.remove("timer-critical");
     }
-}
-
-// 回答チェック
-function checkAnswer(index) {
-    // 既に回答済みの場合は処理しない
-    if (gameState.answered) return;
-    
-    // 回答済みにする
-    gameState.answered = true;
-    
-    clearInterval(gameState.timer);
-    cancelAnimationFrame(gameState.animationId); // アニメーションをキャンセル
-    
-    const currentQuestion = gameState.selectedQuestions[gameState.currentIndex];
-    const correctIndex = currentQuestion.answer;
-    const buttons = document.querySelectorAll("#game-choices-container .game-button");
-
-    // ユーザーの回答を記録
-    gameState.userAnswers.push({
-        question: currentQuestion.question,
-        choices: currentQuestion.choices,
-        correctIndex: correctIndex,
-        userAnswer: index
-    });
-
-    // 選択肢の色を変更
-    buttons.forEach((button, i) => {
-        if (i === correctIndex) {
-            button.classList.add("game-correct");
-        } else if (i === index && i !== correctIndex) {
-            button.classList.add("game-wrong");
-        }
-        button.disabled = true;
-    });
-
-    // 正解なら得点を加算
-    if (index === correctIndex) {
-        gameState.score++;
-        DOM.quiz.scoreDisplay.textContent = gameState.score;
-        showCorrectFeedback();
-    }
-
-    setTimeout(nextQuestion, 1500);
 }
 
 // 正解エフェクト
@@ -785,7 +694,6 @@ function addTwitterSharingButton(score, totalQuestions, resultMessage) {
     DOM.screens.result.insertBefore(shareContainer, restartButtonsContainer);
 }
 
-
 // 結果テーブル作成
 function createResultTable() {
     // 既存のテーブルがあれば削除
@@ -825,7 +733,7 @@ function createTableHeader() {
 function createTableBody() {
     const tbody = document.createElement("tbody");
     
-    gameState.userAnswers.forEach((answer, index) => {
+    gameState.userAnswers.forEach((answer) => {
         const row = document.createElement("tr");
         
         // 問題セル
@@ -833,7 +741,7 @@ function createTableBody() {
         questionCell.textContent = answer.question;
         row.appendChild(questionCell);
         
-        // ユーザー回答セル (修正)
+        // ユーザー回答セル
         const userAnswerCell = document.createElement("td");
         if (!answer.userAnswer) {
             userAnswerCell.textContent = "時間切れ";
@@ -849,7 +757,7 @@ function createTableBody() {
         }
         row.appendChild(userAnswerCell);
         
-        // 正解セル（修正）
+        // 正解セル
         const correctAnswerCell = document.createElement("td");
         correctAnswerCell.textContent = answer.correctAnswer;
         correctAnswerCell.classList.add("answer-correct");
@@ -861,47 +769,26 @@ function createTableBody() {
     return tbody;
 }
 
-// ユーザー回答セル作成
-function createUserAnswerCell(answer) {
-    const userAnswerCell = document.createElement("td");
-    const userAnswerIndex = answer.userAnswer;
-    
-    if (userAnswerIndex === -1) {
-        userAnswerCell.textContent = "時間切れ";
-        userAnswerCell.classList.add("answer-wrong");
-    } else {
-        userAnswerCell.textContent = answer.choices[userAnswerIndex];
-        
-        if (userAnswerIndex === answer.correctIndex) {
-            userAnswerCell.classList.add("answer-correct");
-        } else {
-            userAnswerCell.classList.add("answer-wrong");
-        }
-    }
-    
-    return userAnswerCell;
-}
-
-// 正解セル作成
-function createCorrectAnswerCell(answer) {
-    const correctAnswerCell = document.createElement("td");
-    correctAnswerCell.textContent = answer.choices[answer.correctIndex];
-    correctAnswerCell.classList.add("answer-correct");
-    return correctAnswerCell;
-}
-
-// もう一度プレイ
+// リスタート機能（結果画面から同じモードで再プレイ）
 function restartGame() {
     DOM.screens.result.style.display = "none";
     DOM.screens.quiz.style.display = "block";
+    
     resetGameState();
     showQuestion();
 }
 
-// モード選択画面に戻る
+// ジャンル選択に戻る
+function returnToGenreSelection() {
+    DOM.screens.result.style.display = "none";
+    DOM.screens.mode.style.display = "none";
+    DOM.screens.genre.style.display = "block";
+}
+
+// 問題数選択に戻る
 function returnToModeSelection() {
     DOM.screens.result.style.display = "none";
-    DOM.screens.start.style.display = "block";
+    DOM.screens.mode.style.display = "block";
 }
 
 // ゲーム初期化

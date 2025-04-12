@@ -23,20 +23,22 @@
         <!-- ジャンル選択画面 -->
         <div class="game-container" id="game-genre-screen">
             <h1>4択クイズ</h1>
-            <h2>ジャンルを選択してください</h2>
+            <h3 id="game-genre-title">ジャンルを選択してください</h3>
             <div class="genre-selection" id="genre-buttons-container">
                 <!-- ジャンルボタンはJSで動的に追加 -->
             </div>
         </div>
-
+    
         <!-- モード選択画面 -->
         <div class="game-container" id="game-mode-screen" style="display: none;">
+            <h3>問題数を選択してください</h3>
             <div class="mode-selection">
                 <button id="game-mode-5" class="mode-button">5問モード（4問以上で合格）</button>
                 <button id="game-mode-10" class="mode-button">10問モード（8問以上で合格）</button>
             </div>
             <br><br>
-            <p>10秒以内に正解の選択肢をクリックしよう！</p>
+            <p>10秒以内に正解だと思う選択肢をクリックしよう！</p>
+            <button id="game-return-to-genre" class="mode-button">ジャンル選択に戻る</button>
         </div>
     
         <!-- クイズ画面 -->
@@ -57,10 +59,12 @@
                 <!-- 結果テーブルはJSで動的に追加 -->
             </div>
             <div class="restart-buttons">
-                <button id="game-restart" class="mode-button>Play again</button>
-                <button id="game-return-genre" class="mode-button">ジャンル選択に戻る</button>
+                <button id="game-restart" class="mode-button">Play again</button>
+                <button id="game-result-to-genre" class="mode-button">ジャンル選択に戻る</button>
+                <button id="game-result-to-mode" class="mode-button">問題数選択に戻る</button>
             </div>
         </div>
+        <script src="quizdata.js"></script>
         <script src="game_4choices.js"></script>
     </body>
 </html>
