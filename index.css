@@ -221,6 +221,29 @@ color: red; }
     background: #7f7f7f;
 }
 
+.playbutton{
+    text-align: center;
+    margin-top: 10px;
+}
+
+.playbutton a {
+    display: inline-block;
+    margin: 5px 0px;
+    padding: .6em;
+    line-height: 1;
+    text-decoration: none;
+    background-color: #fff;
+    font-size: 15px;
+    width: 100%;
+    color: #000088;
+    border: 1.5px solid #000088;
+    
+}
+
+.playbutton a:hover{
+    background-color: #000088;
+    color: white;
+}
 
 /* メンバーリスト */
 
@@ -282,25 +305,26 @@ color: red; }
     transition-delay: 0.15;
 }
 
-/* 書籍リスト */
-.book__list{
+
+/* リスト */
+.list{
     display: flex;
     list-style: none;
     flex-wrap: wrap;
 }
 
-.book{
+.list_item{
     height: 500px;
     width: 250px;
     margin: 0 25px 50px 0;  
 }
 
-.book .info{
+.list_item .info{
     width: 245px;
 }
 
 /* スライダー */
-.slider {
+.list_item .slider {
     display: flex;
     flex-flow: column;
     height: 70%;
@@ -309,12 +333,12 @@ color: red; }
     position: relative;
 }
 
-.slider img {
+.list_item .slider img {
     height: 100%;
     display: block;
 }
 
-.arrow {
+.list_item .slider .arrow {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -328,14 +352,14 @@ color: red; }
 .prev { left: 0px; }
 .next { right: 0px; }
 
-.indicators {
+.list_item .slider .indicators {
     display: flex;
     justify-content: center;
     gap: 10px;
     margin-top: 10px;
 }
 
-.dot {
+.list_item .slider .indicators .dot {
     width: 10px;
     height: 10px;
     background-color: gray;
@@ -441,7 +465,7 @@ color: red; }
     flex-wrap: wrap;
 }
 
-.book .tags {
+.list_item .tags {
     flex-wrap: wrap;
 }
 
@@ -461,7 +485,7 @@ color: red; }
   }
 
 /* ショップリンク */
-.book .shops{
+.list_item .shops{
     list-style: none;
 }
 
@@ -904,7 +928,7 @@ color: red; }
     }
     
     
-    .book{
+    .list_item{
         width: 100%;
         height: 300px;
         display: flex;
@@ -914,19 +938,19 @@ color: red; }
     }
 
 
-    .book .slider {
+    .list_item .slider {
         width: 211px;
     }
     
-    .book .slider img{
+    .list_item .slider img{
         height: 300px;
     }
     
-    .book .slider .arrow {
+    .list_item .slider .arrow {
         top: 150px;
     }
     
-    .book .info{
+    .list_item .info{
         width: 85%;
         max-width: 300px;
     }
@@ -954,21 +978,21 @@ color: red; }
         margin-top: -7px;
     }
     
-    .book{
+    .list_item{
         height: 200px;
         margin: 0 0 50px 0; 
         gap: 20px;
     }
     
-    .book .slider {
+    .list_item .slider {
         width: 150px;
     }
     
-    .book .slider img{
+    .list_item .slider img{
         height: 200px;
     }
     
-    .book .slider .arrow {
+    .list_item .slider .arrow {
         top: 100px;
         padding: 5px;
     }
