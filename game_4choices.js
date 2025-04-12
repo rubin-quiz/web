@@ -336,7 +336,7 @@ function createGenreButtons() {
     Object.keys(quizDataByGenre).forEach(genre => {
         const button = document.createElement("button");
         button.textContent = genre;
-        button.className = "game-button genre-button";
+        button.className = "mode-button";
         button.addEventListener("click", () => selectGenre(genre));
         container.appendChild(button);
     });
