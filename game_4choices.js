@@ -420,6 +420,9 @@ function showQuestion() {
     const currentQuestion = gameState.selectedQuestions[gameState.currentIndex];
     DOM.quiz.question.textContent = currentQuestion.question;
     
+    // 問題番号をdata属性として設定（これを追加）
+    DOM.quiz.question.setAttribute('data-question-number', 'Q' + (gameState.currentIndex + 1));
+    
     // アニメーション効果のクラスを追加
     DOM.quiz.question.classList.add('question-appear');
     
@@ -434,7 +437,6 @@ function showQuestion() {
     // タイマー開始
     startTimer();
 }
-
 // 選択肢をレンダリング
 function renderChoices(questionData) {
     DOM.quiz.choices.innerHTML = "";
