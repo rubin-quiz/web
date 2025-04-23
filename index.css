@@ -94,12 +94,13 @@
   
   .main-content {
     flex: 1;
-    min-width: 0;
+    /* min-width: 0; */
+    max-width: 1200px;
   }
   
   /* ========== メインコンテンツ ========== */
   main {
-    margin: 0 1%;
+    margin: 0 2%;
     padding-top: 60px;
     min-height: 100vh;
   }
@@ -282,6 +283,14 @@
     visibility: visible;
   }
   
+  .profile .tags {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 5px;
+    gap: 0 5px;
+  }
+
   .profile .tag a {
     margin: 5px 5px 5px 0;
   }
