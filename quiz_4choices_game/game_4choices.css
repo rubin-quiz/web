@@ -51,6 +51,11 @@ body {
     position: relative;
     overflow: hidden;
   }
+
+  .mode-button a{
+    color: white;
+    text-decoration: none;
+  }
   
   .game-button:hover, .mode-button:hover {
     background-color: #572a6a;
