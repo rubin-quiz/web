@@ -477,6 +477,11 @@
     background-color: var(--gray-medium);
     color: var(--black);
   }
+
+  .tag-c a {
+    background-color: rgb(144, 211, 250);
+    color: var(--black);
+  }
   
   /* ========== ショップリンク ========== */
   .list_item .shops {
