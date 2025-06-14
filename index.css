@@ -457,7 +457,6 @@
     margin-top: 5px;
     margin-bottom: 5px;
     pointer-events: none;
-    width: 65px;
   }
   
   .caption .tags,
@@ -472,21 +471,25 @@
   .tag-a a {
     background-color: #ffb46a;
     color: var(--black);
+    width: 65px;
   }
   
   .tag-b a {
     background-color: var(--gray-medium);
     color: var(--black);
+    width: 65px;
   }
 
   .tag-c a {
     background-color: rgb(144, 211, 250);
     color: var(--black);
+    width: 65px;
   }
   
   .tag-d a {
     background-color: rgb(86, 240, 66);
     color: var(--black);
+    width: 65px;
   }
   
   /* ========== ショップリンク ========== */
