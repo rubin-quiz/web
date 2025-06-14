@@ -457,6 +457,7 @@
     margin-top: 5px;
     margin-bottom: 5px;
     pointer-events: none;
+    width: 65px;
   }
   
   .caption .tags,
@@ -480,6 +481,11 @@
 
   .tag-c a {
     background-color: rgb(144, 211, 250);
+    color: var(--black);
+  }
+  
+  .tag-d a {
+    background-color: rgb(86, 240, 66);
     color: var(--black);
   }
   

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y48G5L07GS"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-Y48G5L07GS');
+    </script>
+    <title>Articles | ルビンの思うつぼ</title>
+    <meta name="description" content="我々の活動内容やプロフィールを紹介するページです。">
+    <meta property="og:title" content="Articles | ルビンの思うつぼ">
+    <meta property="og:description" content="我々の活動内容やプロフィールを紹介するページです。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rubin-quiz.github.io/web/articles.html">
+    <meta property="og:image" content="https://rubin-quiz.github.io/web/images/rubin_logo_main.png">
+    <link rel="icon" href="./images/rubin_logo_main.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://unpkg.com/ress@4.0.0/dist/ress.min.css">
+    <link rel="stylesheet" href="./index.css" />
+    <script src="index.js"></script>
+</head>
+
+<body>
+    <!-- ヘッダーを外部ファイルから読み込む -->
+    <header>
+        <script>
+            fetch("header.html")
+                .then(response => response.text())
+                .then(data => document.querySelector("header").innerHTML = data);
+        </script>
+    </header>
+    <main>
+        <div class="main-wrapper">
+            <!-- 左広告 -->
+            <div class="side-ad">
+                <div class="admax-ads" data-admax-id="29ad01e887deb41d0e0625f170e9ea42" style="display:inline-block;width:160px;height:600px;">
+                </div>
+                <script>(admaxads = window.admaxads || []).push({ admax_id: "29ad01e887deb41d0e0625f170e9ea42", type: "banner" });</script>
+            </div>
+            <div class="main-content">
+                <div class="content">
+                    <h2 class="title">Articles</h2>
+                    <div class="description">
+                        日常のちょっとした疑問を解決したり、知識を使ったオリジナルの遊びを紹介したりしています！
+                    </div>
+                    <div class="subcontent">
+                        <ul class="list">
+                            <li>
+                                <iframe class="note-embed" src="https://note.com/embed/notes/n20bdbb2c8e2f" style="border: 0; display: block; max-width: 99%; width: 700px; padding: 0px; margin: 10px 0px; position: static; visibility: visible;" height="400"></iframe><script async src="https://note.com/scripts/embed.js" charset="utf-8"></script>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右広告 -->
+            <div class="side-ad">
+                <div class="admax-ads" data-admax-id="9de2abbf15a090fe932d5f5b915939ba" style="display:inline-block;width:160px;height:600px;">
+                </div>
+                <script>(admaxads = window.admaxads || []).push({ admax_id: "9de2abbf15a090fe932d5f5b915939ba", type: "banner" });</script>
+            </div>
+        </div>
+
+        <!-- バナー広告 -->
+        <div class="banner-ad">
+            <!-- admax -->
+            <div class="admax-ads" data-admax-id="9ee7b8b1c8e091021dff3909436eaeab" style="display:inline-block;"></div>
+            <script
+                type="text/javascript">(admaxads = window.admaxads || []).push({ admax_id: "9ee7b8b1c8e091021dff3909436eaeab", type: "banner" });</script>
+            <script type="text/javascript" charset="utf-8" src="https://adm.shinobi.jp/st/t.js" async></script>
+            <!-- admax -->
+        </div>
+        
+    </main>
+
+    <!-- フッターを外部ファイルから読み込む -->
+    <footer>
+        <script>
+            fetch("footer.html")
+                .then(response => response.text())
+                .then(data => document.querySelector("footer").innerHTML = data);
+        </script>
+    </footer>
+</body>
+
+</html>
