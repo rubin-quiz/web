@@ -32,7 +32,8 @@
         <script>
             fetch("header.html")
                 .then(response => response.text())
-                .then(data => document.querySelector("header").innerHTML = data);
+                .then(data => document.querySelector("header").innerHTML = data)
+                .catch(() => { document.querySelector("header").innerHTML = '<div class="header__fallback">ヘッダーの読み込みに失敗しました</div>'; });
         </script>
     </header>
     <main>
@@ -198,7 +199,8 @@
         <script>
             fetch("footer.html")
                 .then(response => response.text())
-                .then(data => document.querySelector("footer").innerHTML = data);
+                .then(data => document.querySelector("footer").innerHTML = data)
+                .catch(() => { document.querySelector("footer").innerHTML = '<div class="footer__list__center"><small>フッターの読み込みに失敗しました</small></div>'; });
         </script>
     </footer>
 </body>

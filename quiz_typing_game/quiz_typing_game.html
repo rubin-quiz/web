@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>クイズ×タイピング</title>
-    <link rel="stylesheet" href="quiz_typing_game.css">
+    <link rel="stylesheet" href="./quiz_typing_game.css">
 </head>
 <body>
     
@@ -29,16 +29,16 @@
             <p id="question"></p>
 
             <!-- タイマーコンテナ -->
-            <div id="timer-container">
+            <div id="timer-container" aria-live="polite">
                 <span id="timer-text">10.0s</span>
                 <div id="timer-bar"></div>
             </div>
 
             <div id="options"></div>
-            <p id="result"></p>
+            <p id="result" role="status" aria-live="polite"></p>
         </div>
     </div>
     
-    <script src="quiz_typing_game.js" defer></script>
+    <script src="./quiz_typing_game.js" defer></script>
 </body>
 </html>
