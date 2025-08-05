@@ -40,13 +40,14 @@
         <script>
             fetch("header.html")
                 .then(response => response.text())
-                .then(data => document.querySelector("header").innerHTML = data);
+                .then(data => document.querySelector("header").innerHTML = data)
+                .catch(() => { document.querySelector("header").innerHTML = '<div class="header__fallback">ヘッダーの読み込みに失敗しました</div>'; });
         </script>
     </header>
 
     <main>
         <div class="banner">
-            <img src="./images/bannar0.webp" alt="rubin_banner" loading="eager">
+            <img src="./images/bannar0.webp" alt="ルビンの思うつぼ サイトバナー" loading="eager">
             <div class="vertical-text">
                 <span class="char">知</span>
                 <span class="char">識</span>
@@ -75,7 +76,6 @@
             <div class="main-content">
                 <div class="content">
                     <h2 class="title">New Quiz</h2>
-                    <p>
                     <div id="quiz-container">
                         <div class="quiz-item">
                             <div class="quiz-question">
@@ -98,25 +98,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <script>
-                        function toggleAnswer(element) {
-                            const answerDiv = element.closest('.quiz-item').querySelector('.answer');
-                            const toggleIcon = element.querySelector('.toggle-icon');
-                            const toggleText = element.querySelector('.toggle-text');
-
-                            if (answerDiv.style.display === 'none') {
-                                answerDiv.style.display = 'block';
-                                toggleIcon.textContent = '−';
-                                toggleText.textContent = '回答を隠す';
-                            } else {
-                                answerDiv.style.display = 'none';
-                                toggleIcon.textContent = '+';
-                                toggleText.textContent = '回答を表示';
-                            }
-                        }
-                    </script>
-                    </p>
                     <a href="quiz.html">過去のQuizはこちら</a>
                 </div>
                 <div class="content">
@@ -176,7 +157,8 @@
         <script>
             fetch("footer.html")
                 .then(response => response.text())
-                .then(data => document.querySelector("footer").innerHTML = data);
+                .then(data => document.querySelector("footer").innerHTML = data)
+                .catch(() => { document.querySelector("footer").innerHTML = '<div class="footer__list__center"><small>フッターの読み込みに失敗しました</small></div>'; });
         </script>
     </footer>
 </body>
