@@ -32,7 +32,8 @@
         <script>
             fetch("header.html")
                 .then(response => response.text())
-                .then(data => document.querySelector("header").innerHTML = data);
+                .then(data => document.querySelector("header").innerHTML = data)
+                .catch(() => { document.querySelector("header").innerHTML = '<div class="header__fallback">ヘッダーの読み込みに失敗しました</div>'; });
         </script>
     </header>
     <main>
@@ -53,6 +54,9 @@
                         <ul class="list">
                             <li>
                                 <iframe class="note-embed" src="https://note.com/embed/notes/n20bdbb2c8e2f" style="border: 0; display: block; max-width: 99%; width: 700px; padding: 0px; margin: 10px 0px; position: static; visibility: visible;" height="400"></iframe><script async src="https://note.com/scripts/embed.js" charset="utf-8"></script>
+                            </li>
+                            <li>
+                                <iframe class="note-embed" src="https://note.com/embed/notes/n0bef55319bcd" style="border: 0; display: block; max-width: 99%; width: 700px; padding: 0px; margin: 10px 0px; position: static; visibility: visible;" height="400"></iframe><script async src="https://note.com/scripts/embed.js" charset="utf-8"></script>
                             </li>
                         </ul>
                     </div>
@@ -84,7 +88,8 @@
         <script>
             fetch("footer.html")
                 .then(response => response.text())
-                .then(data => document.querySelector("footer").innerHTML = data);
+                .then(data => document.querySelector("footer").innerHTML = data)
+                .catch(() => { document.querySelector("footer").innerHTML = '<div class="footer__list__center"><small>フッターの読み込みに失敗しました</small></div>'; });
         </script>
     </footer>
 </body>

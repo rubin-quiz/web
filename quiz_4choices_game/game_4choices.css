@@ -1,12 +1,15 @@
 /* 全体的なスタイル */
 body {
     font-family: 'Hiragino Kaku Gothic Pro', 'メイリオ', sans-serif;
-    background: linear-gradient(145deg, #d0bcff, #e0c3fc, #f4ecf7);
+    background: url('../images/4choices_background.png');
     padding: 20px;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; 
   }
   
   /* ゲームコンテナ */

@@ -3,9 +3,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // スライダー要素を全て取得 - クラス名「slider」を持つ要素を全て配列として取得
     const sliders = document.querySelectorAll(".slider");
 
-    // スライダーが存在しない場合はエラーを表示して終了 - スライダー要素が見つからない場合の例外処理
+    // スライダーが存在しないページでは何もせず終了（コンソール汚染防止）
     if (!sliders.length) {
-        console.error("Error: .slider element not found!");
         return;
     }
 
@@ -125,7 +124,6 @@ function updateModalIndicators() {
 
 // モーダル内の画像を切り替える関数 - モーダル内の矢印クリック時の処理
 function changeModalImage(step) {
-    event.stopPropagation(); // イベントの伝播を停止
     const images = currentModalSlider.getAttribute("data-images").split(","); // 画像リストを取得
     let currentIndex = parseInt(currentModalSlider.dataset.index || 0); // 現在のインデックスを取得
     

@@ -3,28 +3,28 @@
     <head>
         <!-- Google tag (gtag.js) -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y48G5L07GS"></script>
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script>
             window.dataLayer = window.dataLayer || [];
             function gtag() { dataLayer.push(arguments); }
             gtag('js', new Date());
-    
             gtag('config', 'G-Y48G5L07GS');
         </script>
         <title>Game | ルビンの思うつぼ</title>
-        <link rel="icon" href="./images/rubin_logo_main.png" type="image/x-icon">
+        <link rel="icon" href="../images/rubin_logo_main.png" type="image/x-icon">
         <link rel="stylesheet" href="https://unpkg.com/ress@4.0.0/dist/ress.min.css">
         <link rel="stylesheet" href="./game_4choices.css" />
         <link rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-        <script src="index.js"></script>
+        <script src="../index.js" defer></script>
     </head>
     <body>
         <!-- ジャンル選択画面 -->
         <div class="game-container" id="game-genre-screen">
             <h1>4択クイズ</h1>
             <h3>ジャンルを選択してください</h3>
-            <div class="genre-selection" id="genre-buttons-container">
+            <div class="genre-selection" id="genre-buttons-container" aria-live="polite">
                 <!-- ジャンルボタンはJSで動的に追加 -->
             </div>
             <br><br>
@@ -68,7 +68,7 @@
                 <button id="game-result-to-mode" class="mode-button">問題数選択に戻る</button>
             </div>
         </div>
-        <script src="quizdata.js"></script>
-        <script src="game_4choices.js"></script>
+        <script src="./quizdata.js"></script>
+        <script src="./game_4choices.js"></script>
     </body>
 </html>
