@@ -905,9 +905,11 @@
     .hamburger {
       display: flex;
     }
+
     .header__list {
       display: none;
     }
+    
     .side-ad {
       display: none;
     }
