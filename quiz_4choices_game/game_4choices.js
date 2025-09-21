@@ -663,7 +663,7 @@ function showResult() {
     createResultTable();
 }
 
-function addTwitterSharingButton(score, totalQuestions, resultMessage) {
+function addTwitterSharingButton(genreTitle, score, totalQuestions, resultMessage) {
     // 既存の共有ボタンがあれば削除
     const existingShareContainer = document.getElementById('twitter-share-container');
     if (existingShareContainer) {
@@ -675,7 +675,7 @@ function addTwitterSharingButton(score, totalQuestions, resultMessage) {
     shareContainer.id = 'twitter-share-container';
     
     // 共有テキストの作成
-    const shareText = `【ルビンの思うつぼ】4択クイズ(${totalQuestions}問モード)に挑戦し、${score}点を獲得しました！みんなもプレイしてみてね！`;
+    const shareText = `【ルビンの思うつぼ】4択クイズ(${genreTitle}$/{totalQuestions}問モード)に挑戦し、${score}点を獲得しました！みんなもプレイしてみてね！`;
     const shareUrl = 'https://rubin-quiz.github.io/web/game_4choices.html';
     
     // Xボタンの作成
