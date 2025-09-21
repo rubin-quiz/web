@@ -30,7 +30,7 @@
     <link rel="icon" href="./images/rubin_logo_main.png" type="image/x-icon">
     <link rel="stylesheet" href="https://unpkg.com/ress@4.0.0/dist/ress.min.css">
     <link rel="stylesheet" href="./index.css" />
-    <script src="index.js"></script>
+    <script src="./index.js"></script>
 </head>
 
 <body>
@@ -150,27 +150,6 @@
         </div>
 
     </main>
-    <script>
-        function toggleAnswer(element) {
-          const content = element.parentElement.parentElement.querySelector(".answer");
-          const icon = element.querySelector(".toggle-icon");
-          const text = element.querySelector(".toggle-text");
-      
-          if (content.style.display === "none" || content.style.display === "") {
-            content.style.display = "block";
-            element.classList.add("active");
-            icon.textContent = "−";
-            text.textContent = "回答を非表示";
-          } else {
-            content.style.display = "none";
-            element.classList.remove("active");
-            icon.textContent = "+";
-            text.textContent = "回答を表示";
-          }
-        }
-      </script>
-      
-
     <!-- フッターを外部ファイルから読み込む -->
     <footer>
         <script>
