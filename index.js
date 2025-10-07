@@ -62,12 +62,6 @@ document.addEventListener("DOMContentLoaded", function () {
         // 前後の矢印ボタンを取得
         const prevButton = slider.querySelector(".arrow.prev");
         const nextButton = slider.querySelector(".arrow.next");
-
-        // 矢印ボタンのクリックイベント設定 - 矢印クリック時の画像切り替え処理
-        if (prevButton && nextButton) {
-            prevButton.addEventListener("click", (event) => changeImage(event, -1));
-            nextButton.addEventListener("click", (event) => changeImage(event, 1));
-        }
         
         // 初期状態でインジケーターを更新
         updateIndicators(slider);
