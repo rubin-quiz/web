@@ -23,17 +23,18 @@
     <link rel="icon" href="./images/rubin_logo_main.png" type="image/x-icon">
     <link rel="stylesheet" href="https://unpkg.com/ress@4.0.0/dist/ress.min.css">
     <link rel="stylesheet" href="./index.css" />
-    <script src="index.js"></script>
+    <script src="./index.js"></script>
 </head>
 
 <body>
     <!-- モーダル用のdiv -->
     <div id="imageModal" class="modal" onclick="closeModal()">
-        <div class="modal-content">
+        <div class="modal-content" onclick="event.stopPropagation()">
             <button class="modal-arrow prev" onclick="changeModalImage(-1)">&#9665;</button>
             <img id="modalImage" src="" alt="拡大画像">
             <button class="modal-arrow next" onclick="changeModalImage(1)">&#9655;</button>
             <div class="modal-indicators" id="modalIndicators"></div>
+            
         </div>
     </div>
 

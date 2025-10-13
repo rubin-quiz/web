@@ -663,13 +663,13 @@ function showResult() {
     createResultTable();
 }
 
-function addTwitterSharingButton(score, totalQuestions, resultMessage) {
+function addTwitterSharingButton(genretitle, score, totalQuestions, resultMessage) {
     // 既存の共有ボタンがあれば削除
     const existingShareContainer = document.getElementById('twitter-share-container');
     if (existingShareContainer) {
         existingShareContainer.remove();
     }
-    
+    const genreTitle = genretitle.textContent;
     // 共有コンテナの作成
     const shareContainer = document.createElement('div');
     shareContainer.id = 'twitter-share-container';

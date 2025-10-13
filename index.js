@@ -62,16 +62,13 @@ document.addEventListener("DOMContentLoaded", function () {
         // 前後の矢印ボタンを取得
         const prevButton = slider.querySelector(".arrow.prev");
         const nextButton = slider.querySelector(".arrow.next");
-
-        // 矢印ボタンのクリックイベント設定 - 矢印クリック時の画像切り替え処理
-        if (prevButton && nextButton) {
-            prevButton.addEventListener("click", (event) => changeImage(event, -1));
-            nextButton.addEventListener("click", (event) => changeImage(event, 1));
-        }
         
         // 初期状態でインジケーターを更新
         updateIndicators(slider);
     });
+
+    // グローバル関数として定義（HTMLのonclick属性からアクセスできるように）
+    window.changeImage = changeImage;
 });
 
 // モーダル表示用の現在のスライダーを保持する変数
@@ -89,6 +86,9 @@ function openModal(imgElement) {
     
     setupModalIndicators(slider); // モーダルのインジケーターを設定
     updateModalIndicators(); // インジケーターを更新
+    
+    // モーダルコンテンツ内のクリック制御を設定
+    setupModalClickHandlers();
 }
 
 // モーダルのインジケーターを設定する関数 - モーダル表示時のドット生成
@@ -124,6 +124,8 @@ function updateModalIndicators() {
 
 // モーダル内の画像を切り替える関数 - モーダル内の矢印クリック時の処理
 function changeModalImage(step) {
+    if (!currentModalSlider) return; // 現在のスライダーが無い場合は何もしない
+    
     const images = currentModalSlider.getAttribute("data-images").split(","); // 画像リストを取得
     let currentIndex = parseInt(currentModalSlider.dataset.index || 0); // 現在のインデックスを取得
     
@@ -141,15 +143,72 @@ function closeModal() {
     currentModalSlider = null; // 現在のスライダー参照をクリア
 }
 
-// クイズの答えを表示する関数 - 答えボタンクリック時の処理
-function toggleAnswer(button) {
-    const answer = button.previousElementSibling; // 答え要素を取得
-    const answerText = answer.textContent.trim(); // 答えのテキストを取得
-    button.textContent = answerText; // ボタンのテキストを答えに変更
-    button.classList.remove('answerbutton'); // ボタンのスタイルを変更
-    button.disabled = true; // ボタンを無効化
+// モーダル内のクリックイベントを制御する関数
+function setupModalClickHandlers() {
+    const modalContent = document.querySelector('.modal-content');
+    const modalImage = document.getElementById('modalImage');
+    const modalArrows = document.querySelectorAll('.modal-arrow');
+    const modalIndicators = document.getElementById('modalIndicators');
+    
+    // モーダルコンテンツ全体のクリックイベントを設定（デフォルトでモーダルを閉じる）
+    modalContent.onclick = function(e) {
+        // クリックされた要素が閉じない対象でない場合はモーダルを閉じる
+        const clickedElement = e.target;
+        
+        // 画像、矢印、インジケーター、インジケーター内のドットをクリックした場合は何もしない
+        if (clickedElement === modalImage ||
+            Array.from(modalArrows).includes(clickedElement) ||
+            clickedElement === modalIndicators ||
+            clickedElement.classList.contains('modal-dot')) {
+            return; // 何もしない（モーダルを閉じない）
+        }
+        
+        // その他の場所をクリックした場合はモーダルを閉じる
+        closeModal();
+    };
+    
+    // 画像自体のクリックイベントを無効化（イベント伝播を防ぐ）
+    modalImage.onclick = function(e) {
+        e.stopPropagation();
+    };
+    
+    // 矢印ボタンのクリックイベントを無効化（イベント伝播を防ぐ）
+    modalArrows.forEach(arrow => {
+        arrow.onclick = function(e) {
+            e.stopPropagation();
+            // 元の矢印機能を実行
+            if (arrow.classList.contains('prev')) {
+                changeModalImage(-1);
+            } else {
+                changeModalImage(1);
+            }
+        };
+    });
+    
+    // インジケーターエリア全体のクリックイベントを無効化（イベント伝播を防ぐ）
+    modalIndicators.onclick = function(e) {
+        e.stopPropagation();
+    };
 }
 
+// クイズの答えを表示する関数 - 答えボタンクリック時の処理
+function toggleAnswer(element) {
+    const content = element.parentElement.parentElement.querySelector(".answer");
+    const icon = element.querySelector(".toggle-icon");
+    const text = element.querySelector(".toggle-text");
+
+    if (content.style.display === "none" || content.style.display === "") {
+      content.style.display = "block";
+      element.classList.add("active");
+      icon.textContent = "−";
+      text.textContent = "回答を非表示";
+    } else {
+      content.style.display = "none";
+      element.classList.remove("active");
+      icon.textContent = "+";
+      text.textContent = "回答を表示";
+    }
+  }
 // ハンバーガーメニューの表示を切り替える関数 - メニューボタンクリック時の処理
 function toggleMenu() {
     const menuOverlay = document.getElementById('menuOverlay'); // メニューオーバーレイを取得
