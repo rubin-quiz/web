@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Progress Bingo (Sheets Tabs)</title>
+	<style>
+		:root {
+			--bg: #0b0f17;
+			--text: #e5e7eb;
+			--muted: #9ca3af;
+			--good: #22c55e;
+			--warn: #f59e0b;
+			--bad: #ef4444;
+			--border: rgba(255, 255, 255, .10);
+			--shadow: 0 10px 25px rgba(0, 0, 0, .35);
+		}
+
+		body {
+			margin: 0;
+			background: radial-gradient(1200px 800px at 20% 0%, #111a33 0%, var(--bg) 55%) fixed;
+			color: var(--text);
+			font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+		}
+
+		.wrap {
+			max-width: 1100px;
+			margin: 24px auto;
+			padding: 0 16px 32px;
+		}
+
+		header {
+			display: flex;
+			gap: 16px;
+			align-items: flex-end;
+			justify-content: space-between;
+			flex-wrap: wrap;
+			margin-bottom: 12px;
+		}
+
+		h1 {
+			font-size: 20px;
+			margin: 0;
+			letter-spacing: .02em;
+		}
+
+		.meta {
+			display: flex;
+			gap: 12px;
+			flex-wrap: wrap;
+			align-items: center;
+			color: var(--muted);
+			font-size: 13px;
+			margin-top: 8px;
+		}
+
+		.pill {
+			background: rgba(255, 255, 255, .06);
+			border: 1px solid var(--border);
+			border-radius: 999px;
+			padding: 6px 10px;
+			box-shadow: var(--shadow);
+		}
+
+		.controls {
+			display: flex;
+			gap: 8px;
+			flex-wrap: wrap;
+			align-items: center;
+		}
+
+		button {
+			background: rgba(255, 255, 255, .08);
+			color: var(--text);
+			border: 1px solid var(--border);
+			border-radius: 10px;
+			padding: 8px 12px;
+			cursor: pointer;
+		}
+
+		button:hover {
+			background: rgba(255, 255, 255, .12);
+		}
+
+		.status {
+			margin-top: 6px;
+			font-size: 13px;
+			color: var(--muted);
+			min-height: 18px;
+		}
+
+		/* Tabs */
+		.tabsWrap {
+			display: flex;
+			gap: 8px;
+			flex-wrap: wrap;
+			align-items: center;
+			margin: 10px 0 6px;
+		}
+
+		.tab {
+			border: 1px solid var(--border);
+			background: rgba(255, 255, 255, .06);
+			color: var(--text);
+			border-radius: 999px;
+			padding: 6px 10px;
+			cursor: pointer;
+			user-select: none;
+			font-size: 13px;
+		}
+
+		.tab:hover {
+			background: rgba(255, 255, 255, .10);
+		}
+
+		.tab.active {
+			border-color: rgba(34, 197, 94, .55);
+			background: rgba(34, 197, 94, .18);
+		}
+
+		/* ✅ 5x5は常に固定 */
+		.grid {
+			display: grid;
+			grid-template-columns: repeat(5, minmax(0, 1fr));
+			gap: 12px;
+			margin-top: 12px;
+		}
+
+		/* ✅ マスを正方形(1:1)に固定 */
+		.cell {
+			aspect-ratio: 1 / 1;
+			display: flex;
+			flex-direction: column;
+
+			background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .03));
+			border: 1px solid var(--border);
+			border-radius: 14px;
+			padding: 12px 12px 10px;
+			box-shadow: var(--shadow);
+
+			overflow: hidden;
+			min-height: 0;
+			/* flex内でのはみ出し対策 */
+		}
+
+		.cell.achieved {
+			border-color: rgba(34, 197, 94, .45);
+			background: linear-gradient(180deg, rgba(34, 197, 94, .18), rgba(255, 255, 255, .03));
+		}
+
+		.name {
+			font-weight: 650;
+			font-size: 14px;
+			line-height: 1.25;
+			margin-bottom: 8px;
+			word-break: break-word;
+
+			/* タイトルが長いと崩れるので最大2行程度に制限 */
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		}
+
+		.kv {
+			display: flex;
+			justify-content: space-between;
+			gap: 10px;
+			font-size: 12px;
+			color: var(--muted);
+			margin-bottom: 8px;
+		}
+
+		.bar {
+			width: 100%;
+			height: 12px;
+			border-radius: 999px;
+			background: rgba(255, 255, 255, .08);
+			border: 1px solid rgba(255, 255, 255, .10);
+			overflow: hidden;
+		}
+
+		.bar>.fill {
+			height: 100%;
+			width: 0%;
+			background: linear-gradient(90deg, var(--bad), var(--warn), var(--good));
+			border-radius: 999px;
+			transition: width .35s ease;
+		}
+
+		.pct {
+			margin-top: auto;
+			/* ✅ 下に寄せる（正方形でもレイアウト安定） */
+			font-size: 12px;
+			color: var(--muted);
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 8px;
+			padding-top: 10px;
+		}
+
+		.tag {
+			font-size: 11px;
+			padding: 3px 8px;
+			border-radius: 999px;
+			border: 1px solid var(--border);
+			background: rgba(255, 255, 255, .06);
+			color: var(--text);
+			white-space: nowrap;
+		}
+
+		.tag.ok {
+			border-color: rgba(34, 197, 94, .55);
+			background: rgba(34, 197, 94, .16);
+		}
+
+		.tag.ng {
+			border-color: rgba(239, 68, 68, .55);
+			background: rgba(239, 68, 68, .16);
+		}
+
+		.footer {
+			margin-top: 14px;
+			color: var(--muted);
+			font-size: 12px;
+			line-height: 1.6;
+		}
+
+		/* ✅ 画面が狭いと横に溢れるので横スクロール可能にする（配置は崩さない） */
+		/* ✅ 画面が狭いと横スクロール */
+		.gridScroll {
+			overflow-x: auto;
+			padding-bottom: 6px;
+		}
+
+		/* ✅ グリッド幅を760px固定（常に5×5） */
+		.gridFixed {
+			width: 760px;
+			margin: 0 auto;
+			/* 画面が広い時は中央寄せ */
+		}
+	</style>
+</head>
+
+<body>
+	<div class="wrap">
+		<header>
+			<div>
+				<h1>進捗ビンゴ（シート切り替え）</h1>
+				<div class="meta">
+					<div class="pill">表示中: <strong id="activeSheet">-</strong></div>
+					<div class="pill">ビンゴ数：<strong id="bingoCount">-</strong> / 12</div>
+					<div class="pill">達成マス：<strong id="achievedCount">-</strong> / 25</div>
+					<div class="pill">平均達成率：<strong id="avgRate">-</strong></div>
+				</div>
+				<div class="status" id="status"></div>
+			</div>
+			<div class="controls">
+				<button id="reloadBtn">再読み込み</button>
+			</div>
+		</header>
+
+		<div class="tabsWrap" id="tabs"></div>
+
+		<!-- ✅ 5列固定のまま、狭い画面では横スクロール -->
+		<div class="gridScroll">
+			<section class="grid gridFixed" id="grid"></section>
+		</div>
+
+		<div class="footer">
+			<div>※ 達成判定：<code>実績値 ≥ 目標値</code> のマスを達成扱い → 行/列/斜めの完成数をカウント（最大12）。</div>
+		</div>
+	</div>
+
+	<script>
+		/**
+		 * 設定
+		 */
+		const SHEET_ID = "1JND2k9T6w7byyQljrb8S7qDP24Xj6pCwhrjNI8dYj_I";
+		const API_KEY = "AIzaSyDfmajK4hD2pxq-HP_2bxZoijB7HorQ-_4";
+		const DATA_RANGE_BODY = "A2:C26";
+
+		/**
+		 * DOM
+		 */
+		const gridEl = document.getElementById("grid");
+		const tabsEl = document.getElementById("tabs");
+		const statusEl = document.getElementById("status");
+
+		const activeSheetEl = document.getElementById("activeSheet");
+		const bingoCountEl = document.getElementById("bingoCount");
+		const achievedCountEl = document.getElementById("achievedCount");
+		const avgRateEl = document.getElementById("avgRate");
+
+		document.getElementById("reloadBtn").addEventListener("click", () => loadAll(true));
+
+		/**
+		 * State
+		 */
+		let sheetNames = [];
+		let dataCache = new Map();
+		let activeName = "";
+
+		function setStatus(msg) { statusEl.textContent = msg || ""; }
+		function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
+		function toInt(x) {
+			if (x === null || x === undefined) return NaN;
+			const s = String(x).replace(/,/g, "").trim();
+			const n = Number(s);
+			return Number.isFinite(n) ? Math.trunc(n) : NaN;
+		}
+		function percentStr(rate) {
+			if (!Number.isFinite(rate)) return "-";
+			return `${Math.round(rate * 100)}%`;
+		}
+
+		/**
+		 * API calls
+		 */
+		async function fetchSpreadsheetMeta() {
+			const url =
+				`https://sheets.googleapis.com/v4/spreadsheets/${encodeURIComponent(SHEET_ID)}` +
+				`?fields=sheets(properties(title))&key=${encodeURIComponent(API_KEY)}`;
+			const res = await fetch(url);
+			if (!res.ok) {
+				const text = await res.text().catch(() => "");
+				throw new Error(`Sheets API meta error: ${res.status} ${res.statusText}\n${text}`);
+			}
+			return await res.json();
+		}
+
+		async function fetchSheetValues(sheetName) {
+			const range = `${sheetName}!${DATA_RANGE_BODY}`;
+			const url =
+				`https://sheets.googleapis.com/v4/spreadsheets/${encodeURIComponent(SHEET_ID)}` +
+				`/values/${encodeURIComponent(range)}?key=${encodeURIComponent(API_KEY)}&majorDimension=ROWS`;
+			const res = await fetch(url);
+			if (!res.ok) {
+				const text = await res.text().catch(() => "");
+				throw new Error(`Sheets API values error: ${res.status} ${res.statusText}\n${text}`);
+			}
+			return await res.json();
+		}
+
+		/**
+		 * Data
+		 */
+		function normalizeTo25Rows(values) {
+			const rows = Array.isArray(values) ? values : [];
+			const filled = rows.slice(0, 25);
+			while (filled.length < 25) filled.push(["", "", ""]);
+			return filled;
+		}
+		function computeItems(rows) {
+			return rows.map((row) => {
+				const name = row?.[0] ?? "";
+				const target = toInt(row?.[1]);
+				const actual = toInt(row?.[2]);
+				const rate = (Number.isFinite(target) && target > 0 && Number.isFinite(actual)) ? actual / target : NaN;
+				const achieved = (Number.isFinite(target) && Number.isFinite(actual)) ? actual >= target : false;
+				return { name, target, actual, rate, achieved };
+			});
+		}
+
+		/**
+		 * Bingo
+		 */
+		function calcBingos(achievedGrid) {
+			const lines = [];
+			for (let r = 0; r < 5; r++) lines.push([0, 1, 2, 3, 4].map(c => r * 5 + c));
+			for (let c = 0; c < 5; c++) lines.push([0, 1, 2, 3, 4].map(r => r * 5 + c));
+			lines.push([0, 6, 12, 18, 24]);
+			lines.push([4, 8, 12, 16, 20]);
+			let count = 0;
+			for (const line of lines) if (line.every(i => achievedGrid[i])) count++;
+			return count;
+		}
+
+		/**
+		 * Render
+		 */
+		function buildCell(item, idx) {
+			const { name, target, actual, rate, achieved } = item;
+
+			const cell = document.createElement("div");
+			cell.className = "cell" + (achieved ? " achieved" : "");
+
+			const nameEl = document.createElement("div");
+			nameEl.className = "name";
+			nameEl.textContent = name || `項目 ${idx + 1}`;
+
+			const kv = document.createElement("div");
+			kv.className = "kv";
+			kv.innerHTML = `
+    <span>目標: <strong>${Number.isFinite(target) ? target : "-"}</strong></span>
+    <span>実績: <strong>${Number.isFinite(actual) ? actual : "-"}</strong></span>
+  `;
+
+			const bar = document.createElement("div");
+			bar.className = "bar";
+			const fill = document.createElement("div");
+			fill.className = "fill";
+			const visualRate = Number.isFinite(rate) ? clamp(rate, 0, 1) : 0;
+			fill.style.width = `${Math.round(visualRate * 100)}%`;
+			bar.appendChild(fill);
+
+			const pct = document.createElement("div");
+			pct.className = "pct";
+			const tagClass = achieved ? "ok" : "ng";
+			const tagText = achieved ? "達成" : "未達";
+			pct.innerHTML = `
+    <span>達成率: <strong>${percentStr(rate)}</strong></span>
+    <span class="tag ${tagClass}">${tagText}</span>
+  `;
+
+			cell.appendChild(nameEl);
+			cell.appendChild(kv);
+			cell.appendChild(bar);
+			cell.appendChild(pct);
+			return cell;
+		}
+
+		function renderTabs() {
+			tabsEl.innerHTML = "";
+			for (const name of sheetNames) {
+				const tab = document.createElement("div");
+				tab.className = "tab" + (name === activeName ? " active" : "");
+				tab.textContent = name;
+				tab.addEventListener("click", async () => {
+					if (name === activeName) return;
+					await setActiveSheet(name);
+				});
+				tabsEl.appendChild(tab);
+			}
+		}
+
+		function render(items) {
+			gridEl.innerHTML = "";
+			items.forEach((item, idx) => gridEl.appendChild(buildCell(item, idx)));
+
+			const achievedGrid = items.map(x => !!x.achieved);
+			const bingos = calcBingos(achievedGrid);
+			const achievedCount = achievedGrid.filter(Boolean).length;
+
+			const validRates = items.map(x => x.rate).filter(r => Number.isFinite(r));
+			const avg = validRates.length ? (validRates.reduce((a, b) => a + b, 0) / validRates.length) : NaN;
+
+			activeSheetEl.textContent = activeName || "-";
+			bingoCountEl.textContent = String(bingos);
+			achievedCountEl.textContent = String(achievedCount);
+			avgRateEl.textContent = Number.isFinite(avg) ? percentStr(avg) : "-";
+		}
+
+		/**
+		 * Flow
+		 */
+		async function setActiveSheet(name) {
+			activeName = name;
+			renderTabs();
+
+			if (dataCache.has(name)) {
+				render(dataCache.get(name));
+				setStatus(`更新: ${new Date().toLocaleString()}（キャッシュ）`);
+				return;
+			}
+
+			setStatus(`「${name}」を読み込み中…`);
+			try {
+				const json = await fetchSheetValues(name);
+				const rows = normalizeTo25Rows(json.values);
+				const items = computeItems(rows);
+				dataCache.set(name, items);
+				render(items);
+				setStatus(`更新: ${new Date().toLocaleString()}`);
+			} catch (err) {
+				console.error(err);
+				setStatus(`「${name}」の読み込みに失敗しました。共有設定/キー制限を確認してください。`);
+			}
+		}
+
+		async function loadAll(forceReload = false) {
+			setStatus("シート一覧を取得中…");
+			if (forceReload) dataCache.clear();
+
+			try {
+				const meta = await fetchSpreadsheetMeta();
+				sheetNames = (meta.sheets || []).map(s => s?.properties?.title).filter(Boolean);
+
+				if (!sheetNames.length) {
+					setStatus("シートが見つかりませんでした。");
+					tabsEl.innerHTML = "";
+					gridEl.innerHTML = "";
+					return;
+				}
+
+				const initial = (activeName && sheetNames.includes(activeName)) ? activeName : sheetNames[0];
+				await setActiveSheet(initial);
+
+			} catch (err) {
+				console.error(err);
+				const msg = String(err?.message || "");
+				if (msg.includes("The caller does not have permission")) {
+					setStatus("403: 権限なし。スプレッドシートを「リンクを知っている全員が閲覧可」にしてください（APIキー方式の場合）。");
+				} else {
+					setStatus("読み込みに失敗しました。コンソール（F12）も確認してください。");
+				}
+			}
+		}
+
+		loadAll(false);
+	</script>
+</body>
+
+</html>
