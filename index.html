@@ -194,23 +194,47 @@
                     
                     // 回答の表示/非表示を切り替える関数（既存のindex.jsにあれば不要）
                     function toggleAnswer(element) {
-                        const quizItem = element.closest('.quiz-item');
-                        const answer = quizItem.querySelector('.answer');
-                        const toggleIcon = element.querySelector('.toggle-icon');
-                        const toggleText = element.querySelector('.toggle-text');
-                        
-                        if (answer.style.display === 'none') {
-                            answer.style.display = 'block';
-                            toggleIcon.textContent = '−';
-                            toggleText.textContent = '回答を隠す';
-                            element.classList.add('active');
-                        } else {
-                            answer.style.display = 'none';
-                            toggleIcon.textContent = '+';
-                            toggleText.textContent = '回答を表示';
-                            element.classList.remove('active');
-                        }
-                    }
+    const quizItem = element.closest('.quiz-item');
+    const answer = quizItem.querySelector('.answer');
+    const toggleIcon = element.querySelector('.toggle-icon');
+    const toggleText = element.querySelector('.toggle-text');
+    
+    if (answer.style.maxHeight && answer.style.maxHeight !== '0px') {
+        // 閉じる
+        answer.style.maxHeight = '0px';
+        answer.style.opacity = '0';
+        answer.style.paddingTop = '0';
+        answer.style.paddingBottom = '0';
+        answer.style.marginTop = '0';
+        
+        toggleIcon.textContent = '+';
+        toggleText.textContent = '回答を表示';
+        element.classList.remove('active');
+    } else {
+        // 開く
+        answer.style.display = 'block';
+        answer.style.overflow = 'hidden';
+        answer.style.transition = 'max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), padding 0.5s cubic-bezier(0.4, 0, 0.2, 1), margin 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+        answer.style.maxHeight = '0px';
+        answer.style.opacity = '0';
+        answer.style.paddingTop = '0';
+        answer.style.paddingBottom = '0';
+        answer.style.marginTop = '0';
+        
+        // 高さを計算
+        requestAnimationFrame(() => {
+            answer.style.maxHeight = answer.scrollHeight + 50 + 'px';
+            answer.style.opacity = '1';
+            answer.style.paddingTop = '';
+            answer.style.paddingBottom = '';
+            answer.style.marginTop = '';
+        });
+        
+        toggleIcon.textContent = '−';
+        toggleText.textContent = '回答を隠す';
+        element.classList.add('active');
+    }
+}
                     
                     // ページ読み込み時に実行
                     window.addEventListener('DOMContentLoaded', () => {
