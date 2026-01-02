@@ -103,18 +103,10 @@
                     <h2 class="title">Latest News</h2>
                     <div class="article">
                         <div class="latestnews">
-                            <div class="news-container">
+                            <div class="news-container" id="latest-news-container">
                                 <table>
                                     <tr>
-                                        <td style="border-bottom: 0px;">2025.12.28</td>
-                                        <td style="border-bottom: 0px;">
-                                            <ul class="tags">
-                                                <li class="tag-a"><a href="#">記事</a></li>
-                                            </ul>
-                                        </td>
-                                        <td style="border-bottom: 0px;">
-                                            note記事<a href="https://note.com/rubin_quiz/n/nf36bca36ff0b" target="_blank" rel="noopener noreferrer">『シドニーで見つけた激ムズ英単語』</a>を公開しました！
-                                        </td>
+                                        <td style="border-bottom: 0px;" colspan="3">読み込み中...</td>
                                     </tr>
                                 </table>
                             </div>
@@ -122,6 +114,51 @@
                         <a href="news.html">過去のNewsはこちら</a>
                     </div>
                 </div>
+                
+                <script>
+                // news.htmlから最新ニュースを取得する関数
+                async function loadLatestNews() {
+                    try {
+                        const response = await fetch('news.html');
+                        const html = await response.text();
+                        
+                        // DOMパーサーを使用してHTMLを解析
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(html, 'text/html');
+                        
+                        // news.htmlのテーブルの最初の行（最新ニュース）を取得
+                        const newsTable = doc.querySelector('.news-container table tbody');
+                        const latestNewsRow = newsTable.querySelector('tr');
+                        
+                        if (latestNewsRow) {
+                            // 取得した行をindex.htmlに挿入
+                            const container = document.getElementById('latest-news-container');
+                            const table = container.querySelector('table');
+                            
+                            // 各tdにstyle="border-bottom: 0px;"を追加
+                            const clonedRow = latestNewsRow.cloneNode(true);
+                            clonedRow.querySelectorAll('td').forEach(td => {
+                                td.style.borderBottom = '0px';
+                            });
+                            
+                            table.innerHTML = clonedRow.outerHTML;
+                        } else {
+                            throw new Error('ニュースが見つかりませんでした');
+                        }
+                    } catch (error) {
+                        console.error('ニュースの読み込みに失敗しました:', error);
+                        const container = document.getElementById('latest-news-container');
+                        container.querySelector('table').innerHTML = `
+                            <tr>
+                                <td style="border-bottom: 0px;" colspan="3">ニュースの読み込みに失敗しました</td>
+                            </tr>
+                        `;
+                    }
+                }
+                
+                // ページ読み込み時に実行
+                window.addEventListener('DOMContentLoaded', loadLatestNews);
+                </script>
             </div>
 
             <!-- 右広告 -->
