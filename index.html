@@ -77,28 +77,12 @@
                     <h2 class="title">New Quiz</h2>
                     <div id="quiz-container">
                         <div class="quiz-item">
-                            <div class="quiz-question">
-                               フィンランド語で「大きな耳」という意味がある、サンタクロースが住んでいるとされるフィンランドの山は何でしょう？
-                            </div>
-                            <div class="quiz-footer">
-                                <div class="answer-toggle" onclick="toggleAnswer(this)">
-                                    <span class="toggle-icon">+</span>
-                                    <span class="toggle-text">回答を表示</span>
-                                </div>
-                                <div class="quiz-categories">
-                                    <span class="quiz-category">社会</span>
-                                </div>
-                            </div>
-                            <div class="answer" style="display: none;">
-                                コルヴァトゥントゥリ
-                                <!-- <div class="supplement">
-                                    国旗のホオジロカンムリヅルは右足を上げた姿で描かれていますが、これは国が常に前進していることを表すとされています。
-                                </div> -->
-                            </div>
+                            <div class="quiz-question">読み込み中...</div>
                         </div>
                     </div>
                     <a href="quiz.html">過去のQuizはこちら</a>
                 </div>
+                
                 <div class="content">
                     <h2 class="title">Latest News</h2>
                     <div class="article">
@@ -116,49 +100,124 @@
                 </div>
                 
                 <script>
-                // news.htmlから最新ニュースを取得する関数
-                async function loadLatestNews() {
-                    try {
-                        const response = await fetch('news.html');
-                        const html = await response.text();
-                        
-                        // DOMパーサーを使用してHTMLを解析
-                        const parser = new DOMParser();
-                        const doc = parser.parseFromString(html, 'text/html');
-                        
-                        // news.htmlのテーブルの最初の行（最新ニュース）を取得
-                        const newsTable = doc.querySelector('.news-container table tbody');
-                        const latestNewsRow = newsTable.querySelector('tr');
-                        
-                        if (latestNewsRow) {
-                            // 取得した行をindex.htmlに挿入
-                            const container = document.getElementById('latest-news-container');
-                            const table = container.querySelector('table');
+                    // quiz.jsから最新のクイズを取得する関数
+                    async function loadLatestQuiz() {
+                        try {
+                            const response = await fetch('quiz.js');
+                            const jsText = await response.text();
                             
-                            // 各tdにstyle="border-bottom: 0px;"を追加
-                            const clonedRow = latestNewsRow.cloneNode(true);
-                            clonedRow.querySelectorAll('td').forEach(td => {
-                                td.style.borderBottom = '0px';
-                            });
+                            // quizDataの配列部分を抽出
+                            const quizDataMatch = jsText.match(/const quizData = \[([\s\S]*?)\];/);
+                            if (!quizDataMatch) {
+                                throw new Error('クイズデータが見つかりませんでした');
+                            }
                             
-                            table.innerHTML = clonedRow.outerHTML;
-                        } else {
-                            throw new Error('ニュースが見つかりませんでした');
+                            // 配列の中身を評価して取得（evalの代わりにFunction constructorを使用）
+                            const quizArray = new Function('return [' + quizDataMatch[1] + '];')();
+                            
+                            // 最初のクイズ（最新）を取得
+                            const latestQuiz = quizArray[0];
+                            
+                            // クイズHTMLを生成
+                            const quizContainer = document.getElementById('quiz-container');
+                            quizContainer.innerHTML = `
+                                <div class="quiz-item">
+                                    <div class="quiz-question">
+                                        ${latestQuiz.question}
+                                    </div>
+                                    <div class="quiz-footer">
+                                        <div class="answer-toggle" onclick="toggleAnswer(this)">
+                                            <span class="toggle-icon">+</span>
+                                            <span class="toggle-text">回答を表示</span>
+                                        </div>
+                                        <div class="quiz-categories">
+                                            ${latestQuiz.categories.map(cat => 
+                                                `<span class="quiz-category">${cat}</span>`
+                                            ).join('')}
+                                        </div>
+                                    </div>
+                                    <div class="answer" style="display: none;">
+                                        ${latestQuiz.answer}
+                                        ${latestQuiz.supplement ? `<div class="supplement">${latestQuiz.supplement}</div>` : ''}
+                                    </div>
+                                </div>
+                            `;
+                        } catch (error) {
+                            console.error('クイズの読み込みに失敗しました:', error);
+                            document.getElementById('quiz-container').innerHTML = `
+                                <div class="quiz-item">
+                                    <div class="quiz-question">クイズの読み込みに失敗しました</div>
+                                </div>
+                            `;
                         }
-                    } catch (error) {
-                        console.error('ニュースの読み込みに失敗しました:', error);
-                        const container = document.getElementById('latest-news-container');
-                        container.querySelector('table').innerHTML = `
-                            <tr>
-                                <td style="border-bottom: 0px;" colspan="3">ニュースの読み込みに失敗しました</td>
-                            </tr>
-                        `;
                     }
-                }
-                
-                // ページ読み込み時に実行
-                window.addEventListener('DOMContentLoaded', loadLatestNews);
-                </script>
+                    
+                    // news.htmlから最新ニュースを取得する関数
+                    async function loadLatestNews() {
+                        try {
+                            const response = await fetch('news.html');
+                            const html = await response.text();
+                            
+                            // DOMパーサーを使用してHTMLを解析
+                            const parser = new DOMParser();
+                            const doc = parser.parseFromString(html, 'text/html');
+                            
+                            // news.htmlのテーブルの最初の行（最新ニュース）を取得
+                            const newsTable = doc.querySelector('.news-container table tbody');
+                            const latestNewsRow = newsTable.querySelector('tr');
+                            
+                            if (latestNewsRow) {
+                                // 取得した行をindex.htmlに挿入
+                                const container = document.getElementById('latest-news-container');
+                                const table = container.querySelector('table');
+                                
+                                // 各tdにstyle="border-bottom: 0px;"を追加
+                                const clonedRow = latestNewsRow.cloneNode(true);
+                                clonedRow.querySelectorAll('td').forEach(td => {
+                                    td.style.borderBottom = '0px';
+                                });
+                                
+                                table.innerHTML = clonedRow.outerHTML;
+                            } else {
+                                throw new Error('ニュースが見つかりませんでした');
+                            }
+                        } catch (error) {
+                            console.error('ニュースの読み込みに失敗しました:', error);
+                            const container = document.getElementById('latest-news-container');
+                            container.querySelector('table').innerHTML = `
+                                <tr>
+                                    <td style="border-bottom: 0px;" colspan="3">ニュースの読み込みに失敗しました</td>
+                                </tr>
+                            `;
+                        }
+                    }
+                    
+                    // 回答の表示/非表示を切り替える関数（既存のindex.jsにあれば不要）
+                    function toggleAnswer(element) {
+                        const quizItem = element.closest('.quiz-item');
+                        const answer = quizItem.querySelector('.answer');
+                        const toggleIcon = element.querySelector('.toggle-icon');
+                        const toggleText = element.querySelector('.toggle-text');
+                        
+                        if (answer.style.display === 'none') {
+                            answer.style.display = 'block';
+                            toggleIcon.textContent = '−';
+                            toggleText.textContent = '回答を隠す';
+                            element.classList.add('active');
+                        } else {
+                            answer.style.display = 'none';
+                            toggleIcon.textContent = '+';
+                            toggleText.textContent = '回答を表示';
+                            element.classList.remove('active');
+                        }
+                    }
+                    
+                    // ページ読み込み時に実行
+                    window.addEventListener('DOMContentLoaded', () => {
+                        loadLatestQuiz();
+                        loadLatestNews();
+                    });
+                    </script>
             </div>
 
             <!-- 右広告 -->
