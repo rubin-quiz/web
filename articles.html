@@ -5,6 +5,12 @@
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y48G5L07GS"></script>
     <meta charset="UTF-8">
+    <script>
+    (function() {
+        var path = window.location.pathname.replace('/web', '');
+        window.location.replace('https://rubin-quiz.com' + path + window.location.search + window.location.hash);
+    })();
+</script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -40,9 +46,7 @@
         <div class="main-wrapper">
             <!-- 左広告 -->
             <div class="side-ad">
-                <div class="admax-ads" data-admax-id="29ad01e887deb41d0e0625f170e9ea42" style="display:inline-block;width:160px;height:600px;">
-                </div>
-                <script>(admaxads = window.admaxads || []).push({ admax_id: "29ad01e887deb41d0e0625f170e9ea42", type: "banner" });</script>
+
             </div>
             <div class="main-content">
                 <div class="content">
@@ -68,20 +72,13 @@
 
             <!-- 右広告 -->
             <div class="side-ad">
-                <div class="admax-ads" data-admax-id="9de2abbf15a090fe932d5f5b915939ba" style="display:inline-block;width:160px;height:600px;">
-                </div>
-                <script>(admaxads = window.admaxads || []).push({ admax_id: "9de2abbf15a090fe932d5f5b915939ba", type: "banner" });</script>
+
             </div>
         </div>
 
         <!-- バナー広告 -->
         <div class="banner-ad">
-            <!-- admax -->
-            <div class="admax-ads" data-admax-id="9ee7b8b1c8e091021dff3909436eaeab" style="display:inline-block;"></div>
-            <script
-                type="text/javascript">(admaxads = window.admaxads || []).push({ admax_id: "9ee7b8b1c8e091021dff3909436eaeab", type: "banner" });</script>
-            <script type="text/javascript" charset="utf-8" src="https://adm.shinobi.jp/st/t.js" async></script>
-            <!-- admax -->
+
         </div>
         
     </main>

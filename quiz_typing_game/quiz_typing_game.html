@@ -2,6 +2,12 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+    <script>
+    (function() {
+        var path = window.location.pathname.replace('/web', '');
+        window.location.replace('https://rubin-quiz.com' + path + window.location.search + window.location.hash);
+    })();
+</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>クイズ×タイピング</title>
     <link rel="stylesheet" href="./quiz_typing_game.css">

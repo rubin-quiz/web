@@ -3,6 +3,12 @@
 
 <head>
     <meta charset="UTF-8">
+    <script>
+    (function() {
+        var path = window.location.pathname.replace('/web', '');
+        window.location.replace('https://rubin-quiz.com' + path + window.location.search + window.location.hash);
+    })();
+</script>
     <title>SesquiTypedalian</title>
     <style>
         /* ========== Base Layout ========== */

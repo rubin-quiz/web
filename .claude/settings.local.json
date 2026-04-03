@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls /c/Users/shira/Desktop/code/rubin/web/*.html)",
+      "Bash(grep:*)",
+      "Bash(python3:*)",
+      "Bash(node:*)"
+    ]
+  }
+}
