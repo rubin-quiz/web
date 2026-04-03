@@ -5,6 +5,8 @@
     <script>
     (function() {
         var path = window.location.pathname.replace('/web', '');
+        if (path.slice(-5) === '.html') path = path.slice(0, -5);
+        if (path === '/index' || path === '') path = '/';
         window.location.replace('https://rubin-quiz.com' + path + window.location.search + window.location.hash);
     })();
 </script>
